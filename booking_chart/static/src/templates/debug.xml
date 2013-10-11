@@ -1,0 +1,155 @@
+<template>
+
+
+<t t-name="Booking.Debug.Generator">
+    <style type="text/css">
+    .debug-generator {
+        margin: 15px auto;
+        width: 600px;
+        border: 3px solid #aaa;
+        border-radius: 5px;
+        padding: 15px;
+    }
+    
+    .debug-generator .generate {
+        clear: both;
+        display: block;
+    }
+    
+    .debug-form {
+        width: 205px;
+        float: left;
+    }
+    
+    .debug-generator legend {
+        font-size: 16px;
+    }
+    
+    .debug-generator p {
+        margin: 0 0 10px 0;
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .debug-generator label,
+    .debug-generator .range span {
+        font-weight: bolder;
+        display: block;
+        padding: 0 0 8px 0px;
+    }
+    
+    .debug-generator input {
+        width: 183px;
+    }
+    
+    .debug-generator .range label {
+        font-size: normal;
+        display: inline;
+    }
+    
+    .debug-generator .range input {
+        width: 60px;
+    }
+    
+    .debug-result {
+        border-left: 2px solid #aaa;
+        height: 506px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0 0 0 5px;
+    }
+    
+    .debug-result ul,
+    .debug-result li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 3000px;
+    }
+    
+    .debug-result li {
+        padding: 5px;
+    }
+    
+    .debug-result li:nth-child(even) {
+        background: #fff;
+    }
+    
+    .debug-result li:nth-child(odd) {
+        background: rgb(232, 252, 232);
+    }
+    
+    .debug-result li.error {
+        background: #900;
+        color: white;
+    }
+    
+    </style>
+
+    <div class="debug-generator">
+        
+        <form class="debug-form">
+            <legend>Chart Entries Generator</legend>
+            
+            <p>
+                <label for="nb_charts">Number of charts</label>
+                <input type="text" name="nb_charts" id="nb_charts" />
+            </p>
+            
+            <p class="range">
+                <span class="label">Date range</span>
+                
+                <label for="date_from">from</label>
+                <input type="text" name="date_from" id="date_from" />
+            
+                <label for="date_to">to</label>
+                <input type="text" name="date_to" id="date_to" />
+            </p>
+            
+            <p>
+                <label for="chart_max_days">Max Days / Chart</label>
+                <input type="text" name="chart_max_days" id="chart_max_days" />
+            </p>
+            
+            <p>
+                <label for="booking_chart_id">Booking Chart ID</label>
+                <input type="text" name="booking_chart_id" id="booking_chart_id" />
+            </p>
+            
+            <p class="range">
+                <span class="label">Resource IDs range</span>
+                
+                <label for="resource_id_from">from</label>
+                <input type="text" name="resource_id_from" id="resource_id_from" />
+            
+                <label for="resource_id_to">to</label>
+                <input type="text" name="resource_id_to" id="resource_id_to" />
+            </p>
+            
+            <p>
+                <label for="origin_model_id">Origin Model ID</label>
+                <input type="text" name="origin_model_id" id="origin_model_id" />
+            </p>
+            
+            <p class="range">
+                <span class="label">Origin IDs range</span>
+                
+                <label for="origin_id_from">from</label>
+                <input type="text" name="origin_id_from" id="origin_id_from" />
+            
+                <label for="origin_id_to">to</label>
+                <input type="text" name="origin_id_to" id="origin_id_to" />
+            </p>
+            
+        </form>
+        
+        <div class="debug-result">
+            <ul>
+            </ul>
+        </div>
+        
+        <button string="Generate" type="object" name="execute" class="oe_highlight generate">Generate</button>
+    </div>                    
+</t>
+
+</template>

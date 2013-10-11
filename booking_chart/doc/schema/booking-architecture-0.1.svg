@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="53.100cm" height="47.100cm" viewBox="5.950 0.950 59.050 48.050"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="48.000" y="2.000" width="11.000" height="46.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="48.000" y="2.000" width="11.000" height="46.000" fill="none" stroke="#E5E5E5" stroke-width="0.100" />
+<rect x="48.000" y="1.000" width="2.510" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="48.000" y="1.000" width="2.510" height="1.000" fill="none" stroke="#E5E5E5" stroke-width="0.100" />
+<text x="48.100" y="1.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+ base </text>
+<rect x="6.000" y="2.000" width="40.000" height="46.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="6.000" y="2.000" width="40.000" height="46.000" fill="none" stroke="#E5E5E5" stroke-width="0.100" />
+<rect x="6.000" y="1.000" width="5.205" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="6.000" y="1.000" width="5.205" height="1.000" fill="none" stroke="#E5E5E5" stroke-width="0.100" />
+<text x="6.100" y="1.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+booking chart</text>
+<rect x="7.000" y="5.000" width="37.000" height="12.350" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="5.000" width="37.000" height="12.350" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<rect x="7.000" y="4.000" width="2.895" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="4.000" width="2.895" height="1.000" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<text x="7.100" y="4.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+ Chart </text>
+<rect x="7.000" y="35.000" width="37.000" height="12.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="35.000" width="37.000" height="12.000" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<rect x="7.000" y="34.000" width="7.515" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="34.000" width="7.515" height="1.000" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<text x="7.100" y="34.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+ Booking Resources </text>
+<rect x="7.000" y="20.000" width="37.000" height="13.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="20.000" width="37.000" height="13.000" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<rect x="7.000" y="19.000" width="4.050" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="7.000" y="19.000" width="4.050" height="1.000" fill="none" stroke="#7F7F7F" stroke-width="0.100" />
+<text x="7.100" y="19.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+ Calendar </text>
+<rect x="28.500" y="12.900" width="3.965" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="12.900" width="3.965" height="2.200" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<text x="30.483" y="13.700"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Model&gt;&gt;</text>
+<text x="30.483" y="14.650"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Chart</text>
+<rect x="28.500" y="15.100" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="15.100" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="28.500" y="15.500" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="15.500" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="27.550" y="6.950" width="5.890" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="27.550" y="6.950" width="5.890" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="30.495" y="7.750"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Collection&gt;&gt;</text>
+<text x="30.495" y="8.700"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+iModels</text>
+<rect x="27.550" y="9.150" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="27.550" y="9.150" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="27.550" y="9.550" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="27.550" y="9.550" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="19.550" y="21.000" width="3.965" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.550" y="21.000" width="3.965" height="2.200" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<text x="21.533" y="21.800"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Model&gt;&gt;</text>
+<text x="21.533" y="22.750"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Item</text>
+<rect x="19.550" y="23.200" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.550" y="23.200" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="19.550" y="23.600" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.550" y="23.600" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="28.500" y="21.000" width="3.965" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="21.000" width="3.965" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="30.483" y="21.800"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Pager&gt;&gt;</text>
+<text x="30.483" y="22.750"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Items</text>
+<rect x="28.500" y="23.200" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="23.200" width="3.965" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="28.500" y="23.600" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.500" y="23.600" width="3.965" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="27.191,22.500 27.700,22.500 23.615,22.500 23.565,22.500 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="28.450,22.500 27.750,22.740 27.050,22.500 27.750,22.260 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.450,22.500 27.750,22.740 27.050,22.500 27.750,22.260 "/>
+<rect x="29.050" y="41.950" width="4.665" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.050" y="41.950" width="4.665" height="2.200" fill="none" stroke="#54B552" stroke-width="0.100" />
+<text x="31.383" y="42.750"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Model&gt;&gt;</text>
+<text x="31.383" y="43.700"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Resource</text>
+<rect x="29.050" y="44.150" width="4.665" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.050" y="44.150" width="4.665" height="0.400" fill="none" stroke="#54B552" stroke-width="0.100" />
+<rect x="29.050" y="44.550" width="4.665" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.050" y="44.550" width="4.665" height="0.400" fill="none" stroke="#54B552" stroke-width="0.100" />
+<rect x="28.850" y="36.950" width="5.140" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.850" y="36.950" width="5.140" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="31.420" y="37.750"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Overlap&gt;&gt;</text>
+<text x="31.420" y="38.700"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Resources</text>
+<rect x="28.850" y="39.150" width="5.140" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.850" y="39.150" width="5.140" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="28.850" y="39.550" width="5.140" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="28.850" y="39.550" width="5.140" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="31.420,41.259 31.420,41.300 31.383,41.300 31.383,41.900 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="31.420,40.000 31.660,40.700 31.420,41.400 31.180,40.700 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="31.420,40.000 31.660,40.700 31.420,41.400 31.180,40.700 "/>
+<rect x="13.139" y="28.000" width="4.523" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.139" y="28.000" width="4.523" height="2.200" fill="none" stroke="#434382" stroke-width="0.100" />
+<text x="15.400" y="28.800"  fill="#434382" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;View&gt;&gt;</text>
+<text x="15.400" y="29.750"  fill="#434382" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Calendar</text>
+<rect x="13.139" y="30.200" width="4.523" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.139" y="30.200" width="4.523" height="0.400" fill="none" stroke="#434382" stroke-width="0.100" />
+<rect x="13.139" y="30.600" width="4.523" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.139" y="30.600" width="4.523" height="0.400" fill="none" stroke="#434382" stroke-width="0.100" />
+<rect x="13.589" y="36.950" width="3.580" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.589" y="36.950" width="3.580" height="2.200" fill="none" stroke="#434382" stroke-width="0.100" />
+<text x="15.379" y="37.750"  fill="#434382" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;View&gt;&gt;</text>
+<text x="15.379" y="38.700"  fill="#434382" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Chart</text>
+<rect x="13.589" y="39.150" width="3.580" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.589" y="39.150" width="3.580" height="0.400" fill="none" stroke="#434382" stroke-width="0.100" />
+<rect x="13.589" y="39.550" width="3.580" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.589" y="39.550" width="3.580" height="0.400" fill="none" stroke="#434382" stroke-width="0.100" />
+<rect x="50.000" y="21.000" width="5.890" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="21.000" width="5.890" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="52.945" y="21.800"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Collection&gt;&gt;</text>
+<text x="52.945" y="22.750"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Pager</text>
+<rect x="50.000" y="23.200" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="23.200" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="50.000" y="23.600" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="23.600" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="50.000" y="28.000" width="3.965" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="28.000" width="3.965" height="2.200" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<text x="51.983" y="28.800"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Model&gt;&gt;</text>
+<text x="51.983" y="29.750"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Period</text>
+<rect x="50.000" y="30.200" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="30.200" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="50.000" y="30.600" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="30.600" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="30.483,20.950 30.483,20.900 30.483,16.350 30.483,16.235 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="30.733,16.868 30.483,16.068 30.233,16.868 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="15.379,36.900 15.379,34.175 15.400,34.175 15.400,31.386 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="15.650,32.018 15.400,31.218 15.150,32.018 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="23.000,29.100 20.331,29.100 20.331,29.100 17.661,29.100 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="17.169,38.050 23.009,38.050 23.009,38.050 28.850,38.050 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="31.420,36.950 31.420,34.000 25.735,34.000 25.735,31.385 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="25.985,32.017 25.735,31.217 25.485,32.017 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="49.088,22.100 49.150,22.100 32.515,22.100 32.465,22.100 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="49.088,22.500 49.888,22.100 49.088,21.700 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="49.088,22.500 49.888,22.100 49.088,21.700 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="31.420,36.901 31.420,27.000 31.419,27.000 31.398,24.385 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="31.653,25.015 31.396,24.217 31.153,25.019 "/>
+<rect x="37.750" y="36.950" width="4.028" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="37.750" y="36.950" width="4.028" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="39.764" y="37.750"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Group&gt;&gt;</text>
+<text x="39.764" y="38.700"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Overlap</text>
+<rect x="37.750" y="39.150" width="4.028" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="37.750" y="39.150" width="4.028" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="37.750" y="39.550" width="4.028" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="37.750" y="39.550" width="4.028" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="19.200" y="6.950" width="3.965" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.200" y="6.950" width="3.965" height="2.200" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<text x="21.183" y="7.750"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Model&gt;&gt;</text>
+<text x="21.183" y="8.700"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+irModel</text>
+<rect x="19.200" y="9.150" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.200" y="9.150" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="19.200" y="9.550" width="3.965" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.200" y="9.550" width="3.965" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="30.483,12.900 30.483,11.625 30.495,11.625 30.495,10.285 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="30.745,10.918 30.495,10.118 30.245,10.918 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="26.241,8.450 26.750,8.450 23.265,8.450 23.215,8.450 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="27.500,8.450 26.800,8.690 26.100,8.450 26.800,8.210 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="27.500,8.450 26.800,8.690 26.100,8.450 26.800,8.210 "/>
+<rect x="50.000" y="36.950" width="5.890" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="36.950" width="5.890" height="2.200" fill="none" stroke="#247822" stroke-width="0.100" />
+<text x="52.945" y="37.750"  fill="#247822" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Collection&gt;&gt;</text>
+<text x="52.945" y="38.700"  fill="#247822" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Group</text>
+<rect x="50.000" y="39.150" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="39.150" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="50.000" y="39.550" width="5.890" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="50.000" y="39.550" width="5.890" height="0.400" fill="none" stroke="#247822" stroke-width="0.100" />
+<rect x="23.000" y="28.000" width="5.470" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="28.000" width="5.470" height="2.200" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<text x="25.735" y="28.800"  fill="#54B552" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;Period&gt;&gt;</text>
+<text x="25.735" y="29.750"  fill="#54B552" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+DateRange</text>
+<rect x="23.000" y="30.200" width="5.470" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="30.200" width="5.470" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<rect x="23.000" y="30.600" width="5.470" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="30.600" width="5.470" height="0.400" fill="none" stroke="#8AD289" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="49.038,29.500 49.100,29.500 28.570,29.500 28.520,29.500 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="49.038,29.900 49.838,29.500 49.038,29.100 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="49.038,29.900 49.838,29.500 49.038,29.100 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="49.038,38.450 49.100,38.450 41.878,38.450 41.828,38.450 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="49.038,38.850 49.838,38.450 49.038,38.050 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="49.038,38.850 49.838,38.450 49.038,38.050 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="36.788,38.450 36.850,38.450 34.090,38.450 34.040,38.450 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="36.788,38.850 37.588,38.450 36.788,38.050 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="36.788,38.850 37.588,38.450 36.788,38.050 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="15.400,27.950 15.400,26.000 29.571,26.000 29.571,24.051 "/>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="group_booking_chart_user" model="res.groups">
+        <field name="name">Booking Chart User</field>
+    </record>
+</data>
+</openerp>

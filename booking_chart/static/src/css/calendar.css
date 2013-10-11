@@ -1,0 +1,367 @@
+.oe-booking-container {
+    table-layout: fixed;
+    width: 100%;    
+}
+
+/* define the em value to support graph zooming */
+
+.booking-chart-calendar { font-size: 24px; }
+.booking-chart-calendar.zoom-xl { font-size: 128px; }
+.booking-chart-calendar.zoom-l { font-size: 64px; }
+.booking-chart-calendar.zoom-m { font-size: 24px; }
+.booking-chart-calendar.zoom-s { font-size: 12px; }
+.booking-chart-calendar.zoom-xs { font-size: 8px; }
+
+
+.booking-chart-controls {
+    float: right;
+    margin: 10px 10px 0;
+}
+
+.booking-chart-controls .booking-chart-zoom ul li.oe_i {
+    font-family: 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif !important;
+    font-size: 14px;
+}
+
+/* XS size */
+
+.zoom-xs .booking-chart-dates .calendar-day span.day_name { display: none; }
+.zoom-xs .booking-chart-dates .calendar-day span.day_number { 
+    font-size: 8px;
+    margin: 10px 0 0 -4px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.zoom-xs .booking-chart-dates .calendar-month div.calendar-display { background-image: url('../images/bg_week_xs.png'); }
+.zoom-xs .booking-chart-dates .calendar-month.current div.calendar-display { background-image: url('../images/bg_week_xs.png'), url('../images/bg_today_xs.png'); }
+
+/* S size */
+
+.zoom-s .booking-chart-dates .calendar-day span.day_name { display: none; }
+.zoom-s .booking-chart-dates .calendar-day span.day_number { 
+    font-size: 10px;
+    margin: 10px 0 0 -4px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.zoom-s .booking-chart-dates .calendar-month div.calendar-display { background-image: url('../images/bg_week_s.png'); }
+.zoom-s .booking-chart-dates .calendar-month.current div.calendar-display { background-image: url('../images/bg_week_s.png'), url('../images/bg_today_s.png'); }
+
+/* L size */
+
+.zoom-l .booking-chart-dates .calendar-day span.day_fullname { display: block; }
+.zoom-l .booking-chart-dates .calendar-day span.day_name { display: none; }
+.zoom-l .booking-chart-dates .calendar-day span {
+    font-size: 10px;
+}
+.zoom-l .booking-chart-dates .calendar-month div.calendar-display { background-image: url('../images/bg_week_l.png'); }
+.zoom-l .booking-chart-dates .calendar-month.current div.calendar-display { background-image: url('../images/bg_week_l.png'), url('../images/bg_today_l.png'); }
+
+/* XL size */
+
+.zoom-xl .booking-chart-dates .calendar-day span.day_fullname { display: block; }
+.zoom-xl .booking-chart-dates .calendar-day span.day_name { display: none; }
+.zoom-xl .booking-chart-dates .calendar-day span.day_number { 
+    font-size: 11px;
+}
+.zoom-xl .booking-chart-dates .calendar-month div.calendar-display { background-image: url('../images/bg_week_xl.png'); }
+.zoom-xl .booking-chart-dates .calendar-month.current div.calendar-display { background-image: url('../images/bg_week_xl.png'), url('../images/bg_today_xl.png'); }
+
+
+/*******************/
+
+.booking-chart-calendar {
+    min-width: 1010px;
+}
+
+.booking-chart-calendar a.oe_i.disabled {
+    color: #aaa;
+}
+
+
+
+.booking-chart-items {
+    width: 20%;
+    float: left;
+    height: 100%;
+    border-bottom: 3px solid #ddd;
+}
+
+.booking-chart-items .item-title {
+    height: 43px;
+    border-right: 1px solid rgb(202, 202, 202);
+    border-bottom: 3px solid #ddd;
+    text-align: center;
+    padding: 30px 0 0 0;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+
+.booking-chart-items .items {
+    font-size: 24px;
+}
+
+.booking-chart-items .group-name,
+.booking-chart-items .item-label {
+    font-weight: bolder;
+    text-align: left;
+    height: 23px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid rgb(202, 202, 202);
+}
+
+.booking-chart-items .group-name {
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+.booking-chart-items .group-name i {
+    font-size: 14px;
+    float: left;
+    line-height: 24px;
+    margin: 0px 3px;
+    width: 10px;
+    text-align: center;
+}
+
+.booking-chart-items .group-name span,
+.booking-chart-items .item-label span {
+    font-size: 13px;
+    display: block;
+    padding: 4px 0 0 6px;
+}
+
+.booking-chart-items .group-name span {
+    cursor: pointer;
+}
+
+.booking-chart-items .item-group {
+    display: none;
+}
+
+    
+.booking-chart-dates .calendar-day span.day_fullname { display: none; }
+    
+.booking-chart-dates {
+    height: 100%;
+}
+
+.booking-chart-dates .calendar-month {
+    float: left;
+}
+
+.booking-chart-dates .calendar-month-name {
+    border-bottom: 1px solid #ddd;
+    height: 18px;
+    font-size: 12px;
+    font-weight: bolder;
+    text-align: center;
+    margin: 21px 0 0 0;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.booking-chart-dates .calendar-month:nth-child(even) .calendar-month-name {
+    background: rgba(200, 200, 200, 0.2);
+}
+
+.booking-chart-dates .calendar-days {
+    border-bottom: 2px solid #ddd;
+    height: 32px;
+}
+
+.booking-chart-dates .calendar-day {
+    width: 1em;
+    background-image: url('../images/border_pixel.png');
+    background-repeat: repeat-y;
+    background-position: top right;
+    height: 32px;
+    font-weight: normal;
+    text-align: center;
+    float: left;
+}
+
+.booking-chart-dates .calendar-day span {
+    font-size: 10px;
+    display: block;
+    margin-top: 2px;
+}
+    
+.booking-chart-dates .today {
+    background-color: #8ffb45;
+}
+
+.booking-chart-dates .weekend {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+.booking-chart-dates .calendar-display {
+    position: relative;
+    border-bottom: 3px solid #ddd;
+    border-top: 1px solid #ddd;
+    background-image: url('../images/bg_week.png');
+    background-repeat: repeat;
+    background-position: 0em 0em;
+    background-color: none;
+}
+
+.booking-chart-dates .calendar-month.current .calendar-display {
+    background-image: url('../images/bg_week.png'), url('../images/bg_today.png');
+    background-repeat: repeat, repeat-y;
+    background-position: 0em 0em, 0em 0em;
+}
+
+
+.booking-chart-dates .calendar-resources-groupline {
+    height: 23px;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKklEQVQIW2P8+vXrfwYoePHiBQMjTADEkZCQgAjAOCCFjHfv3v0PkoEBAMoPGDUA7OIAAAAAAElFTkSuQmCC) repeat;
+    border-bottom: 1px solid #ddd;
+}
+
+.booking-chart-dates .resources-group {
+    display: none;
+}
+
+.booking-chart-dates .calendar-resources-container {
+    height: 23px;
+    border-bottom: 1px solid #ddd;
+    background-color: none;
+}
+
+
+.booking-chart-dates .calendar-resources-container.open {
+    background-color: rgba(190, 255, 100, 0.3);
+}
+
+/* 
+ * Just used to create the bg_week.png image... 
+ *
+ 
+.booking-chart-dates .lines,
+.booking-chart-dates .rows {
+    height: 1em;
+    background-image: url('../images/border_pixel.png');
+}
+
+.booking-chart-dates .rows {
+    width: 1em;
+    background-repeat: repeat-y;
+    background-position: top right;
+    float: left;    
+}
+
+.booking-chart-dates .lines {
+    width: 30em;
+    background-repeat: repeat-x;
+    background-position: bottom left;    
+}
+
+*/
+
+
+/* scrollbar overrides */
+
+.mCSB_horizontal.mCustomScrollBox > div.mCSB_scrollTools {
+    bottom: inherit;
+    top: 2px;
+}
+
+.mCSB_horizontal>.mCSB_container {
+    margin-bottom: 0px !important;
+}
+
+
+.dhx_cal_navline_bar {
+    width: 100% !important;
+    height: 39px !important;
+    position: inherit ;
+	z-index:3;
+	background-color: #EBEBEB;
+}
+
+.btn_today {
+    margin-left: 20px !important;
+    margin-top: 9px !important;
+    padding-top: 3px;
+    text-decoration: none;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 8pt !important;
+    position: absolute;
+}
+
+.btn_freeze {
+    margin-left: 100px !important;
+    margin-top: 9px !important;
+    padding-top: 3px;
+    text-decoration: none;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 8pt !important;
+    position: absolute;
+}
+
+
+
+.freeze .btn_freeze {
+    border: 1px solid #80bfff;
+    background-position: 0;
+    background-color: #ececec;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -ms-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -o-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: linear-gradient(to bottom, #f6f6f6, #e3e3e3);
+    -moz-box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    color: #1C5EA2;
+}
+
+/* frozen scrollbar */
+
+.freeze .mCS-dark-thick>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background:rgba(67, 61, 213, 0.75);
+}
+.freeze .mCS-dark-thick>.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
+    background:rgba(67, 61, 213, 0.8);
+}
+.freeze .mCS-dark-thick>.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.freeze .mCS-dark-thick>.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+    background:rgba(67, 61, 213, 0.9);
+}
+
+
+.calendar-button-minus {
+    font-size:12pt !important; margin-right:1px; display:none; float:right;
+    color:#7c7bad;
+}
+
+.month-l-size {
+    margin-top: 3px;
+    display: none;
+    float: left;
+}
+
+.month-xl-size {
+    margin-top: 3px;
+    display: none;
+    float: left;
+}
+
+.month-normal-size {
+    margin-top: 3px;
+}
+
+/*
+remove later
+*/
+
+/*end*/

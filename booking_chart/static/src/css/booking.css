@@ -1,0 +1,11 @@
+.openerp .oe_view_manager .oe_booking_view {
+}
+
+.openerp .oe_view_manager .oe_view_manager_switch .oe_vm_switch_booking:after {
+    font-family: "mnmliconsRegular" !important;
+    font-size: 21px;
+    font-weight: 300 !important;
+    content: "y";
+    top: -2px;
+    position: relative;
+}
