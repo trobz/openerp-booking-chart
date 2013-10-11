@@ -24,7 +24,6 @@
 							<field name="name"/>
                             <field name="resource_model"/>
                             <field name="resource_domain"/>
-                            <field name="supported_model_ids" widget="many2many_tags" placeholder="Supported Models..."/>
 						</group>
 					</sheet>
 				</form>
@@ -36,7 +35,7 @@
 			<field name="model">booking.chart</field>
 			<field name="arch" type="xml">
 				<search string="Operating Time Formula">
-					<field name="name" />
+					<field name="name"/>
 				</search>
 			</field>
 		</record>

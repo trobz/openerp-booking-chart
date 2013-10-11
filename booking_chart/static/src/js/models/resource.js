@@ -8,17 +8,22 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         model_name: 'booking.resource',
         
         parse: function(response, options){
-            if($.isPlainObject(response)){
-                _.each(response, function(value, key){
-                    // for reference fields, separate the model and the id
-                    if(/_ref/.test(key) && _.isString(value) && /,/.test(value)){
-                        var ref = value.split(',');
-                        response[key.replace(/_ref/, '_id')] = parseInt(ref[1]);
-                        response[key.replace(/_ref/, '_model')] = ref[0];
-                    }
-                });
-            }
+            _.each(response, function(value, key){
+                //fix JSON-RPC response for related models
+                if($.isArray(value) && value.length > 0 && $.isNumeric(value[0])){
+                    response[key] = value[0];
+                    response[key] = value[0];
+                }
+            });
+            
             return response;
+        },
+        
+        displayed: function(status){
+            if(_.isBoolean(status)){
+                this.is_displayed = status;
+            }
+            return this.is_displayed || false;
         },
         
         diff: function(date){
@@ -39,17 +44,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.nb_months;
         },
         
-        start: function(){
-            return moment(this.get('date_start'));
-        },
-        
-        end: function(){
-            return moment(this.get('date_end'));
-        },
-        
         refreshDiffs: function(){
-            var start  = this.start(),
-                end    = this.end(),
+            var start  = moment(this.get('date_start')),
+                end    = moment(this.get('date_end')),
                 days   = end.diff(start, 'days') + 1,
                 months = end.diff(start, 'months');
            

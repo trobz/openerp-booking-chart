@@ -1,27 +1,137 @@
 <template>
 
-<!-- Calendar View templates -->    
 
-<t t-name="Booking.Calendar">
-    <div class="booking-chart-items" />
-    <div class="booking-chart-months" />
-    <div class="booking-chart-controls" />
+<t t-name="Booking.Calendar.waiting">
+    <td class="booking-chart-items"></td>
+    <td class="booking-chart-wrapper"></td>
+</t>
+
     
-    <div class="tooltip-container bootstrap_scope" />
-</t>
+<t t-name="Booking.Calendar.items">
+    <div>
+        <div class="item-title">
+            <span><t t-esc="items.getResourceTitle()" /></span>
+        </div>
+        
+        
+        <t t-if="!items.hasGroup()">
+                
+            <div class="items">
+                <t t-foreach="items.toArray()" t-as="record">
+                    <div t-att-model="items.model_name" t-att-item-id="record.get('id')" t-att-id="'item_' + record.get('id')" class="item-label">
+                         <i class="icon-minus-sign-alt calendar-button-minus" ></i>
+                         <span class="ellipsis"><a href="#"><t t-esc="record.get('name')" /></a></span>
+                    </div>
+                </t>
+            </div>
+            
+        </t>
+        
+        <t t-if="items.hasGroup()">
+            <t t-foreach="items.groupBy('group')" t-as="group">
 
-<!-- Controls View templates -->    
-
-<t t-name="Booking.Calendar.controls">
-    <div class="booking-chart-zoom">
-        <ul class="oe_pager_group">
-            <li class="oe_i"><a class="zoom-xs" level="xs" type="button">XS</a></li>
-            <li class="oe_i"><a class="zoom-s" level="s" type="button">S</a></li>
-            <li class="oe_i active"><a class="zoom-m" level="m" type="button">M</a></li>
-            <li class="oe_i"><a class="zoom-l" level="l" type="button">L</a></li>
-            <li class="oe_i"><a class="zoom-xl" level="xl" type="button">XL</a></li>
-        </ul>
+                <div class="group-name">
+                    <i class="icon-caret-right"></i>
+                    <span><t t-esc="group" /> (<t t-esc="group_value.length" />)</span>
+                </div>
+                
+                <div class="item-group" t-att-group-name="group">
+                    <div class="items">
+                        <t t-foreach="group_value" t-as="record">
+                            <div t-att-model="items.model_name" t-att-item-id="record.get('id')" t-att-id="'item_' + record.get('id')" class="item-label">
+                               <span><a href="#"><t t-esc="record.get('name')" /></a></span>
+                            </div>
+                        </t>
+                    </div>
+                </div>    
+            
+            </t>
+        </t>
+        
     </div>
+
 </t>
+
+
+<t t-name="Booking.Calendar.dates">
+    <t t-foreach="details.months" t-as="month">
+           
+    <div t-att-class="'calendar-month ' + month.special"
+         t-att-id="'month-' + month.id" 
+         t-att-style="'width:' + month.days.length + 'em'">
+        
+        <div class="calendar-month-name">
+            <span class="month-normal-size"><t t-esc="month.val" /></span>
+
+             <!--L size-->
+            <span class="month-l-size" style="margin-left:400px" ><t t-esc="month.val" /></span>
+            <span class="month-l-size" style="margin-left:800px;" ><t t-esc="month.val" /></span>
+            <!--XL size-->
+            <span class="month-xl-size" style="margin-left:400px" ><t t-esc="month.val" /></span>
+            <span class="month-xl-size" style="margin-left:800px" ><t t-esc="month.val" /></span>
+            <span class="month-xl-size" style="margin-left:800px" ><t t-esc="month.val" /></span>
+            <span class="month-xl-size" style="margin-left:800px" ><t t-esc="month.val" /></span>
+        </div>
+        
+        <div class="calendar-days">
+            <t t-foreach="month.days" t-as="day">
+            <div t-att-id="day.id" t-att-class="'calendar-day ' + day.special"> 
+                <span class="day_fullname"><t t-raw="day.day_fullname" /></span>
+                <span class="day_name"><t t-raw="day.day_name" /></span>
+                <span class="day_number"><t t-raw="day.day_number" /></span>
+            </div>
+            </t>
+        </div>
+         
+         <div class="calendar-display"
+             t-att-style="
+             ( !month.nb_days ?
+                'background-position: -' + ( ( month.first_day == 0 ? 7 : month.first_day ) - 1) + 'em 0em, 0em 0em;'
+             :
+                'background-position: -' + ( ( month.first_day == 0 ? 7 : month.first_day ) - 1) + 'em 0em, ' + month.nb_days + 'em 0em;'
+             )   
+             ">
+           
+            <!--
+           <t t-foreach="items" t-as="item">
+            <div class="lines">
+               <t t-foreach="month.days" t-as="day">
+                    <div  t-att-class="'rows ' + day.special"></div>
+                </t>
+            </div>
+            </t>
+            -->
+           
+           
+           
+        <t t-if="!items.hasGroup()">
+            <t t-foreach="items.toArray()" t-as="item">
+                <div class="calendar-resources-container" 
+                     t-att-item-id="item.get('id')">
+                </div>
+            </t>
+        </t>
+        
+        <t t-if="items.hasGroup()">
+            <t t-foreach="items.groupBy('group')" t-as="group">
+        
+                <div class="calendar-resources-groupline"></div> 
+                
+                <div class="resources-group" t-att-group-name="group">
+                    <t t-foreach="group_value" t-as="item">
+                        <div class="calendar-resources-container" 
+                             t-att-item-id="item.get('id')">
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+        
+            
+        </div>
+    </div>
+    </t>
+</t>
+
 
 </template>

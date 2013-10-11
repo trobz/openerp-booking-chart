@@ -1,5 +1,4 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
-access_booking_chart_user,access_booking_chart_user,model_booking_chart,group_booking_chart_user,1,0,0,0
-access_booking_resource_tag_user,access_booking_resource_tag_user,model_booking_resource_tag,group_booking_chart_user,1,0,0,0
-access_booking_resource_user,access_booking_resource_user,model_booking_resource,group_booking_chart_user,1,1,1,1
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_booking_chart_user","access_booking_chart_user","model_booking_chart","group_booking_chart_user",1,0,0,0
+"access_booking_resource_tag_user","access_booking_resource_tag_user","model_booking_resource_tag","group_booking_chart_user",1,0,0,0
+"access_booking_resource_user","access_booking_resource_user","model_booking_resource","group_booking_chart_user",1,1,1,1

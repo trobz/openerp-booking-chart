@@ -1,64 +1,93 @@
 openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     
-    var Item = booking.models('Item'),
-        ItemGroup = booking.models('ItemGroup');
-    
     var Pager = base.collections('Pager'),
+        BaseModel = base.models('BaseModel'),
         _super = Pager.prototype;
-            
+    
     var Items = Pager.extend({
 
-        model: Item,
-        group_model: ItemGroup,
+        model: BaseModel,
         
-        resource_domain: [],
-        resource_title: 'Resource',
+        group_by: 'group',
         
         initialize: function(models, options){
-            _super.initialize.apply(this, arguments);    
-            this.model_name = options.model_name;
-            this.options = _.extend({
-                title: 'name'
-            }, options);
-        },
-
-        setOptions: function(options){
-            this.options = _.extend(this.options, options);
+            this.ref = options.ref;
+            
+            this._default_context = [];
+            
+            this._query = {
+                fields: ['name'],
+                filter: this._default_context,
+                group_by: null
+            };
+        
+            this.prepare();
+            
+            _super.initialize.apply(this, arguments);
+        },  
+        
+        hasGroup: function(){
+            return this.length > 0 && this.at(0).has('group');
         },
         
-        domain: function(domain){
+        prepare: function(){
+            var def = $.Deferred()
+            this.ready = def.promise();
+            
+            var self = this, chart = this.ref.chart;
+            chart.ready.done(function(){
+                self.setContext(chart.get('resource_domain'));
+                self.setModel(chart.get('resource_model_name'));
+                self.init().done(function(){
+                    def.resolve();
+                });
+            });
+        },
+        
+        bind: function(){},
+        
+        unbind: function(){},
+        
+        setModel: function(model_name){
+            this.model_name = model_name;
+        },
+        
+        setContext: function(context){
             try {
-                if(domain){
-                    this.resource_domain = JSON.parse(domain);    
-                }
+                this._default_context = JSON.parse(context);
             }
             catch(e){
-                throw new Error('"booking.chart.resource_domain" is not a valid JSON string: "' + domain + '"');
+                throw new Error('"booking.chart.resource_domain" is not a valid JSON string: "' + context + '"');
+                this._default_context = [];
             }
-            return this.resource_domain;
+            this.updateQuery(this.ref.domain);
         },
         
-        search: function(query){
+        updateQuery: function(domain, context, group_by){
+            _.extend(this._query, {
+                context: context  || [],
+                filter: (domain || []).concat(this._default_context),
+                group_by: group_by || null       
+            });
+            return this;
+        },
+        
+        getQuery: function(){
+            return this._query;
+        },
+        
+        search: function(){
             var search = _super.search.apply(this, arguments);
-            
-            var filter = _.clone(this.domain()); 
-            filter = filter.concat(search.filter || []);
-            
-            return _.extend(search, {
-                fields: [this.options.title],
-                filter: filter
-            }); 
+            _.extend(search, this.getQuery());
+            return search; 
         },
 
         comparator: function (item) {
-            return item.get(this.options.title);
+            return item.get('name');
         },
         
-        title: function(title){
-            if(title){
-                this.resource_title;
-            }
-        	return this.resource_title;
+        getResourceTitle: function(){
+        	return this.ref.chart.get('resource_name') || 'Resources';
         }
     });
 

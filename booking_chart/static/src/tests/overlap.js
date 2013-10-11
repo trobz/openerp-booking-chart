@@ -10,7 +10,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         var Overlap = booking.collections('Overlap'); 
             
-        test('fetch', {templates: false, rpc: 'mock', asserts: 83 }, function (instance, $fixture, mock) {
+        test('fetch', {templates: false, rpc: 'mock', asserts: 78 }, function (instance, $fixture, mock) {
             
             /*
                 2013-10       01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 
@@ -109,14 +109,11 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                         strictEqual(group.period().end('s'), '2013-10-15', 'group on item 2 with 2 elements end the 2013-10-15');
                     }
                     else if(group.length == 3){
-                        strictEqual(group.item_id, 1, 'group with 3 elements is linked to item 1');
+                        strictEqual(group.item_id, 1, 'group with 3 element is linked to item 1');
                         strictEqual(group.period().start('s'), '2013-10-02', 'group on item 1 with 3 elements start the 2013-10-02');
                         strictEqual(group.period().end('s'), '2013-10-12', 'group on item 1 with 3 elements end the 2013-10-12');
                     }
                 });
-                
-                strictEqual(list.max, 3, 'the biggest group has 3 elements');
-                
             
                 list.add(additional_data);
             
@@ -148,8 +145,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                         throw new Error('group "' + group.options.index + '" is not conform');
                     }
                 });
-                
-                strictEqual(list.max, 3, 'the biggest group has 3 elements');
                 
                 // test errors
                 var message = "";
@@ -184,9 +179,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     }
                 });
                 
-                strictEqual(list.max, 5, 'the biggest group has 5 elements');
-                
-                
                 list.remove({id: 9, name: 'test 9', item_id: 1, start_at: '2013-10-11', end_at: '2013-10-18' });
                
                 strictEqual(list.length, 8, 'list have 8 models');
@@ -220,8 +212,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     }
                     
                 });
-                
-                strictEqual(list.max, 3, 'the biggest group has 3 elements');
                 
                 //test second fetch with merge
                 list.fetch({remove: false}).done(function(){
@@ -287,8 +277,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                         }
                         
                     });    
-                
-                	strictEqual(list.max, 5, 'the biggest group has 5 elements');
                                 
                     def.resolve();
                 });

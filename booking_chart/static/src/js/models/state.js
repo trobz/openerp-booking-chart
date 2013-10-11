@@ -4,7 +4,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
     
     var default_start = moment().subtract(1, 'months').format('YYYY-MM'),
         default_end = moment().add(2, 'months').format('YYYY-MM'),
-        default_scroll = moment().subtract(7, 'days').diff(moment(default_start), 'days');
+        default_scroll = (moment().subtract(7, 'days').diff(moment(default_start), 'days') * 24);
+    
     
     var State = Backbone.Model.extend({
         
@@ -24,18 +25,25 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             page: 0
         },
         
-        link: function(options){
-            this.chart = options.chart;
-            this.period = options.period;
-            this.calendar = options.calendar;
+        link: function(models, collections, views){
+            this.models = models;
+            this.collections = collections;
+            this.views = views;
         },
         
         bind: function(){
-            this.listenTo(this.chart.items, 'change:limit change:count change:next change:previous change:first change:last', this.pagerChanged);
-            this.listenTo(this.period, 'change:start change:end', this.periodChanged);
-            this.listenTo(this.period, 'change:scroll', this.scrollChanged);
+            this.collections.items.on('change', this.pagerChanged, this);
+            this.models.period.on('change', this.periodChanged, this);
+            this.views.calendar.on('scroll', this.scrollChanged, this);
         },
         
+        unbind: function(){
+            this.collections.items.off(null, null, this);
+            this.models.period.off(null, null, this);
+        },
+        
+        
+        /* processing */
         process: function(){
             return $.when(
                 this.configPager(this.get('page'), this.get('limit')),
@@ -46,56 +54,50 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
         
         configPager: function(page, limit){
-            var items = this.chart.items, 
-                defaults = this.defaults;
+            var items = this.collections.items, defaults = this.defaults, self = this, def = $.Deferred();
             
             page = $.isNumeric(page) ? parseInt(page) : defaults.page;
-            limit = $.isNumeric(limit) ? parseInt(limit) : defaults.limit;
+            limit = $.isNumeric(limit) ? parseInt(limit) : limit;
             
-            items.pager.limit = limit;
-            var promise = items.init(), state = this;
-            
-            promise.done(function(){
+            items.ready.done(function(){
+                items.pager.limit = limit <= items.pager.total && ! _.isString(limit) ? limit : (_.isString(limit) ? items.pager.total : defaults.limit);
+                items.refresh();
                 items.pager.page = page < items.pager.nb_pages ? page : defaults.page;
-                state.set({
+                items.update().done(function(){
+                    def.resolve();        
+                });
+                
+                self.set({
                     page: items.pager.page,
                     limit: items.pager.limit
-                });    
+                });
             });
             
-            return promise;
+            return def.promise();
         },
         
         configPeriod: function(start, end){
-            var period = this.period,
+            var period = this.models.period,
                 defaults = this.defaults,
                 start = moment(start),
                 end = moment(end);
            
             if(start && end && start.isValid() && end.isValid() && start < end){
-                period.set({ 
-                    start: start, 
-                    end: end 
-                }, {silent: true});
+                period.set({ start: start, end: end }, {silent: true});
             }
             else {
-                period.set({ 
-                    start: moment(defaults.period_start), 
-                    end: moment(defaults.period_end) }, 
-                    {silent: true}
-                );
-            
+                period.set({ start: moment(defaults.period_start), end: moment(defaults.period_end) }, {silent: true});
                 this.set({
                     period_start: defaults.period_start,
                     period_end: defaults.period_end
                 });
             }
+            
+            period.setDefaults(moment(defaults.period_start), moment(defaults.period_end));
         },
         
         configScroll: function(scroll){
-            this.period.set({ 
-                scroll: scroll 
-            }, { silent: true });
+            this.views.calendar.setScrolling(scroll, this.defaults.scroll);
         },
         
         /* models/collections events */
@@ -109,16 +111,22 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         
         periodChanged: function(period){
             this.set({
-                period_start: period.get('start').format('YYYY-MM'),
-                period_end: period.get('end').format('YYYY-MM')
+                period_start: period.start().format('YYYY-MM'),
+                period_end: period.end().format('YYYY-MM')
             }); 
         },
         
-        scrollChanged: function(){
-            this.set({ 
-                scroll: this.period.get('scroll') 
-            });
+        scrollChanged: function(scroll){
+            this.set({
+                scroll: parseInt(scroll)
+            }); 
+        },
+        
+        destroy: function(){
+            this.unbind();
+            _super.destroy.apply(this, arguments);
         }
+        
     });
 
     booking.models('State', State);

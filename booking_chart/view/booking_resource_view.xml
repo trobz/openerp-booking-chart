@@ -7,10 +7,7 @@
 			<field name="arch" type="xml">
 				<tree string="Booking Resource">
 					<field name="name"/>
-				    <field name="resource_ref"/>
-                    <field name="origin_ref"/>
-                    <field name="target_ref"/>
-                    <field name="date_start"/>
+				    <field name="date_start"/>
                     <field name="date_end"/>
                     <field name="css_class"/>
                     <field name="message"/>
@@ -26,23 +23,28 @@
 					<sheet>
 						<group col="4">
 							<field name="name"/>
-                            
-                            <field name="chart_id" widget="booking_chart_selector" />
-							
+                            <field name="chart"/>
 							<field name="date_start"/>
 							<field name="date_end"/>
 							<field name="css_class"/>
-							
 							<field name="tag_ids"  widget="many2many_tags" placeholder="Tags..."/>
 							
 							<separator string="Resource" colspan="4"/>
-							<field name="resource_ref"  widget="booking_resource_selector" />
+							<field name="resource_id"/>
+							<field name="resource_name"/>
+							<newline/>
 							
 							<separator string="Origin" colspan="4"/>
-							<field name="origin_ref" widget="booking_supported_models_selector" />
+							<field name="origin_model"/>
+							<newline/>
+							<field name="origin_id"/>
+							<field name="origin_name"/>
 							
-							<separator string="Target" colspan="4"/>
-							<field name="target_ref" widget="booking_supported_models_selector" />
+							<separator string="Secondary Origin" colspan="4"/>
+							<field name="secondary_origin_model"/>
+							<newline/>
+							<field name="secondary_origin_id"/>
+							<field name="secondary_origin_name"/>
 							
 							<separator string="Message" colspan="4"/>
 							<field name="message" colspan="4" nolabel="1"/>
@@ -58,8 +60,7 @@
 			<field name="model">booking.resource</field>
 			<field name="arch" type="xml">
 				<search string="Resource Booking">
-					<field name="name" />
-					
+					<field name="name"/>
 				</search>
 			</field>
 		</record>
