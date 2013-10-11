@@ -1,0 +1,152 @@
+/*
+ *  global style, dependency with calendar view, resource can be placed in the calendar    
+ */
+
+
+.booking-chart-calendar .resource-group-element,
+.booking-chart-calendar .resource-group-bar {
+    margin: 3px 0;
+    height: 17px;
+    border-radius: 3px;
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.booking-chart-calendar .resource-group-element span,
+.booking-chart-calendar .resource-group-bar span{
+    font-size: 12px;
+    display: block;
+}
+
+.calendar-resources-container .resource-group-bar.multi {
+    background: #333;
+    color: #eee;
+}
+
+.calendar-resources-container.open .resource-group-bar {
+    margin:  6px 0 0 0;
+    height: 10px;
+    background: #333;
+}
+.calendar-resources-container.open .resource-group-bar span {
+    display: none;
+}
+
+.calendar-resources-container .resource-group-bar.single,
+.booking-chart-calendar .resource-group-element {
+    background: rgba(146, 146, 146, 0.7);
+    color: #333;
+}
+
+
+.calendar-resources-container .resource-group-bar.single.dark-blue,
+.booking-chart-calendar .resource-group-element.dark-blue {
+    background: rgba(20, 30, 80, 0.7);
+    color: rgba(256, 256, 256, 0.7);
+}
+
+
+.calendar-resources-container .resource-group-bar.single.blue,
+.booking-chart-calendar .resource-group-element.blue {
+    background: rgba(105, 126, 209, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.light-blue,
+.booking-chart-calendar .resource-group-element.light-blue {
+    background: rgba(154, 208, 230, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.yellow,
+.booking-chart-calendar .resource-group-element.yellow {
+    background: rgba(235, 227, 21, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.red,
+.booking-chart-calendar .resource-group-element.red {
+    background: rgba(218, 43, 43, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.light-red,
+.booking-chart-calendar .resource-group-element.light-red {
+    background: rgba(243, 205, 205, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.green,
+.booking-chart-calendar .resource-group-element.green {
+    background: rgba(59, 172, 54, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.light-green,
+.booking-chart-calendar .resource-group-element.light-green {
+    background: rgba(180, 240, 180, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.pink,
+.booking-chart-calendar .resource-group-element.pink {
+    background: rgba(232, 100, 243, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.light-pink,
+.booking-chart-calendar .resource-group-element.light-pink {
+    background: rgba(246, 192, 244, 0.7);
+}
+
+.calendar-resources-container .resource-group-bar.single.orange,
+.booking-chart-calendar .resource-group-element.orange {
+    background: rgba(248, 177, 25, 0.7);
+}
+.calendar-resources-container .resource-group-bar.single.black,
+.booking-chart-calendar .resource-group-element.black {
+    background: rgba(19, 19, 19, 0.7);
+    color: #eee;
+}
+
+.booking-chart-calendar .resource-group {
+    position: relative;    
+}
+
+.booking-chart-calendar .resource-group.hidden {
+    display: none;
+}
+
+.booking-chart-calendar .resource-group-detail {
+    
+    display: none;
+}
+
+.graph-button-plus {
+    font-size:12pt !important; margin-right:1px; float:right;
+}
+
+.graph-button-minus {
+    font-size:8pt !important; margin-right:1px; display:none; float:right;
+}
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+.logo_of_item {
+    font-size: 10pt ;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-right:1px;
+    float:left;
+}
+
+.logo_of_group {
+    font-size: 10pt ;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-right:1px;
+    float:left;
+}
+
+.graph-name {
+    margin-top: 2px;
+}

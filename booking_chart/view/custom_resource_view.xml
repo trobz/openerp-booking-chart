@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="custom_resource_tree" model="ir.ui.view">
+			<field name="name">custom.resource.tree</field>
+			<field name="model">custom.resource</field>
+			<field name="arch" type="xml">
+				<tree string="TTT">
+					<field name="name"/>
+					<field name="model_id"/>
+					<field name="resource_id"/>
+					<field name="group_id"/>
+                </tree>
+			</field>
+		</record>
+		
+		<record id="custom_resource_form" model="ir.ui.view">
+			<field name="name">custom.resource.form</field>
+			<field name="model">custom.resource</field>
+			<field name="arch" type="xml">
+				<form string="Custom Resource" version="7.0">
+					<sheet>
+						<group col="4">
+							<field name="name"/>
+							<field name="group_id"/>
+							<field name="resource_id"/>
+							<field name="model_id" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="custom_resource_search" model="ir.ui.view">
+			<field name="name">custom.resource.search</field>
+			<field name="model">custom.resource</field>
+			<field name="arch" type="xml">
+				<search string="Custom Resource">
+					<field name="name"/>
+					<field name="group_id"/>
+					<group string="Group By ...">
+						<filter name="group_by_group_id" context="{'group_by': 'group_id'}" string="Custom Resource Group"/>
+					</group>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>

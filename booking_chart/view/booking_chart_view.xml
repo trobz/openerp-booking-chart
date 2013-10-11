@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="booking_chart_tree" model="ir.ui.view">
+			<field name="name">booking.chart.tree</field>
+			<field name="model">booking.chart</field>
+			<field name="arch" type="xml">
+				<tree string="TTT">
+					<field name="name"/>
+				    <field name="resource_model"/>
+                </tree>
+			</field>
+		</record>
+		
+		<record id="booking_chart_form" model="ir.ui.view">
+			<field name="name">booking.chart.form</field>
+			<field name="model">booking.chart</field>
+			<field name="arch" type="xml">
+				<form string="Operating Time Formula" version="7.0">
+					<sheet>
+						<label for="name" class="oe_edit_only"/>
+						<h1>Booking Chart</h1>
+						<group col="4">
+							<field name="name"/>
+                            <field name="resource_model"/>
+                            <field name="resource_domain"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="booking_chart_search" model="ir.ui.view">
+			<field name="name">booking.chart.search</field>
+			<field name="model">booking.chart</field>
+			<field name="arch" type="xml">
+				<search string="Operating Time Formula">
+					<field name="name"/>
+				</search>
+			</field>
+		</record>
+    	
+    	
+    	
+                  
+	</data>
+</openerp>
