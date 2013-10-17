@@ -60,9 +60,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             limit = $.isNumeric(limit) ? parseInt(limit) : limit;
             
             items.ready.done(function(){
-                items.pager.limit = limit <= items.pager.total && ! _.isString(limit) ? limit : (_.isString(limit) ? items.pager.total : defaults.limit);
+                items.pager.limit = limit <= items.pager.total && !_.isString(limit) ? limit : (_.isString(limit) ? items.pager.total : defaults.limit);
                 items.refresh();
                 items.pager.page = page < items.pager.nb_pages ? page : defaults.page;
+            
                 items.update().done(function(){
                     def.resolve();        
                 });

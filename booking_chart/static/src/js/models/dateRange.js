@@ -89,6 +89,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             
             this.trigger('next');
         },
+        
         dateRangePicker: function(start, end){
             this.set({
                 end: end,
