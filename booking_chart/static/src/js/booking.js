@@ -6,9 +6,7 @@ var ir_models = null;
 
 openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, Backbone, base) {
 
-    var _t = instance.web._t,
-        _lt = instance.web._lt,
-        QWeb = instance.web.qweb;
+    var QWeb = instance.web.qweb;
     
     var Pager = base.views('Pager'),
         Calendar = booking.views('Calendar'),
@@ -35,7 +33,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
     instance.web.views.add('booking', 'instance.booking_chart.BookingView');
     instance.booking_chart.BookingView = instance.web.View.extend({
         
-        display_name: _lt('Booking'),
+        display_name: base._lt('Booking'),
         template: "Booking",
         view_type: 'tree',
         
@@ -47,7 +45,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             // whether the column headers should be displayed
             'header': false,
             // display addition button, with that label
-            'addable': _lt("Create"),
+            'addable': base._lt("Create"),
             // whether the list view can be sorted, note that once a view has been
             // sorted it can not be reordered anymore
             'sortable': false,
@@ -99,7 +97,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 items = new Items([], {
                     silent: true,
                     
-                    ranges: [2, 10, 50, 100, 200, _t("Unlimited") ],
+                    ranges: [2, 10, 50, 100, 200, base._lt("Unlimited") ],
                     
                     ref: {
                         chart: chart,

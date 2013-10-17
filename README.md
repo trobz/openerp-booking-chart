@@ -52,7 +52,7 @@ The origin object form can be displayed by clicking on the booking resource.
 ## Dependencies
 
 - [Web Unleashed module](https://github.com/trobz/openerp-web-unleashed "OpenERP Web Unleashed")     
-This module provide native support of Backbone and Marionnette, simplifing dramatically the creation of rich web application in OpenERP.  
+This module provide native support of Backbone and Marionette, simplifing dramatically the creation of rich web application in OpenERP.  
 
 ## Setup / Use
 
