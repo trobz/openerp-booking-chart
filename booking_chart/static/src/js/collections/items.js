@@ -11,8 +11,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         group_by: 'group',
         
         initialize: function(models, options){
+            _super.initialize.apply(this, arguments);    
+       
             this.ref = options.ref;
-            
+       
             this._default_context = [];
             
             this._query = {
@@ -20,10 +22,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 filter: this._default_context,
                 group_by: null
             };
-        
-            this.prepare();
             
-            _super.initialize.apply(this, arguments);
+            this.prepare();
         },  
         
         hasGroup: function(){
@@ -42,6 +42,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     def.resolve();
                 });
             });
+            
+            return this.ready;
         },
         
         bind: function(){},
@@ -74,6 +76,11 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         getQuery: function(){
             return this._query;
+        },
+        
+        
+        update: function(){
+            return _super.fetch.apply(this, arguments);
         },
         
         search: function(){

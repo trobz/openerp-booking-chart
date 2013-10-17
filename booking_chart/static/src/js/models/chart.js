@@ -64,7 +64,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         loadChart: function(chart_id){
             var self = this;
-            return this.load(chart_id)
+            
+            this.set('id', chart_id);
+            
+            return this.fetch()
                        .done(function(){ 
                            if(self.length <= 0) { 
                                throw new Error('not chart found with id:' + chart_id); 
@@ -78,13 +81,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                                throw new Error('can not get the chart with id:' + chart_id); 
                            }  
                        });
-        },
-        
-        load: function(chart_id){
-            return this.specific_fetch({
-                filter: [[ 'id', '=', chart_id ]],
-                type: 'first'
-            });
         },
         
         getModelName: function(){
