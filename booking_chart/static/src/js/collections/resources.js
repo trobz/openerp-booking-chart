@@ -21,13 +21,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
         
         bind: function(){
-        	
-            this.ref.period.on('change', this.update, this);
-            console.log('-------------------------')
-            console.log(this.item_ids)
+        	this.ref.period.on('change', this.update, this);
             this.ref.items.on('sync', this.pagerChange, this);
             this.on('invalid', this.modelError, this);
-            
         },
         
         unbind: function(){
@@ -43,7 +39,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
                 ids.push(item.get('id'));
             });
             this.item_ids = ids;
-            return this.update();
+            return this.fetch();
         },
         
         search: function(){
