@@ -1,0 +1,112 @@
+.booking-chart-items {
+    width: 20%;
+    float: left;
+    height: 100%;
+    border-bottom: 3px solid #ddd;
+}
+
+/*
+ * item
+ */
+
+.booking-chart-items .item-title {
+    height: 43px;
+    border-right: 1px solid rgb(202, 202, 202);
+    border-bottom: 3px solid #ddd;
+    text-align: center;
+    padding: 30px 0 0 0;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+
+.booking-chart-items .items {
+    font-size: 24px;
+}
+
+.booking-chart-items .group-name,
+.booking-chart-items .item-label {
+    font-weight: bolder;
+    text-align: left;
+    height: 23px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid rgb(202, 202, 202);
+    position: relative;
+}
+
+.booking-chart-items .item-label .toggle-rows {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+}
+
+.booking-chart-items .item-label a {
+    width: 100%;
+    display: inline-block;
+}
+
+/*
+ * item multi resources
+ */
+
+.booking-chart-items .item-label.multi .toggle-rows {
+    display: block;
+}
+
+.booking-chart-items .item-label.multi.open .toggle-rows:before {
+    content: "\f0d7";
+}
+
+/*
+ * group
+ */
+
+.booking-chart-items .group-name {
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+
+.booking-chart-items .group-name i {
+    font-size: 14px;
+    float: left;
+    line-height: 24px;
+    margin: 0px 3px;
+    width: 10px;
+    text-align: center;
+}
+
+.booking-chart-items .group-name span,
+.booking-chart-items .item-label span {
+    font-size: 13px;
+    display: block;
+    padding: 4px 0 0 6px;
+}
+
+.booking-chart-items .group-name span {
+    cursor: pointer;
+}
+
+.booking-chart-items .item-group .grouped-items {
+    display: none;
+}
+
+/*
+ * group open
+ */
+
+.booking-chart-items .item-group.open .group-name .icon-caret-right:before {
+    content: "\f0d7";
+}
+
+.booking-chart-items .item-group.open .grouped-items {
+    display: block;
+}
