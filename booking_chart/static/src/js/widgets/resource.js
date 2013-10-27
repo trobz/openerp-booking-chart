@@ -1,7 +1,12 @@
 openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, Backbone, base){
     
+    var BaseModel = base.models('BaseModel');
+    // don't use the Chart model defined for the booking view, cause it will 
+    // will auto retrieve items and resources...
+    var ChartModel = BaseModel.extend({ model_name: 'booking.chart' });
+    
     /*
-     * Resource selector field, specific for booking.resource.resource_ref field 
+     * Resource selector field, specific for booking.resource.resource_id field 
      * No model selector displayed, Auto select reference model based on the chart selected.
      */
     var FieldResourceSelector = instance.web.form.FieldReference.extend({
@@ -12,29 +17,34 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
          * Listen to changes on this field to update the resource list.
          */        
         init:function(field_manager, node){ 
+        
             this._super(field_manager, node);
+            console.log('FieldResourceSelector  init');
         
             // keep a reference to chart_selector field
-            this.field_chart_selector = _(field_manager.fields).find(function(field){
-                return field instanceof instance.booking_chart.FieldChartSelector;
+             this.field_chart_selector = _(field_manager.fields).find(function(field){
+                return field instanceof instance.booking_chart.FieldChartSelector
             });
             
             if(!this.field_chart_selector){
                 throw new Error('can not found FieldChartSelector in booking chart form fields');
             }
-        
-            this.reference_ready = false;
             this.selected_model = false;
-            this.field_chart_selector.on('chart:selected', this, this.change_model);
+            this.debug_index = 0;
         },
-        
         
         /*
          * Override initialize_content, selection is made automatically when a chart is selected
          */
         initialize_content: function() {
-            this.reference_ready = false;
-            
+            if(!this.get('effective_readonly')){
+                //listening to changes on chart field
+                this.field_chart_selector.on('chart:selected', this, this.select_model);
+            }
+            else {
+                this.field_chart_selector.off('chart:selected', this, this.select_model);
+            }
+    
             var self = this;
             var fm = new instance.web.form.DefaultFieldManager(this);
             this.fm = fm;
@@ -58,12 +68,10 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             this.m2o.on("change:value", this, this.data_changed);
             this.m2o.appendTo(this.$(".oe_form_view_reference_m2o"));
             this.m2o.on('focused', null, function() {
-                self.trigger('focused');
+                self.trigger('focused')
             }).on('blurred', null, function() {
-                self.trigger('blurred');
+                self.trigger('blurred')
             });
-            
-            this.reference_ready = true;
         },
         
         /*
@@ -92,20 +100,33 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
         },
         
         /*
+         * Fired when chart widget change.
+         * Get the chart model selected has a Backbone.Model and process it in change_model method
+         */
+        select_model: function(model_id){
+            var model = new ChartModel({
+                id: model_id
+            }); 
+            
+            var widget = this;
+            model.fetch({ context: this.build_context().eval() }).done(function(){
+                widget.change_model(model);
+            });
+        },
+        
+        /*
          * Change the selected model and refresh the one2many widget by resetting the local value
          */
         change_model: function(chart_model){
             this.set_selected_model(chart_model);
             
             if (this.reference_ready) {
-                var id = false, model = false;
-                if(chart_model){
-                    var value = this.get('value');
+                var value = this.get('value'), 
                     model = this.get_selected_model(), 
                     id = value.length == 2 && model == value[0] ? value[1] : false;
-                }
+                
                 this.internal_set_value([model, id]);
-                this.render_value();    
+                this.render_value();
             }
         },
         
@@ -122,14 +143,18 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
          * Check model validity and set a selected model property on widget
          */
         set_selected_model: function(chart_model){
-            this.selected_model = chart_model ? chart_model.get('resource_model_name') : false;
+            // check chart model values
+            var model_ref = chart_model.get('resource_model_name');
+            if(_.isString(model_ref) && model_ref.length > 0){
+                this.selected_model = model_ref;
+            }
         },
         
         /*
          * Remove chart widget listener 
          */
         destroy: function(){
-            this.field_chart_selector.off('chart:selected', this, this.change_model);
+            this.field_chart_selector.off('chart:selected', this, this.select_model);
             this._super.apply(this, arguments);
         }
     });

@@ -1,10 +1,4 @@
-openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, Backbone, base){
-    
-    
-    var BaseModel = base.models('BaseModel');
-    // don't use the Chart model defined for the booking view, cause it will 
-    // will auto retrieve items and resources...
-    var ChartModel = BaseModel.extend({ model_name: 'booking.chart' });
+openerp.unleashed.module('booking_chart').ready(function(instance){
     
     var FieldChartSelector = instance.web.form.FieldMany2One.extend({
         
@@ -13,21 +7,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
          */
         reinit_value: function(val) {
             this._super(val);
-            
-            if(val){
-                var model = new ChartModel({
-                    id: val
-                }); 
-                
-                var widget = this;
-                model.fetch({ context: this.build_context().eval() }).done(function(){
-                    widget.trigger('chart:selected', model);
-                });    
-            }
-            else {
-                this.trigger('chart:selected', val);
-            }
-            
+            this.trigger('chart:selected', val);
         }
     });
 
