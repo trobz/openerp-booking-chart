@@ -25,30 +25,35 @@ class booking_resource(osv.osv):
         models = []
         for chart in chart_model.browse(cr, uid, chart_ids):
             models.append((chart.resource_model.model, chart.resource_model.name))
-        
-        logging.warn("booking_resource: _models_resource_get: %s", models)
             
         return models
 
     def _models_get(self, cr, uid, context=None):
-        return [('res.partner','Partner')]
+        chart_model = self.pool.get('booking.chart')
+        chart_ids = chart_model.search(cr, uid, [])
+        
+        models = []
+        for chart in chart_model.browse(cr, uid, chart_ids):
+            models = list(set(models + chart.supported_models))
+            
+        return models
     
     
     _columns = {
-		'name': fields.char('Booking Name'),
-		'chart': fields.many2one('booking.chart', 'Booking Chart', help='Related booking chart.'),
+		'name': fields.char('Booking Name', required=True),
+		'chart': fields.many2one('booking.chart', 'Booking Chart', help='Related booking chart.', required=True),
 		
-        'resource_id': fields.reference('Resource', selection=_models_resource_get, size=128, select=1, require=True, help="Related booking chart resource."),
+        'resource_id': fields.reference('Resource', selection=_models_resource_get, size=128, select=1, required=True, help="Related booking chart resource."),
         
-        'date_start': fields.date('Date Start'),
-		'date_end': fields.date('Date End'),
+        'date_start': fields.date('Date Start', required=True),
+		'date_end': fields.date('Date End', required=True),
 		'css_class': fields.char('CSS Class',
 								 help="CSS Class to be used to display that record. standard classes: blue, red, green, yellow, ..."),
 		'message': fields.text('Message',
 							   help="Message to be displayed on mouse over the block. This is stored in a textarea because the type of information will depends on the source of the information (reservation, guest folio, replacement, holidays, training ...)"),
 		
         
-        'origin_id': fields.reference('Origin', selection=_models_get, size=128, require=True, help='Resource at the origin of the booking. Example: holiday, reservation...'),
+        'origin_id': fields.reference('Origin', selection=_models_get, size=128, required=True, help='Resource at the origin of the booking. Example: holiday, reservation...'),
         'target_id': fields.reference('Target', selection=_models_get, size=128, help='Resource to open when the booking is clicked. If not set, use the Origin'),
         
         'tag_ids': fields.many2many('booking.resource.tag', id1='booking_resource_id', id2='booking_resource_tag_id',

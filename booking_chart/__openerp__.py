@@ -43,6 +43,7 @@ The "Booking Chart view" is a new type of view for OpenERP.
         # OpenERP form widgets
         'static/src/js/widgets/chart.js',
         'static/src/js/widgets/resource.js',
+        'static/src/js/widgets/supported.js',
         
         
         # lib

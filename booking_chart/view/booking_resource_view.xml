@@ -37,10 +37,10 @@
 							<field name="resource_id"  widget="booking_resource_selector" />
 							
 							<separator string="Origin" colspan="4"/>
-							<field name="origin_id" />
+							<field name="origin_id" widget="booking_supported_models_selector" />
 							
 							<separator string="Target" colspan="4"/>
-							<field name="target_id" />
+							<field name="target_id" widget="booking_supported_models_selector" />
 							
 							<separator string="Message" colspan="4"/>
 							<field name="message" colspan="4" nolabel="1"/>
