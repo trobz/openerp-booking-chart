@@ -1,40 +1,19 @@
 <template>
 
 <t t-name="Booking">
-
     <div class="oe_booking_view">
+
         <!-- what a pity... OpenERP force the use of table layout if you want to be able to use % width and overflow hidden... -->
         <table class="oe-booking-container">
-            <tr>
-                <td><div class="booking-chart-list"></div></td>
-            </tr>
-            <tr class="booking-chart-calendar">
+            <tr class="booking-chart">
                 <td>
-                    <div class="booking-chart-items"></div>
-                    <div id="content_chart" class="booking-chart-dates"></div>
-                    <div class="booking-chart-resources"></div>
-                    
-                    <div class="booking-chart-controls">
-                        <div class="booking-chart-zoom">
-                            <ul class="oe_pager_group">
-                                <li class="oe_i"><a class="zoom-xs" type="button">XS</a></li>
-                                <li class="oe_i"><a class="zoom-s" type="button">S</a></li>
-                                <li class="oe_i active"><a class="zoom-m" type="button">M</a></li>
-                                <li class="oe_i"><a class="zoom-l" type="button">L</a></li>
-                                <li class="oe_i"><a class="zoom-xl" type="button">XL</a></li>
-                            </ul>
-                        </div>
-                     </div>
-                 </td>
+                    <div class="booking-calendar"></div>
+                    <div class="booking-graph"></div>
+                </td>
             </tr>
         </table>
-                
+        
     </div>
-</t>
-
-
-<t t-name="Booking.NoChart">
-    <span>There's no chart to render, please create one first !</span>
 </t>
 
 </template>
