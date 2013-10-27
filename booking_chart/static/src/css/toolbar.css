@@ -1,32 +1,21 @@
-.rangepicker{
-    margin-left: 200px;
-    /*padding-top: 6px;*/
-}
-.btn_today {
-    margin-left: 20px !important;
-    margin-top: 9px !important;
-    padding-top: 3px;
+.booking-toolbar .btn_show {
     text-decoration: none;
     font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
     font-size: 8pt !important;
-    position: absolute;
 }
 
-.btn_freeze {
-    margin-left: 100px !important;
-    margin-top: 9px !important;
-    padding-top: 3px;
-    text-decoration: none;
-    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
-    font-size: 8pt !important;
-    position: absolute;
+.booking-toolbar .rangepicker {
+    margin: 0 auto;
+    width: 340px;
 }
 
-#btnShow {
-    margin-top: 9px !important;
-    padding-top: 3px;
-    text-decoration: none;
-    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
-    font-size: 8pt !important;
-    margin-left: 8px;
-}
+.booking-toolbar .rangepicker .ui-datepicker-calendar {
+    display: none;
+}  
+
+.booking-toolbar .rangepicker input[type="text"] {
+    width: 100px;
+    cursor: pointer;
+    text-align: center;
+    margin: 0 2px;
+}        

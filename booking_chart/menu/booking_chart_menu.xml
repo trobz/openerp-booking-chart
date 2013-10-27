@@ -5,7 +5,16 @@
         <menuitem id="menu_booking_root" name="Booking Chart" sequence="10" parent="base.menu_custom" />
         
         <menuitem id="menu_booking_main" parent="menu_booking_root" name="Booking" sequence="0"/>      
+   
         
+        <record id="action_view_booking_chart" model="ir.actions.act_window">
+            <field name="name">Chart</field>
+            <field name="res_model">booking.chart</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_view_booking_chart" id="menu_view_booking_chart" sequence="2" parent="menu_booking_main"/>
+     
         <record id="action_view_booking_resource" model="ir.actions.act_window">
             <field name="name">Resource Booking</field>
             <field name="res_model">booking.resource</field>
@@ -21,29 +30,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem action="action_view_booking_resource_tag" id="menu_view_booking_resource_tag" sequence="4" parent="menu_booking_main"/>
-        
-        <record id="action_view_booking_chart" model="ir.actions.act_window">
-            <field name="name">Chart</field>
-            <field name="res_model">booking.chart</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <menuitem action="action_view_booking_chart" id="menu_view_booking_chart" sequence="2" parent="menu_booking_main"/>
-
-        <record id="action_view_custom_resource_group" model="ir.actions.act_window">
-            <field name="name">Custom Resource Group</field>
-            <field name="res_model">custom.resource.group</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <menuitem action="action_view_custom_resource_group" id="menu_view_custom_resource_group" sequence="4" parent="menu_booking_main"/>
-
-        <record id="action_view_custom_resource" model="ir.actions.act_window">
-            <field name="name">Custom Resource</field>
-            <field name="res_model">custom.resource</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <menuitem action="action_view_custom_resource" id="menu_view_custom_resource" sequence="5" parent="menu_booking_main"/>
+   
     </data>
 </openerp>
