@@ -1,0 +1,21 @@
+<template>
+    <t t-name="Booking.Calendar.items">
+        <div class="item-title">
+            <span class="ellipsis"><t t-esc="title" /></span>
+        </div>
+        <div class="items"></div>
+    </t>
+    
+    <t t-name="Booking.Calendar.items.grouped">
+        <div class="group-name">
+            <i class="icon-caret-right"></i>
+            <span><t t-esc="value" /> (<t t-esc="length" />)</span>
+        </div>
+        <div class="grouped-items" />
+    </t>
+    
+    <t t-name="Booking.Calendar.items.item">
+         <i class="icon-caret-right toggle-rows" ></i>
+         <span><a href="#" class="ellipsis"><t t-esc="name" /></a></span>
+    </t>
+</template>

@@ -1,0 +1,22 @@
+.booking-buttons .btn_freeze,
+.booking-buttons .btn_today {
+    text-decoration: none;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 8pt !important;
+}
+
+.booking-buttons .btn_freeze.active {
+    border: 1px solid #80bfff;
+    background-position: 0;
+    background-color: #ececec;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -ms-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: -o-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background-image: linear-gradient(to bottom, #f6f6f6, #e3e3e3);
+    -moz-box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    color: #1C5EA2;
+}

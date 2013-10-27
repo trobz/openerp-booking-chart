@@ -1,0 +1,43 @@
+<template>
+    
+    <t t-name="Booking.Calendar.months">
+        <div class="calendar-months-wrapper"></div>
+    </t>
+    
+    
+    <t t-name="Booking.Calendar.month">
+        <div t-att-class="'calendar-month ' + (month.current() ? 'current' : '')"
+             t-att-id="'month-' + month.id" 
+             t-att-style="'width:' + month.nbDays() + 'em'">
+            
+            <div class="calendar-month-name">
+                <span class="month-normal-size"><t t-esc="month.value()" /></span>
+            </div>
+            
+            <div class="calendar-days">
+                <t t-foreach="month.days()" t-as="day">
+                <div t-att-class="'calendar-day ' + day.special()"> 
+                    <span class="day_fullname"><t t-raw="day.format('dddd')" /></span>
+                    <span class="day_name"><t t-raw="day.format('ddd')" /></span>
+                    <span class="day_number"><t t-raw="day.format('D')" /></span>
+                </div>
+                </t>
+            </div>
+             
+             <div class="resources"
+                 t-att-style="
+                    'background-position: -' + ( ( month.weekday() == 0 ? 7 : month.weekday() ) - 1) + 'em 0em,' + 
+                                               (month.current() ? month.numberOfDaysFromToday() : '0') + 'em 0em;'
+                 ">
+            </div>
+        </div>
+    </t>
+    
+    
+    
+    <t t-name="Booking.Calendar.months.grouped">
+        <div class="resources-groupline"></div> 
+        <div class="resources-grouped"></div>
+    </t>
+
+</template>

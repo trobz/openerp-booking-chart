@@ -1,0 +1,10 @@
+<template>
+
+    <t t-name="Booking.Buttons">
+        <div class="booking-buttons">
+            <button type="button" class="btn_today oe_highlight">Today</button>
+            <button type="button" class="btn_freeze">Freeze</button>
+        </div>
+    </t>
+
+</template>
