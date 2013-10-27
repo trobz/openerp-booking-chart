@@ -1,9 +1,8 @@
 .booking-chart-items {
-    width: 15%;
+    width: 20%;
     float: left;
     height: 100%;
     border-bottom: 3px solid #ddd;
-    min-width: 200px;
 }
 
 /*
@@ -36,12 +35,17 @@
 }
 
 .booking-chart-items .item-label .toggle-rows {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 14px;
+    cursor: pointer;
     display: none;
 }
 
 .booking-chart-items .item-label a {
-    display: block;
-    margin-right: 15px;
+    width: 100%;
+    display: inline-block;
 }
 
 /*
@@ -49,23 +53,11 @@
  */
 
 .booking-chart-items .item-label.multi .toggle-rows {
-    position: absolute;
-    right: 0px;
-    font-size: 14px;
-    cursor: pointer;
-    width: 20px;
-    height: 22px;
-    text-align: center;
-    line-height: 23px;
     display: block;
 }
 
 .booking-chart-items .item-label.multi.open .toggle-rows:before {
     content: "\f0d7";
-}
-
-.booking-chart-items .item-label.multi .toggle-rows:hover {
-    color: rgba(67, 61, 213, 0.75);
 }
 
 /*

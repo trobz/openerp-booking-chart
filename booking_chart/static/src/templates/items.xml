@@ -16,6 +16,6 @@
     
     <t t-name="Booking.Calendar.items.item">
          <i class="icon-caret-right toggle-rows" ></i>
-         <span><a href="#" class="ellipsis"><t t-esc="title" /></a></span>
+         <span><a href="#" class="ellipsis"><t t-esc="name" /></a></span>
     </t>
 </template>

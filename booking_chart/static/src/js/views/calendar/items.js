@@ -42,12 +42,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             'change:height': 'heightChanged',
             'change:open': 'openChanged',
         },
-
-        serializeData: function(){
-            return {
-                'title': this.model.title()
-            };
-        },
         
         openChanged: function(){
             this.model.isOpen() ? this.openItem() : this.closeItem();    
@@ -68,7 +62,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         openItem: function(){
             var height = this.model.get('height');
             this.$el.addClass('open')
-                    .css('height', (height + 1) * 24 + 'px');
+                    .css('height', (height + 1) * 23 + 'px');
         },
         
         closeItem: function(){
