@@ -1,124 +1,104 @@
-/**
- * Created with PyCharm.
- * User: chanhle
- * Date: 8/1/13
- * Time: 11:30 AM
- * To change this template use File | Settings | File Templates.
- */
 openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) {
 
-    var BaseView = base.views('BaseView'),
-        _super = BaseView.prototype;
+    var View = Backbone.Marionette.ItemView,
+        _super = View.prototype;
 
-    var Toolbar = BaseView.extend({
+    var Toolbar = View.extend({
 
-        className: 'Booking.Toolbar',
-
+        template: 'Booking.Toolbar',
+        
         events: {
-            'click .btn_today': 'today',
-            'click .btn_freeze': 'freeze',
-            'click #btnShow': 'show'
+            'click .btn_show': 'show'
+        },
+        
+        modelEvents: {
+            'change:start': 'updateDateStart',
+            'change:end': 'updateDateEnd',
+        },
+        
+        ui: {
+            from:   '#date_picker_from',
+            to:     '#date_picker_to',
+            inputs: '.rangepicker input',
         },
 
-        initialize: function (options) {
-            _super.initialize.apply(this, arguments);
+        serializeData: function(){
+            return {
+                from: this.model.start(),
+                to: this.model.end()
+            };    
         },
 
-        bind: function () {
-            this.collection.on('sync', this.render, this);
+        onRender: function () {
+            this.ui.inputs.datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'MM yy',
+                    onClose: _.bind(this.dateOnClose, this),
+                    beforeShow: _.bind(this.dateBeforeShow, this)
+                })
+                .focus(_.bind(this.dateFocus, this));
+        
+            // no choices, this element in injected in the body by the datepicker plugin...
+            this.ui.picker = $('#ui-datepicker-div');
+        },
+        
+        dateOnClose: function(text, options){
+            var input = options.input,
+                date = new Date(options.selectedYear, options.selectedMonth, 1);
+            
+            input.datepicker('setDate', date);
+            input.attr('date', moment(date).format('YYYY-MM-DD'));
         },
 
-        unbind: function () {
-            this.collection.off(null, null, this);
-            this.ref.period.off(null, null, this);
+        dateBeforeShow: function(el, options){
+            var input = options.input,
+                other_input = this.ui.inputs.not(input),
+                isFrom = options.id == 'date_picker_from';
+            
+            input.datepicker('option', 'defaultDate', new Date(input.attr('date')));
+            input.datepicker('option', (isFrom ? 'maxDate' : 'minDate'), new Date(other_input.attr('date')));
+        },
+        
+        dateFocus: function(){
+            this.ui.picker.find('.ui-datepicker-calendar').hide();
         },
 
-        render: function () {
-            var self = this
-            var html = this.ref.display.render('Booking.Toolbar', {
-                from: this.ref.period.start().format('MMMM YYYY'),
-                to: this.ref.period.end().format('MMMM YYYY')
-            });
-            this.$el.html(html);
-
-            $("#date_picker_from, #date_picker_to").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                dateFormat: 'MM yy',
-                onClose: function (dateText, inst) {
-                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                    $(this).datepicker('setDate', new Date(year, month, 1));
-                },
-                beforeShow: function (input, inst) {
-                    if (input.id == 'date_picker_from') {
-                        var year = moment(self.ref.period.start()).year()
-                        var month = moment(self.ref.period.start()).month()
-                        $(this).datepicker('setDate', new Date(year, month, 1));
-                    }
-                    if (input.id == 'date_picker_to') {
-                        var year = moment(self.ref.period.end()).year()
-                        var month = moment(self.ref.period.end()).month()
-                        $(this).datepicker('setDate', new Date(year, month, 1));
-                    }
-
-                    if ((datestr = $(this).val()).length > 0) {
-                        year = datestr.substring(datestr.length - 4, datestr.length);
-                        month = jQuery.inArray(datestr.substring(0, datestr.length - 5), $(this).datepicker('option', 'monthNames'));
-                        $(this).datepicker('option', 'defaultDate', new Date(year, month, 1));
-                        $(this).datepicker('setDate', new Date(year, month, 1));
-                    }
-                    var other = this.id == "date_picker_from" ? "#date_picker_to" : "#date_picker_from";
-                    var option = this.id == "date_picker_from" ? "maxDate" : "minDate";
-                    if ((selectedDate = $(other).val()).length > 0) {
-                        year = selectedDate.substring(selectedDate.length - 4, selectedDate.length);
-                        month = jQuery.inArray(selectedDate.substring(0, selectedDate.length - 5), $(this).datepicker('option', 'monthNames'));
-                        $(this).datepicker("option", option, new Date(year, month, 1));
-                    }
-                }
-            }).focus(function () {
-                    $(".ui-datepicker-calendar").hide();
-                    $("#ui-datepicker-div").position({
-                        my: "center top",
-                        at: "center bottom",
-                        of: $(this)
-                    });
-                });
-            return this
+        updateDateStart: function(){
+            var start = this.model.start();
+            this.ui.from.datepicker('setDate', start.toDate());
+            this.ui.from.attr('date', start.format('YYYY-MM-DD'));
         },
-
-        today: function () {
-            this.ref.calendar.today()
+        
+        updateDateEnd: function(){
+            var end = this.model.end();
+            this.ui.to.datepicker('setDate', end.toDate());
+            this.ui.to.attr('date', end.format('YYYY-MM-DD'));
         },
-
-        freeze: function () {
-            this.ref.calendar.freeze()
-        },
-
-        show: function (e) {
-            if ($("#date_picker_from").val().length == 0 || $("#date_picker_to").val().length == 0) {
-                alert('All fields are required');
+        
+        show: function(e) {
+            //reset the period, should render again all the calendar
+            var from = moment(this.ui.from.attr('date')),
+                to = moment(this.ui.to.attr('date'));
+            
+            if(!from.isValid() || !to.isValid()){
+                throw new Error('date range is not correct');
             }
-            else {
-                var dateRangePicker_end = moment($("#date_picker_to").val(), 'MMM YYYY').add('months', 1).date(1),
-                    dateRangePicker_start = moment($("#date_picker_from").val(), 'MMM YYYY')
-                if (dateRangePicker_end < dateRangePicker_start) {
-                    alert('To date should be greater than from date!')
-                }
-                else {
-                    var diff_start = this.ref.period.start().diff(dateRangePicker_start)
-                    var diff_end = this.ref.period.end().diff(dateRangePicker_end)
-                    if( diff_start != 0 || diff_end != 0){
-                        this.ref.period.dateRangePicker(dateRangePicker_start, dateRangePicker_end)
-                        this.ref.calendar.loading = false
-                    }
-                    this.freeze()
-                }
-
+            if(from > to){
+                throw new Error('"date from" should be lower than "date to"');
+            }
+            
+            if( this.model.start().format('YYYY-MM-DD') != from.format('YYYY-MM-DD') 
+            ||  this.model.end().format('YYYY-MM-DD') != to.format('YYYY-MM-DD')){
+                this.model.reset({
+                    start: from,
+                    end: to,
+                    frozen: true
+                });
             }
         }
-    })
+    });
 
     booking.views('Toolbar', Toolbar);
 
