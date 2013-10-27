@@ -1,0 +1,9 @@
+<template>
+
+    <t t-name="Booking.Widgets.chart_selector">
+    </t>
+
+    <t t-name="Booking.Widgets.resource_selector">
+    </t>
+
+</template>
