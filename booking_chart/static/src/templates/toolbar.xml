@@ -2,21 +2,17 @@
 
     <t t-name="Booking.Toolbar">
         <div class="booking-toolbar">
-            <button type="button" class="btn_today oe_highlight">
-                Today
-            </button>
-            <button type="button" class="btn_freeze">
-                Freeze
-            </button>
-            <div class="rangepicker" style="text-align:center;">
-                <label for="from">From</label>
-                <input type="text" t-attf-id="date_picker_from" t-att-value="from" name="from" readonly="readonly"/>
-                <label for="to">to</label>
-                <input type="text" t-attf-id="date_picker_to" t-att-value="to" name="to" readonly="readonly"/>
-                <button type="button" id="btnShow">
-                    Show
-                </button>
+            
+            <div class="rangepicker">
+                <label for="date_picker_from">from</label>
+                <input type="text" id="date_picker_from" t-att-date="from.format('YYYY-MM-DD')" t-att-value="from.format('MMMM YYYY')" name="from" readonly="readonly"/>
+                
+                <label for="date_picker_to">to</label>
+                <input type="text" id="date_picker_to" t-att-date="to.format('YYYY-MM-DD')" t-att-value="to.format('MMMM YYYY')" name="to" readonly="readonly"/>
+                
+                <button type="button" class="btn_show">Show</button>
             </div>
+            
         </div>
     </t>
 

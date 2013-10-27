@@ -1,100 +1,57 @@
 openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     
-    var Pager = base.collections('Pager'),
-        BaseModel = base.models('BaseModel'),
-        _super = Pager.prototype;
+    var Item = booking.models('Item'),
+        ItemGroup = booking.models('ItemGroup');
     
+    var Pager = base.collections('Pager'),
+        _super = Pager.prototype;
+            
     var Items = Pager.extend({
 
-        model: BaseModel,
+        model: Item,
+        group_model: ItemGroup,
         
-        group_by: 'group',
+        resource_domain: [],
+        resource_title: 'Resource',
         
         initialize: function(models, options){
             _super.initialize.apply(this, arguments);    
-       
-            this.ref = options.ref;
-       
-            this._default_context = [];
-            
-            this._query = {
-                fields: ['name'],
-                filter: this._default_context,
-                group_by: null
-            };
-            
-            this.prepare();
+            this.model_name = options.model_name;
         },  
         
-        hasGroup: function(){
-            return this.length > 0 && this.at(0).has('group');
-        },
-        
-        prepare: function(){
-            var def = $.Deferred()
-            this.ready = def.promise();
-            
-            var self = this, chart = this.ref.chart;
-            chart.ready.done(function(){
-                self.setContext(chart.get('resource_domain'));
-                self.setModel(chart.get('resource_model_name'));
-                self.init().done(function(){
-                    def.resolve();
-                });
-            });
-            
-            return this.ready;
-        },
-        
-        bind: function(){},
-        
-        unbind: function(){},
-        
-        setModel: function(model_name){
-            this.model_name = model_name;
-        },
-        
-        setContext: function(context){
+        domain: function(domain){
             try {
-                this._default_context = JSON.parse(context);
+                if(domain){
+                    this.resource_domain = JSON.parse(domain);    
+                }
             }
             catch(e){
-                throw new Error('"booking.chart.resource_domain" is not a valid JSON string: "' + context + '"');
-                this._default_context = [];
+                throw new Error('"booking.chart.resource_domain" is not a valid JSON string: "' + domain + '"');
             }
-            this.updateQuery(this.ref.domain);
+            return this.resource_domain;
         },
         
-        updateQuery: function(domain, context, group_by){
-            _.extend(this._query, {
-                context: context  || [],
-                filter: (domain || []).concat(this._default_context),
-                group_by: group_by || null       
-            });
-            return this;
-        },
-        
-        getQuery: function(){
-            return this._query;
-        },
-        
-        
-        update: function(){
-            return _super.fetch.apply(this, arguments);
-        },
-        
-        search: function(){
+        search: function(query){
             var search = _super.search.apply(this, arguments);
-            _.extend(search, this.getQuery());
-            return search; 
+            
+            var filter = _.clone(this.domain()); 
+            filter = filter.concat(search.filter || []);
+            
+            return _.extend(search, {
+                fields: ['name'],
+                filter: filter
+            }); 
         },
 
         comparator: function (item) {
             return item.get('name');
         },
         
-        getResourceTitle: function(){
-        	return this.ref.chart.get('resource_name') || 'Resources';
+        title: function(title){
+            if(title){
+                this.resource_title;
+            }
+        	return this.resource_title;
         }
     });
 
