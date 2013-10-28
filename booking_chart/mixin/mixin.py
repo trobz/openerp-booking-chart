@@ -3,13 +3,13 @@ from openerp.osv import osv
 class resource_mixin(osv.osv): 
     """
     Mixin Class, used to auto generate booking.resource based on an other model.
-    Hook model load, create, update and delete methods.
+    Hook model create, update and delete methods.
     """
     
     _register = False
     
     "Required booking resource fields"
-    _booking_resource_map_required = ['name', 'date_start', 'date_end', 'resource_ref']
+    _booking_resource_map_required = ['name', 'date_start', 'date_end', 'resource_id']
     
     #
     # Mixins
@@ -21,11 +21,10 @@ class resource_mixin(osv.osv):
         """
         self._check_booking_properties()
         super(resource_mixin, self).__init__(*args, **kwargs)
-    
-    
+        
     def create(self, cr, uid, vals, context=None):
         """
-        Create related booking resource
+        Create related booking chart
         """
         model_id = super(resource_mixin, self).create(cr, uid, vals, context=context)
         
@@ -38,8 +37,8 @@ class resource_mixin(osv.osv):
                 mapping = self._map_values(model, vals)
                 
                 # add a ref to the current model and link the booking.resource with the chart
-                mapping['origin_ref'] = "%s,%s" % (self._name, model_id)
-                mapping['chart_id'] = self.get_chart_id(cr, uid, model)
+                mapping['origin_id'] = "%s,%s" % (self._name, model_id)
+                mapping['chart_id'] = self.get_chart_id(cr, uid)
             
             resource_id = resource.create(cr, uid, mapping, context=context)
         
@@ -47,7 +46,7 @@ class resource_mixin(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Update related booking resource
+        Update related booking chart
         """
         
         status = super(resource_mixin, self).write(cr, uid, ids, vals, context=context)
@@ -83,14 +82,11 @@ class resource_mixin(osv.osv):
     # Methods override-able
     #
     
-    def get_chart_id(self, cr, uid, model):
+    def get_chart_id(self, cr, uid):
         """
         Get the booking chart id in relation with auto created booking.resource.
         Override this method if you want to implement your own way to get chart id. 
         """
-        if not self._booking_chart_ref:
-            raise Exception('%s model with booking resource mixin: _booking_chart_ref property required' % (self._name))
-        
         xml_id = self._booking_chart_ref.split('.')
         ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, xml_id[0], xml_id[1])
         if len(ref) < 2:
@@ -105,6 +101,9 @@ class resource_mixin(osv.osv):
         """
         Check if all required properties are correctly set to bind booking.resource with the model
         """
+        if not self._booking_chart_ref:
+            raise Exception('%s model with booking resource mixin: _booking_chart_ref property required' % (self._name))
+        
         if not self._booking_resource_map:
             raise Exception('%s model with booking resource mixin: _booking_resource_map property required' % (self._name))
         
@@ -130,7 +129,7 @@ class resource_mixin(osv.osv):
         models = []
         for model_id in ids:
             models.append('%s,%s' % (self._name, model_id))
-        return resource.search(cr, uid, [('origin_ref', 'in', models )], context=context)
+        return resource.search(cr, uid, [('origin_id', 'in', models )], context=context)
     
     
     def _get_map(self, name):
