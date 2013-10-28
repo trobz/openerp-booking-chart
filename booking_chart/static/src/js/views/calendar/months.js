@@ -38,7 +38,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         setHeight: function(){
             if(this.model.isOpen()){
                 var height = this.model.get('height');
-                this.$el.css('height', (height + 1) * 23 + 'px')
+                this.$el.css('height', (height + 1) * 24 + 'px')
                         .addClass('open');
             }
             else {

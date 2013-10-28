@@ -8,14 +8,16 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         model_name: 'booking.resource',
         
         parse: function(response, options){
-            _.each(response, function(value, key){
-                //fix JSON-RPC response for related models
-                if($.isArray(value) && value.length > 0 && $.isNumeric(value[0])){
-                    response[key] = value[0];
-                    response[key] = value[0];
-                }
-            });
-            
+            if($.isPlainObject(response)){
+                _.each(response, function(value, key){
+                    // for reference fields, separate the model and the id
+                    if(/_id/.test(key) && _.isString(value) && /,/.test(value)){
+                        var ref = value.split(',');
+                        response[key] = ref[1];
+                        response[key.replace(/_id/, '_model')] = ref[0];
+                    }
+                });
+            }
             return response;
         },
         

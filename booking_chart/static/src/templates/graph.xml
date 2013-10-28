@@ -15,11 +15,21 @@
                     <t t-set="single" t-value="group.at(0)" />
                 
                     <div t-att-class="'resource-group-bar single ' + single.get('css_class')"
+                         t-att-target-model="single.get('target_model')" 
                          t-att-style="'width:' + single.duration() + 'em'">
+                        
+                        <div class="resource-icons">
+                            <t t-foreach="single.get('tags')" t-as="image">
+                                <span t-att-class="image"></span>
+                            </t>
+                        </div>
+                        
                         
                         <span class="ellipsis graph-name">
                             <t t-esc="single.get('name')" /></span>
                             
+                        
+                        
                                 
                         <div class="tooltip-info">
                            <span class="tip-title"><t t-esc="single.get('name')" /></span>
@@ -46,6 +56,12 @@
                         <t t-esc="group.length" />
                     </span> 
                     
+                    <div class="resource-icons">
+                        <t t-foreach="group.tags()" t-as="image">
+                            <span t-att-class="image"></span>
+                        </t>
+                    </div>
+                    
                     <span class="ellipsis graph-name">
                         <t t-esc="group.label()" />
                     </span>
@@ -69,14 +85,22 @@
                 <t t-set="top" t-value="1" />
                 
                 <t t-foreach="group.models" t-as="model">
-                <div t-att-origin-model="model.get('origin_model')" 
-                     t-att-origin-id="model.get('origin_id')"
+                <div t-att-target-model="model.get('target_model')" 
+                     t-att-target-id="model.get('target_id')"
                      t-att-class="'resource-group-element ' + model.get('css_class')"
                      t-att-style="
                         'width:' + model.duration() + 'em;' +
                         'left:' + (model.diff(group.period().start())) + 'em;' +
                         'top:'  + (top++ * 24) + 'px;'
                         ">
+                    
+                    
+                    <div class="resource-icons">
+                        <t t-foreach="model.get('tags')" t-as="image">
+                            <span t-att-class="image" ></span>
+                        </t>
+                    </div>
+                    
                     
                     <div class="tooltip-info">
                        <span class="tip-title"><t t-esc="model.get('name')" /></span>
