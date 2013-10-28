@@ -40,7 +40,6 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     resource_model: this.dataset.model,
                     period: period 
                 });
-    
             
             // views    
             var Pager = base.views('Pager'),
@@ -76,14 +75,29 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             this.panel.calendar.directShow(this.views.calendar);
         },
         
-         do_search: function(domain, context, group_by){
-            this.models.chart.items.load({
-                filter: domain,
-                group_by: group_by,
-                context: context,
-                persistent: true,
-                reset: true
-            });
+        search_disabled: false,
+        
+        do_action: function(){
+            // hack to disable the search the first time when the user
+            // go back to the booking chart view
+            this.search_disabled = true;
+            this._super.apply(this, arguments);
+        },
+        
+        do_search: function(domain, context, group_by){
+            if(!this.search_disabled){
+                this.models.chart.items.load({
+                    filter: domain,
+                    group_by: group_by,
+                    context: context,
+                    persistent: true,
+                    reset: true
+                });    
+            }
+            else {
+                this.stateChanged();
+                this.search_disabled = false;
+            }
         } 
     });
 });
