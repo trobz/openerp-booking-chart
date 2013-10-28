@@ -65,6 +65,13 @@ add some code to create/update/delete booking resources.
 
 A mixin helper is available but you can implement your own logic to keep your booking resources up to date with an other model.
 
+
+### `booking.resource` and `booking.chart` views
+
+Views are available to directly edit booking models, these views are only accessible to user with the "Technical Features" enabled.
+
+You can access to them here: `Settings > Technical > Booking Chart`  
+
 ### Model Mixin
 
 To simplify this task, mixin model is available in `booking_chart.mixin`, this mixin is used by the `demo_task` module.

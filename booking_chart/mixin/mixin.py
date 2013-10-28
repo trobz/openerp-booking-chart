@@ -3,7 +3,7 @@ from openerp.osv import osv
 class resource_mixin(osv.osv): 
     """
     Mixin Class, used to auto generate booking.resource based on an other model.
-    Hook model create, update and delete methods.
+    Hook model load, create, update and delete methods.
     """
     
     _register = False
@@ -21,10 +21,11 @@ class resource_mixin(osv.osv):
         """
         self._check_booking_properties()
         super(resource_mixin, self).__init__(*args, **kwargs)
-        
+    
+    
     def create(self, cr, uid, vals, context=None):
         """
-        Create related booking chart
+        Create related booking resource
         """
         model_id = super(resource_mixin, self).create(cr, uid, vals, context=context)
         
@@ -46,7 +47,7 @@ class resource_mixin(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Update related booking chart
+        Update related booking resource
         """
         
         status = super(resource_mixin, self).write(cr, uid, ids, vals, context=context)

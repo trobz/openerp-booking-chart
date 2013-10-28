@@ -18,7 +18,7 @@ The "Booking Chart view" is a new type of view for OpenERP.
     'data': [
         # security
         'security/res_groups_data.xml',
-        #'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         
         # view
         'view/booking_resource_view.xml',
@@ -33,7 +33,6 @@ The "Booking Chart view" is a new type of view for OpenERP.
     'sequence': -99,
     'installable': True,
     'active': False,
-    'post_objects': [],
     
     'qweb' : [
         'static/src/templates/*.xml',
