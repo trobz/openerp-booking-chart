@@ -3,7 +3,36 @@
     <data>
         
         <!--
-        Tasks by Users action 
+        Views
+        -->
+        
+        <record id="view_demo_task" model="ir.ui.view">
+            <field name="name">project.task.booking</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <!-- no configuration available yet... -->
+                <booking version="7.0" />
+            </field>
+        </record>
+        
+        
+        <record id="view_users_search_form" model="ir.ui.view">
+            <field name="name">res.users.search.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+               <search string="Users">
+                    <field name="name" string="Users"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Company" name="company_id" icon="terp-personal" domain="[]"  context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+      
+      
+      
+        <!--
+        Action 
         -->
         
         <record id="action_demo_task" model="ir.actions.act_window">
@@ -27,11 +56,12 @@
             <!--
             The context need to define which booking chart to use, required
             -->
-            <field name="context" eval="{'booking_chart_id': ref('users_booking_chart')}" />
+            <field name="context" eval="{'booking_chart_id': ref('demo_task.users_booking_chart')}" />
             
             <field name="search_view_id" ref="view_users_search_form"/>
             
         </record>
+        
         
         <!--
         add a Booking Chart sub menu into Project menu
@@ -41,42 +71,6 @@
             parent="project.menu_project_management" 
             sequence="100" />
       
-        <!--
-        User views
-        -->
         
-        <record id="view_demo_task" model="ir.ui.view">
-            <field name="name">project.task.booking</field>
-            <field name="model">res.users</field>
-            <field name="view_type">booking</field>
-            
-            <field name="arch" type="xml">
-                <booking version="7.0"
-                         string="Tasks By Users" 
-                         overlap="false" 
-                         freeze="false" 
-                         start="2013/10/10" 
-                         end="2013/12/10">
-                    
-                    <field name="name" />
-                    
-                </booking>    
-            </field>
-        </record>
-        
-        
-        <record id="view_users_search_form" model="ir.ui.view">
-            <field name="name">res.users.search.form</field>
-            <field name="model">res.users</field>
-            <field name="arch" type="xml">
-               <search string="Users">
-                    <field name="name" string="Users"/>
-                    <group expand="0" string="Group By...">
-                        <filter string="Company" name="company_id" icon="terp-personal" domain="[]"  context="{'group_by':'company_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-      
     </data>
 </openerp>

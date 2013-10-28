@@ -37,5 +37,28 @@ class task(mixin.resource):
     _columns = {
         'booking_css_class': fields.function(_get_booking_custom_fields, method=True, type='char', string='Booking CSS Class', readonly=True),
     }
-       
+    
+    
+    #
+    # FOR DEMO PROPOSE ONLY
+    #
+    # This method generate booking.resource from existing task at demo_task module install/update 
+    #
+    def _generate_resources(self, cr, uid, context=None):
+        
+        resource = self.pool.get('booking.resource')
+        
+        for task_id in self.search(cr, uid, [('name', '!=', None), ('date_start', '!=', None), ('date_end', '!=', None)], context=context):
+            resource_id = resource.search(cr, uid, [('origin_id', '=', '%s,%s' % (self._name, task_id))], context=context)
+        
+            if not resource_id:
+                tasks = self.browse(cr, uid, [task_id], context=context)
+                task = tasks[0] if len(tasks) > 0 else {}
+                
+                mapping = self._map_values(task, task)
+                mapping['origin_id'] = "%s,%s" % (self._name, task_id)
+                mapping['chart_id'] = self.get_chart_id(cr, uid)
+            
+                resource_id = resource.create(cr, uid, mapping, context=context)
+        
 task()

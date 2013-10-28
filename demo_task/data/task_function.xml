@@ -1,0 +1,6 @@
+<openerp>
+  <data>
+    <!-- Generate booking resources from existing tasks, just useful for demo_task. -->
+    <function model="project.task" name="_generate_resources"/>
+  </data>
+</openerp>
