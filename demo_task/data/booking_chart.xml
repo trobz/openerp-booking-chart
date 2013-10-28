@@ -5,7 +5,7 @@
         <record id="users_booking_chart" model="booking.chart">
             <field name="name">Booking Chart</field>
             <field name="resource_model" ref="share.model_res_users" />
-            <field name="resource_domain">[["name","!=","Administrator"]]</field>
+            <field name="supported_model_ids" eval="[(6,0,[ref('project.model_project_project'),ref('project.model_project_task')])]"  />
         </record>
         
     </data>
