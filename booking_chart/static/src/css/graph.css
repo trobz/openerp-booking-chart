@@ -8,6 +8,11 @@
     overflow: hidden;
     text-align: center;
     z-index: 1;
+}
+
+.resources-container .resource-group-bar.multi,
+.resources-container .resource-group-bar.single[target-model],
+.resources-container .resource-group-element[target-model] {
     cursor: pointer;
 }
 
@@ -31,6 +36,10 @@
 .resources-container .resource-group-bar.multi {
     background: #333;
     color: #eee;
+}
+
+.resources-container .resource-group-bar.multi:hover {
+    background: #000;
 }
 
 .resources-container .resource-group-bar.multi .graph-name {
@@ -61,6 +70,27 @@
 
 .resources-container .resource-group-detail {
     display: none;
+}
+
+/*
+ * icons (tags)
+ */
+
+.resources-container .resource-icons {
+    float: left;
+    margin-top: 3px;
+    max-width: 64px;
+    height: 12px;
+    overflow: hidden;
+}
+
+.resources-container .resource-group-bar.multi .resource-icons {
+    margin-left: 28px;
+}
+
+.resources-container .resource-icons span {
+    margin: 0 2px;
+    float: left;
 }
 
 /*

@@ -42,8 +42,12 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         openTargetForm: function(e){
             e.preventDefault();
             var $el = $(e.currentTarget),
-                $resource = $el.is('.single') ? $el.next().find('.resource-group-element') : $el;
-            booking.trigger('open:record', $resource.attr('target-model'), $resource.attr('target-id'));    
+                $resource = $el.is('.single') ? $el.next().find('.resource-group-element') : $el,
+                target_model = $resource.attr('target-model'), target_id = parseInt($resource.attr('target-id'));
+            
+            if(target_model && target_id){
+                booking.trigger('open:record', target_model, target_id);    
+            }    
         },
         
         /*
@@ -54,17 +58,17 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             // remove group not displayed anymore
             _.each(this.collection.groupRemoved(), function(index){
                 this.$group(index).remove();
-            }); 
+            }, this); 
             
             // render each resource inside the correct calendar element
             // if there's no target (resource is starting before the first month displayed), display it
             // in the first month with a negative left position.
             _.each(this.collection.groupChanged(), function(group){
-                var month = moment(group.period().start()).date(1),
+                var month = moment(group.period().start()).startOf('month'),
                     $target = this.$target(group, month);
                     
-                if($target.length < 0){
-                    month = moment(this.period.start()).date(1);
+                if($target.length == 0){
+                    month = this.period.start();
                     $target = this.$target(group, month);
                 }
                 
@@ -100,7 +104,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         $target: function(group, month){
-            return this.$el.find('#month-' + month.format('YYYY-MM') + ' [item-id="' + group.resource_id + '"]');
+            return this.$el.find('#month-' + month.format('YYYY-MM') + ' .resources-container[item-id="' + group.resource_id + '"]');
         },
         
         $group: function(index){
