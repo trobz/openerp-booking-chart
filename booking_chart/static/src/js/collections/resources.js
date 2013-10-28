@@ -6,12 +6,21 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
     
     
     var Group = Overlap.extend({
+        
         label: function(){
             var title = [];
             this.each(function(model){
                 title.push(model.get("name"));
             });
             return title.join(', ');
+        },
+        
+        tags: function(){
+            var tags = [];
+            this.each(function(model){
+                tags = _(tags).union(model.get('tags') || []);
+            });
+            return tags;
         }
     });
     
@@ -63,7 +72,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             this.daterange.addedFull();
             
             this.items.each(function(item){
-                ids.push(item.get('id'));
+                ids.push(item.model_name + ',' + item.get('id'));    
             });
             
             this.item_ids = ids;
@@ -76,7 +85,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             this.daterange.addedFull();
             
             group.each(function(item){
-                ids.push(item.get('id'));    
+                ids.push(item.model_name + ',' + item.get('id'));    
             });
                 
             this.item_ids = ids.concat(this.item_ids);
@@ -91,8 +100,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
                 remove: false,
                 filter: [
                     [ 'resource_id', 'in', this.item_ids ],
-                    [ 'chart.id', '=', this.chart.get('id') ],
-                    '&', [ 'date_start', '<=',  period_end ], [ 'date_end', '>=',  period_start ],
+                    [ 'chart_id', '=', this.chart.get('id') ],
+                    '|',
+                    '&', [ 'date_start', '>=',  period_start ], [ 'date_start', '<=',  period_end ],
+                    '&', [ 'date_end', '>=', period_start  ], [ 'date_end', '<=', period_end ],
                 ]
             };
             return search;
