@@ -25,7 +25,7 @@
 						<group col="4">
 							<field name="name"/>
                             
-                            <field name="chart" widget="booking_chart_selector" />
+                            <field name="chart_id" widget="booking_chart_selector" />
 							
 							<field name="date_start"/>
 							<field name="date_end"/>
