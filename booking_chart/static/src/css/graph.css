@@ -20,6 +20,9 @@
 .resources-container .resource-group-bar span {
     font-size: 12px;
     display: block;
+    line-height: 18px;
+    overflow: hidden;
+    height: 18px;
 }
 
 
