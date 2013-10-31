@@ -181,7 +181,7 @@ class task(mixin.resource):
 		ref = model_data.get_object_reference(cr, uid, 'demo_task', xml_id)
         
         if len(ref) < 2:
-            raise Exception('invalid xml_id: %s' % (self._booking_chart_ref))
+            raise Exception('invalid xml_id: %s' % (xml_id))
         
         return ref[1] 
 	
