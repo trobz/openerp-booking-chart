@@ -1,7 +1,7 @@
 openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, Backbone, base){
     
     /*
-     * Resource selector field, specific for booking.resource.resource_id field 
+     * Resource selector field, specific for booking.resource.resource_ref field 
      * No model selector displayed, Auto select reference model based on the chart selected.
      */
     var FieldResourceSelector = instance.web.form.FieldReference.extend({
@@ -16,7 +16,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
         
             // keep a reference to chart_selector field
             this.field_chart_selector = _(field_manager.fields).find(function(field){
-                return field instanceof instance.booking_chart.FieldChartSelector
+                return field instanceof instance.booking_chart.FieldChartSelector;
             });
             
             if(!this.field_chart_selector){
@@ -58,9 +58,9 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             this.m2o.on("change:value", this, this.data_changed);
             this.m2o.appendTo(this.$(".oe_form_view_reference_m2o"));
             this.m2o.on('focused', null, function() {
-                self.trigger('focused')
+                self.trigger('focused');
             }).on('blurred', null, function() {
-                self.trigger('blurred')
+                self.trigger('blurred');
             });
             
             this.reference_ready = true;

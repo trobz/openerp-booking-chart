@@ -43,7 +43,6 @@ class booking_resource(osv.osv):
 		'name': fields.char('Booking Name', required=True),
 		'chart_id': fields.many2one('booking.chart', 'Booking Chart', help='Related booking chart.', required=True),
 		
-        'resource_id': fields.reference('Resource', selection=_models_resource_get, size=128, select=1, required=True, help="Related booking chart resource."),
         
         'date_start': fields.date('Date Start', required=True),
 		'date_end': fields.date('Date End', required=True),
@@ -59,9 +58,9 @@ class booking_resource(osv.osv):
 		'message': fields.text('Message',
 							   help="Message to be displayed on mouse over the block."),
 		
-        
-        'origin_id': fields.reference('Origin', selection=_models_get, size=128, required=True, help='Resource at the origin of the booking. Example: holiday, reservation...'),
-        'target_id': fields.reference('Target', selection=_models_get, size=128, help='Resource to open when the booking is clicked. If not set, use the Origin'),
+        'resource_ref': fields.reference('Resource', selection=_models_resource_get, size=128, select=1, required=True, help="Related booking chart resource."),
+        'origin_ref': fields.reference('Origin', selection=_models_get, size=128, required=True, help='Resource at the origin of the booking. Example: holiday, reservation...'),
+        'target_ref': fields.reference('Target', selection=_models_get, size=128, help='Resource to open when the booking is clicked. If not set, use the Origin'),
         
         'tag_ids': fields.many2many('booking.resource.tag', id1='booking_resource_id', id2='booking_resource_tag_id',
 									string='Tags', help="Define icons displayed on the resource graph, you can get a list of supported icons on Awesome Font 3.2.1 web site."),

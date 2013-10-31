@@ -31,7 +31,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 
                 attr_date_start: 'date_start',
                 attr_date_end: 'date_end',
-                attr_group_by: 'resource_id',
+                attr_group_by: 'resource_ref',
             });
             
             _super.initialize.apply(this, arguments);
