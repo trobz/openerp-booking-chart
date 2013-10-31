@@ -9,7 +9,7 @@ class resource_mixin(osv.osv):
     _register = False
     
     "Required booking resource fields"
-    _booking_resource_map_required = ['name', 'date_start', 'date_end', 'resource_id']
+    _booking_resource_map_required = ['name', 'date_start', 'date_end', 'resource_ref']
     
     #
     # Mixins
@@ -38,7 +38,7 @@ class resource_mixin(osv.osv):
                 mapping = self._map_values(model, vals)
                 
                 # add a ref to the current model and link the booking.resource with the chart
-                mapping['origin_id'] = "%s,%s" % (self._name, model_id)
+                mapping['origin_ref'] = "%s,%s" % (self._name, model_id)
                 mapping['chart_id'] = self.get_chart_id(cr, uid)
             
             resource_id = resource.create(cr, uid, mapping, context=context)
@@ -130,7 +130,7 @@ class resource_mixin(osv.osv):
         models = []
         for model_id in ids:
             models.append('%s,%s' % (self._name, model_id))
-        return resource.search(cr, uid, [('origin_id', 'in', models )], context=context)
+        return resource.search(cr, uid, [('origin_ref', 'in', models )], context=context)
     
     
     def _get_map(self, name):

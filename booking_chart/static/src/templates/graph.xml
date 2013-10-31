@@ -7,7 +7,7 @@
              t-att-group-index="group.options.index" 
              t-att-start="group.period().start('s')"
              t-att-end="group.period().end('s')"
-             t-att-item-id="group.resource_id" >
+             t-att-item-id="group.resource_id()" >
             
             
             <t t-if="group.length == 1">

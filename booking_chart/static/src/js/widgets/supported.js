@@ -16,7 +16,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
         
             // keep a reference to chart_selector field
             this.field_chart_selector = _(field_manager.fields).find(function(field){
-                return field instanceof instance.booking_chart.FieldChartSelector
+                return field instanceof instance.booking_chart.FieldChartSelector;
             });
             
             if(!this.field_chart_selector){

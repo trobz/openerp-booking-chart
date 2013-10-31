@@ -11,10 +11,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if($.isPlainObject(response)){
                 _.each(response, function(value, key){
                     // for reference fields, separate the model and the id
-                    if(/_id/.test(key) && _.isString(value) && /,/.test(value)){
+                    if(/_ref/.test(key) && _.isString(value) && /,/.test(value)){
                         var ref = value.split(',');
-                        response[key] = ref[1];
-                        response[key.replace(/_id/, '_model')] = ref[0];
+                        response[key.replace(/_ref/, '_id')] = parseInt(ref[1]);
+                        response[key.replace(/_ref/, '_model')] = ref[0];
                     }
                 });
             }
