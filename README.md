@@ -22,45 +22,53 @@ you can have different type of resource booking in your calendar and you can fre
 The booking chart is decoupled from OpenERP models, by this way you are totally free to display any resources in your chart, 
 the counterpart is that you have to code the link between OpenERP models and your booking chart.
 
-We decide to go on this direction instead of having an OpenERP gantt-like configuration because our module need 
-to link booking chart to multiple models, with different logics, a simple configuration will be hard to define to have the same flexibility.
+We decide to go on this direction instead of having an OpenERP gantt-like configuration in `arch` tag because our module need 
+to link booking chart to multiple models, with different logics, and it's hard to achieve this with just some configuration.
 
 
 2 main models are used in the booking chart:
 
 ### booking_chart
 
-A booking chart simply define from which model the chart will be created. Resources will be displayed as row in the chart, 
-and Resource Booking have to make a reference to specific object from this model to be correctly displayed.
-
-**model**
+```
 - name
-- resource_model: ref to the model used to build the chart
-- resource_domain: an additional domain, added when resource_model are retrieved
-- supported_model_ids: list of model supported by booking resources as an origin and/or a target (required for fields.reference selection)
+- resource_model        // ref to the model used to build the chart, used to list resources, 
+						// search/group_by queries are applied on this model
+- resource_domain       // force some additional domains, added when resource_model are retrieved
+- supported_model_ids   // list of model supported by booking resources 
+						// as an origin and/or a target (required for fields.reference selection)
+```
+
+A booking chart define from which model the chart will be created. 
+Resources will be displayed as row in the chart and Resource Booking have to make a reference 
+to specific object from this model to be correctly displayed.
 
 ### booking_resource
 
-A booking resource is the periodical element displayed in the chart, a reference can be made to any OpenERP object (origin).
-If a target object is available, it will be displayed in a form by clicking on the booking resource. 
-
-**model**
+```
 - name
-- chart_id: relation with a booking_chart object
-- resource_id: reference to a object id from the booking_chart model
-- origin_id: reference to the object at the origin of the booking resource
-- target_id: reference to the object to open when the booking resource is clicked
+- chart_id      // relation with a booking_chart object
+- resource_ref  // reference to an object from the booking_chart.resource_model
+- origin_ref    // reference to the object at the origin of the booking resource
+- target_ref    // reference to the object to open when the booking resource is 
+                // clicked (not required)
 - date_start
 - date_end
 - css_class
 - message
 - tags
+```
+
+
+A booking resource is the periodical element displayed in the chart, the object at the origin of 
+the booking resource can be any OpenERP model (origin_ref).
+If a target object is defined, it will be displayed in a form view at click on the booking resource. 
 
 ## Setup / Use
 
 The module itself is installable from the OpenERP module interface.
 
-However, the booking chart doesn't work out of the box, because of the flexibility to link any models to it, you will have to
+However, the booking chart doesn't work out of the box, because of the flexibility to link any models, you will have to
 add some code to create/update/delete booking resources.
 
 A mixin helper is available but you can implement your own logic to keep your booking resources up to date with an other model.
@@ -68,24 +76,29 @@ A mixin helper is available but you can implement your own logic to keep your bo
 
 ### `booking.resource` and `booking.chart` views
 
-Views are available to directly edit booking models, these views are only accessible to user with the "Technical Features" enabled.
+Views are available to directly edit booking models, these views are only accessible 
+to users with the "Technical Features" enabled.
 
-You can access to them here: `Settings > Technical > Booking Chart`  
+Access to booking chart model views:           
+`Settings > Technical > Booking Chart`  
 
 ### Model Mixin
 
-To simplify this task, mixin model is available in `booking_chart.mixin`, this mixin is used by the `demo_task` module.
+To simplify this task, mixin model is available in `booking_chart.mixin`, 
+this mixin is used by the `demo_task` module.
 
 
-Basically, only a mapping between your model and the booking.resource has to be done, with different type of relation:
+Basically, only a mapping between your model and the booking.resource has to be done, 
+with different type of relation:
 - simple mapping: value is just copied
-- object mapping: the value is defined according to a osv.model
+- reference mapping: the value is defined according to a `osv.model` object
 - custom mapping: define the field to get when an other field has been modified. useful to define mapping on function fields, see the example below.
 
 
 The mixin is designed to automatically create, update and delete booking resources associated with the model.
 
 **example from `demo_task` module**
+
 ```python
 from openerp.osv import fields
 from booking_chart.mixin import mixin
@@ -102,9 +115,9 @@ class task(mixin.resource):
         'message':     'description',
         'date_start':  'date_start',
         'date_end':    'date_end',
-        # object mapping, booking.resource field = "task.field._name,task.field.id" 
-        'resource_id': 'user_id',
-        'target_id':   'project_id',
+        # reference mapping, booking.resource field = "task.field._name,task.field.id" 
+        'resource_ref': 'user_id',
+        'target_ref':   'project_id',
         # custom mapping, set booking.resource.css_class field when priority is updated with the value of task.booking_css_class
         'css_class':   'priority:booking_css_class'
     }
@@ -133,5 +146,4 @@ task()
 ## Dependencies
 
 - [Web Unleashed module](https://github.com/trobz/openerp-web-unleashed "OpenERP Web Unleashed")     
-This module provide native support of Backbone and Marionette, simplifing dramatically the creation of rich web application in OpenERP.  
-
+This module provide native support of Backbone and Marionette, simplifing dramatically the creation of rich views in OpenERP.  

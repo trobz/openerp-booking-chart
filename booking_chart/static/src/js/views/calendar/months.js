@@ -120,7 +120,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return {
                 model: model,
                 collection: this.items
-            }   
+            };
         },
         
         modelEvents: {

@@ -194,7 +194,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
 
         numberDaysFromToday: function(){
-            return Math.round(Math.abs(this.start().diff(moment(), 'days', true)))
+            return Math.round(Math.abs(this.start().diff(moment(), 'days', true)));
         },
         
         diffCurrent: function(){

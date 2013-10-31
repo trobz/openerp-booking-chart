@@ -6,7 +6,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     var Day = function(moment, options){
         this.options = options;
         this.moment = moment;
-    }
+    };
     
     Day.prototype = {
         
@@ -60,7 +60,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 return new Day(day.moment, { 
                     format: this.get('format').day, 
                     current: this.current() 
-                })
+                });
             }, this);
         },
         

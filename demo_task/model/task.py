@@ -14,8 +14,8 @@ class task(mixin.resource):
         'date_start':  'date_start',
         'date_end':    'date_end',
         # object mapping, booking.resource field = "task.field._name,task.field.id" 
-        'resource_id': 'user_id',
-        'target_id':   'project_id',
+        'resource_ref': 'user_id',
+        'target_ref':   'project_id',
         # custom mapping, set booking.resource.css_class field when priority is updated with the value of task.booking_css_class
         'css_class':   'priority:booking_css_class'
     }
@@ -49,14 +49,14 @@ class task(mixin.resource):
         resource = self.pool.get('booking.resource')
         
         for task_id in self.search(cr, uid, [('name', '!=', None), ('date_start', '!=', None), ('date_end', '!=', None)], context=context):
-            resource_id = resource.search(cr, uid, [('origin_id', '=', '%s,%s' % (self._name, task_id))], context=context)
+            resource_id = resource.search(cr, uid, [('origin_ref', '=', '%s,%s' % (self._name, task_id))], context=context)
         
             if not resource_id:
                 tasks = self.browse(cr, uid, [task_id], context=context)
                 task = tasks[0] if len(tasks) > 0 else {}
                 
                 mapping = self._map_values(task, task)
-                mapping['origin_id'] = "%s,%s" % (self._name, task_id)
+                mapping['origin_ref'] = "%s,%s" % (self._name, task_id)
                 mapping['chart_id'] = self.get_chart_id(cr, uid)
             
                 resource_id = resource.create(cr, uid, mapping, context=context)
