@@ -8,13 +8,14 @@ you can have different type of resource booking in your calendar and you can fre
 ### Features
 
 - Display any resources in a booking chart
-- Easy scrolling navigation 
+- Easy scrolling navigation
 - Resource lazy loading
 - Zoom levels (from 1 week to 6 months)
 - Auto-merge overlapping resources
 - Native OpenERP search/group supported on listed resources
 - Manual period selection
 - Period freeze/unfreeze button
+- Mixin to link any OpenERP model with resources booking
 
 
 ## Key concepts
@@ -35,8 +36,8 @@ to link booking chart to multiple models, with different logics, and it's hard t
 - resource_model        // ref to the model used to build the chart, used to list resources, 
 						// search/group_by queries are applied on this model
 - resource_domain       // force some additional domains, added when resource_model are retrieved
-- supported_model_ids   // list of model supported by booking resources 
-						// as an origin and/or a target (required for fields.reference selection)
+- supported_model_ids   // list of model supported by resources booking  
+						// for origin and/or target (required for fields.reference selection)
 ```
 
 A booking chart define from which model the chart will be created. 
@@ -49,8 +50,8 @@ to specific object from this model to be correctly displayed.
 - name
 - chart_id      // relation with a booking_chart object
 - resource_ref  // reference to an object from the booking_chart.resource_model
-- origin_ref    // reference to the object at the origin of the booking resource
-- target_ref    // reference to the object to open when the booking resource is 
+- origin_ref    // reference to the object at the origin of the resource booking 
+- target_ref    // reference to the object to open when the resource booking is 
                 // clicked (not required)
 - date_start
 - date_end
@@ -60,18 +61,18 @@ to specific object from this model to be correctly displayed.
 ```
 
 
-A booking resource is the periodical element displayed in the chart, the object at the origin of 
-the booking resource can be any OpenERP model (origin_ref).
-If a target object is defined, it will be displayed in a form view at click on the booking resource. 
+A resource booking is the periodical element displayed in the chart, the object at the origin of 
+the resource booking can be any OpenERP model (origin_ref).
+If a target object is defined, it will be displayed in a form view at click on the resource booking. 
 
 ## Setup / Use
 
 The module itself is installable from the OpenERP module interface.
 
 However, the booking chart doesn't work out of the box, because of the flexibility to link any models, you will have to
-add some code to create/update/delete booking resources.
+add some code to create/update/delete resources booking.
 
-A mixin helper is available but you can implement your own logic to keep your booking resources up to date with an other model.
+A mixin helper is available but you can implement your own logic to keep your resources booking up to date with an other model.
 
 
 ### `booking.resource` and `booking.chart` views
@@ -90,12 +91,13 @@ this mixin is used by the `demo_task` module.
 
 Basically, only a mapping between your model and the booking.resource has to be done, 
 with different type of relation:
+
 - simple mapping: value is just copied
 - reference mapping: the value is defined according to a `osv.model` object
 - custom mapping: define the field to get when an other field has been modified. useful to define mapping on function fields, see the example below.
 
 
-The mixin is designed to automatically create, update and delete booking resources associated with the model.
+The mixin is designed to automatically create, update and delete resources booking associated with the model.
 
 **example from `demo_task` module**
 
@@ -106,7 +108,11 @@ from booking_chart.mixin import mixin
 class task(mixin.resource):
     _inherit = "project.task"
     
-    # ref to the booking_chart xml_id (if you have created the booking chart manually, you have to override the mixin.resource.get_chart_id method)
+    # ref to the booking_chart xml_id 
+    #
+    # you can change the way to get the booking_chart by 
+    # overriding get_chart_id() method (more details below)
+    #
     _booking_chart_ref = 'demo_task.users_booking_chart'
     
     _booking_resource_map = {
@@ -118,13 +124,14 @@ class task(mixin.resource):
         # reference mapping, booking.resource field = "task.field._name,task.field.id" 
         'resource_ref': 'user_id',
         'target_ref':   'project_id',
-        # custom mapping, set booking.resource.css_class field when priority is updated with the value of task.booking_css_class
+        # custom mapping, set booking.resource.css_class field when priority is 
+        # updated with the value of task.booking_css_class
         'css_class':   'priority:booking_css_class'
     }
     
     
     def _get_booking_custom_fields(self, cr, uid, ids, field_names, arg, context=None):
-        # booking resource color mapping with task.priority
+        # resource booking color mapping with task.priority
         colors = {
             '0': 'red', '1': 'orange', '2': 'dark-blue',  '3': 'blue', '4': 'light-blue'
         }
@@ -137,9 +144,49 @@ class task(mixin.resource):
     
     # add a custom field to get the booking class css according to current status
     _columns = {
-        'booking_css_class': fields.function(_get_booking_custom_fields, method=True, type='char', string='Booking CSS Class', readonly=True),
+        'booking_css_class': fields.function(_get_booking_custom_fields, 
+        									 method=True, 
+        									 type='char', 
+        									 string='Booking CSS Class', 
+        									 readonly=True),
     }
        
+task()
+```
+
+#### Customize the booking chart associated with the resource booking 
+
+If you need a specific way to get the chart associated with the resource booking, you can override `get_chart_id()`.
+
+This method has to return the booking.chart id, and in addition to `cr` and `uid`  parameters, the method get the current model.
+
+** example **
+
+```python
+from booking_chart.mixin import mixin
+    
+class task(mixin.resource):
+    _inherit = "project.task"
+	
+	...
+	
+	def get_chart_id(self, cr, uid, model):
+		xml_id = 'users_booking_chart'
+		
+		if model.priority > 2:
+			xml_id = 'priority_tasks_booking_chart'
+		
+		model_data = self.pool.get('ir.model.data')
+		
+		ref = model_data.get_object_reference(cr, uid, 'demo_task', xml_id)
+        
+        if len(ref) < 2:
+            raise Exception('invalid xml_id: %s' % (self._booking_chart_ref))
+        
+        return ref[1] 
+	
+	...
+
 task()
 ```
 
