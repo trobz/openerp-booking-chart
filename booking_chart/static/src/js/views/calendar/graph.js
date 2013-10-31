@@ -104,7 +104,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         $target: function(group, month){
-            return this.$el.find('#month-' + month.format('YYYY-MM') + ' .resources-container[item-id="' + group.resource_id + '"]');
+            return this.$el.find('#month-' + month.format('YYYY-MM') + ' .resources-container[item-id="' + group.resource_id() + '"]');
         },
         
         $group: function(index){

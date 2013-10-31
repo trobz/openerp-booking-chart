@@ -21,13 +21,18 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
                 tags = _(tags).union(model.get('tags') || []);
             });
             return tags;
+        },
+        
+        resource_id: function(){
+        	var resource = this.resource_ref.split(',');
+        	return resource.length == 2 ? parseInt(resource[1]) : null; 
         }
     });
     
     
     var Resources = Overlap.extend({
 
-        groupCollection: Group,
+        collection_group: Group,
         
         model: Resource,
         model_name: 'booking.resource',
@@ -57,13 +62,28 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
         
         updateItemsHeight: function(){
-            _(this.groupLengths()).each(function(height, item_id){
-                var item = this.items.getInGroup(item_id);
+        	var group_by_item = {};
+        
+        	// each group, with max length calculation
+        	this.eachAggregatedGroups(function(groups){
+                var max = 0, last_group;
+                
+                _(groups).each(function(group){
+                	max = group.length > max ? group.length : max;  
+                	last_group = group;
+                });
+                
+                // get the item, in the collection or in a group_by element if any 
+                var item = this.items.getInGroup(last_group.resource_id());
+                
                 if(item) {
-                    item.set('height', height);
+                    item.set('height', max);
                 }
+                
             }, this);
         },
+        
+        
                 
         loadPage: function(){
             var ids = [];
@@ -99,7 +119,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             var search = {
                 remove: false,
                 filter: [
-                    [ 'resource_id', 'in', this.item_ids ],
+                    [ 'resource_ref', 'in', this.item_ids ],
                     [ 'chart_id', '=', this.chart.get('id') ],
                     '|',
                     '&', [ 'date_start', '>=',  period_start ], [ 'date_start', '<=',  period_end ],

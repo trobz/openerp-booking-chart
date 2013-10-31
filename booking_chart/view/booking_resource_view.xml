@@ -7,7 +7,9 @@
 			<field name="arch" type="xml">
 				<tree string="Booking Resource">
 					<field name="name"/>
-				    <field name="resource_id"/>
+				    <field name="resource_ref"/>
+                    <field name="origin_ref"/>
+                    <field name="target_ref"/>
                     <field name="date_start"/>
                     <field name="date_end"/>
                     <field name="css_class"/>
@@ -34,13 +36,13 @@
 							<field name="tag_ids"  widget="many2many_tags" placeholder="Tags..."/>
 							
 							<separator string="Resource" colspan="4"/>
-							<field name="resource_id"  widget="booking_resource_selector" />
+							<field name="resource_ref"  widget="booking_resource_selector" />
 							
 							<separator string="Origin" colspan="4"/>
-							<field name="origin_id" widget="booking_supported_models_selector" />
+							<field name="origin_ref" widget="booking_supported_models_selector" />
 							
 							<separator string="Target" colspan="4"/>
-							<field name="target_id" widget="booking_supported_models_selector" />
+							<field name="target_ref" widget="booking_supported_models_selector" />
 							
 							<separator string="Message" colspan="4"/>
 							<field name="message" colspan="4" nolabel="1"/>
