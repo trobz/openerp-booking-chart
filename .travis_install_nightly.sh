@@ -35,7 +35,7 @@ sudo chmod a+x oe
 cd ..
 
 # clone module dependencies
-git clone git@github.com:trobz/openerp-web-unleashed.git addons
+git clone https://github.com/trobz/openerp-web-unleashed.git addons
 
 
 #sudo python setup.py --quiet install
