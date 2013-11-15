@@ -57,7 +57,7 @@ class task(mixin.resource):
                 
                 mapping = self._map_values(task, task)
                 mapping['origin_ref'] = "%s,%s" % (self._name, task_id)
-                mapping['chart_id'] = self.get_chart_id(cr, uid)
+                mapping['chart_id'] = self.get_chart_id(cr, uid, task)
             
                 resource_id = resource.create(cr, uid, mapping, context=context)
         
