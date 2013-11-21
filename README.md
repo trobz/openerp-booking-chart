@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/trobz/openerp-booking-chart.png?branch=master)](https://travis-ci.org/trobz/openerp-booking-chart)
 
+
 ## Introduction
 
 The Booking Chart View provide an overview in a calendar for any OpenERP resources, 
