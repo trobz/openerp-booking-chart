@@ -86,6 +86,26 @@ to users with the "Technical Features" enabled.
 Access to booking chart model views:           
 `Settings > Technical > Booking Chart`  
 
+## Configuration
+
+The booking chart support some `arch` view configuration:
+
+- tag `<items>`
+  - attribute `title`: field from `booking_chart.resource_model` to display in the booking list
+
+**example:**
+
+```xml
+<record id="bar_booking_view" model="ir.ui.view">
+    ...
+    <field name="arch" type="xml">
+        <booking version="7.0">
+            <items title="name" />
+        </booking>
+    </field>
+</record>
+```
+
 ### Model Mixin
 
 To simplify this task, mixin model is available in `booking_chart.mixin`, 

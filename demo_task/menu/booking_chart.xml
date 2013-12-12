@@ -10,8 +10,9 @@
             <field name="name">project.task.booking</field>
             <field name="model">res.users</field>
             <field name="arch" type="xml">
-                <!-- no configuration available yet... -->
-                <booking version="7.0" />
+                <booking version="7.0">
+                    <items title="name" />
+                </booking>
             </field>
         </record>
         
