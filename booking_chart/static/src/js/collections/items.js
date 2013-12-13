@@ -17,7 +17,14 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         initialize: function(models, options){
             _super.initialize.apply(this, arguments);    
             this.model_name = options.model_name;
-        },  
+            this.options = _.extend({
+                title: 'name'
+            }, options);
+        },
+
+        setOptions: function(options){
+            this.options = _.extend(this.options, options);
+        },
         
         domain: function(domain){
             try {
@@ -38,13 +45,12 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             filter = filter.concat(search.filter || []);
             
             return _.extend(search, {
-                fields: ['name'],
                 filter: filter
             }); 
         },
 
         comparator: function (item) {
-            return item.get('name');
+            return item.get(this.options.title);
         },
         
         title: function(title){

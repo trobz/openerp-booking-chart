@@ -15,6 +15,11 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         toggle: function(){
             this.isOpen() ? this.close() : this.open();
         },
+
+        title: function(){
+            var field = this.collection.options.title || 'name';
+            return this.get(field);
+        },
         
         open: function(){
             this.set({

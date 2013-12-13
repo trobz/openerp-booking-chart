@@ -42,6 +42,12 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             'change:height': 'heightChanged',
             'change:open': 'openChanged',
         },
+
+        serializeData: function(){
+            return {
+                'title': this.model.title()
+            };
+        },
         
         openChanged: function(){
             this.model.isOpen() ? this.openItem() : this.closeItem();    
