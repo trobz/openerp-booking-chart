@@ -67,6 +67,16 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     
             return this._super();
         },
+
+
+        configure: function(data){
+            // use arch data to configure the booking chart
+            _(data.arch.children).each(function(obj){
+                if(obj.tag == 'items'){
+                    this.models.chart.items.setOptions(obj.attrs);
+                }
+            }, this);
+        },
         
         ready: function(data){
             this.panel.pager.directShow(this.views.pager);
