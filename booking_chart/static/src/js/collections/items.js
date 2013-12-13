@@ -45,6 +45,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             filter = filter.concat(search.filter || []);
             
             return _.extend(search, {
+                fields: [this.options.title],
                 filter: filter
             }); 
         },
