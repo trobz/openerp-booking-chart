@@ -11,6 +11,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 height: 1
             };    
         },
+		
+		initialize: function(data, options){
+            this.model_name = this.collection.model_name;
+        },
         
         toggle: function(){
             this.isOpen() ? this.close() : this.open();
