@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="custom_resource_group_tree" model="ir.ui.view">
+			<field name="name">custom.resource.group.tree</field>
+			<field name="model">custom.resource.group</field>
+			<field name="arch" type="xml">
+				<tree string="TTT">
+					<field name="name"/>
+                </tree>
+			</field>
+		</record>
+		
+		<record id="custom_resource_group_form" model="ir.ui.view">
+			<field name="name">custom.resource.group.form</field>
+			<field name="model">custom.resource.group</field>
+			<field name="arch" type="xml">
+				<form string="Custom Resource Group" version="7.0">
+					<sheet>
+						<group col="4">
+							<field name="name"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="custom_resource_group_search" model="ir.ui.view">
+			<field name="name">custom.resource.group.search</field>
+			<field name="model">custom.resource.group</field>
+			<field name="arch" type="xml">
+				<search string="Custom Resource Group">
+					<field name="name"/>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>
