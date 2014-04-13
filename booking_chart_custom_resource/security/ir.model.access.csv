@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"full_access_custom_resource_group_group_user","full_access_custom_resource_group_group_user","booking_chart_custom_resource.model_custom_resource_group","base.group_user",1,1,1,1
+"full_access_custom_resource_group_user","full_access_custom_resource_group_user","booking_chart_custom_resource.model_custom_resource","base.group_user",1,1,1,1

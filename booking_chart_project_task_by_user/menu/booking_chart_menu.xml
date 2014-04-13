@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="action_booking_chart_project_task_by_user" model="ir.actions.act_window">
+            <field name="name">Tasks Assignment Chart</field>
+            <field name="view_mode">booking</field>
+            <field name="view_type">tree</field>
+            <field name="res_model">res.users</field>
+            <field name="context" eval="{'booking_chart_id': ref('booking_chart_project_task_by_user.booking_chart_project_task_by_user')}" />
+            <field name="search_view_id" ref="view_res_users_search"/>
+        </record>
+
+        <menuitem action="action_booking_chart_project_task_by_user" 
+            id="menu_booking_chart_project_task_by_user"
+            parent="project.menu_project_management" 
+            sequence="100" />  
+    </data>
+</openerp>

@@ -5,17 +5,15 @@ class task(mixin.resource):
     _inherit = "project.task"
     
     # ref to the booking_chart xml_id (if you have created the booking chart manually, you have to override the mixin.resource.get_chart_id method)
-    _booking_chart_ref = 'demo_task.users_booking_chart'
+    _booking_chart_ref = 'booking_chart_project_task_by_user.booking_chart_project_task_by_user'
     
-    _booking_resource_map = {
-        # simple mapping, booking.resource field = task field 
+    _booking_resource_map = { 
         'name':        'name',
         'message':     'description',
         'date_start':  'date_start',
-        'date_end':    'date_end',
-        # object mapping, booking.resource field = "task.field._name,task.field.id" 
-        'resource_ref': 'user_id',
-        # custom mapping, set booking.resource.css_class field when priority is updated with the value of task.booking_css_class
+        'date_end':    'date_end', 
+        'resource_ref':'user_id',
+        'target_ref':   'task_id',
         'css_class':   'priority:booking_css_class'
     }
     
@@ -32,17 +30,15 @@ class task(mixin.resource):
         
         return res
     
-    # add a custom field to get the booking class css according to current status
     _columns = {
         'booking_css_class': fields.function(_get_booking_custom_fields, method=True, type='char', string='Booking CSS Class', readonly=True),
     }
     
     
-    #
-    # FOR DEMO PROPOSE ONLY
-    #
-    # This method generate booking.resource from existing task at demo_task module install/update 
-    #
+    '''
+        This method generate booking.resource from existing task at module install/update 
+    '''
+    
     def _generate_resources(self, cr, uid, context=None):
         
         resource = self.pool.get('booking.resource')
