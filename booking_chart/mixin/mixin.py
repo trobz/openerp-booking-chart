@@ -37,11 +37,10 @@ class resource_mixin(osv.osv):
                 resource = self.pool.get('booking.resource')
                 mapping = self._map_values(model, vals)
                 
-                # add a ref to the current model and link the booking.resource with the chart
-                mapping['origin_ref'] = "%s,%s" % (self._name, model_id)
+               
                 mapping['chart_id'] = self.get_chart_id(cr, uid, model)
             
-            resource_id = resource.create(cr, uid, mapping, context=context)
+            resource.create(cr, uid, mapping, context=context)
         
         return model_id
     
@@ -163,7 +162,13 @@ class resource_mixin(osv.osv):
                 else:
                     # simple mapping
                     mapping[name] = model[target]
-                
+        
+            # add a ref to the current model and link the booking.resource with the chart
+            mapping['origin_ref'] = "%s,%s" % (self._name, model.id)
+            
+            if 'target_ref' not in mapping:
+                mapping['target_ref'] = mapping['origin_ref']
+            
         return mapping 
     
 resource = resource_mixin

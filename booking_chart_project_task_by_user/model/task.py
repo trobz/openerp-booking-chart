@@ -13,7 +13,6 @@ class task(mixin.resource):
         'date_start':  'date_start',
         'date_end':    'date_end', 
         'resource_ref':'user_id',
-        'target_ref':   'task_id',
         'css_class':   'priority:booking_css_class'
     }
     
