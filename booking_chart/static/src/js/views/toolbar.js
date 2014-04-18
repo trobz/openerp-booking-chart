@@ -30,6 +30,45 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         },
 
         onRender: function () {
+        	
+        	
+        	// FIXME: find a better place to handle language (ie. web unleashed...)
+        	$.datepicker.setDefaults({
+		        clearText: base._t('Clear'),
+		        clearStatus: base._t('Erase the current date'),
+		        closeText: base._t('Done'),
+		        closeStatus: base._t('Close without change'),
+		        prevText: base._t('<Prev'),
+		        prevStatus: base._t('Show the previous month'),
+		        nextText: base._t('Next>'),
+		        nextStatus: base._t('Show the next month'),
+		        currentText: base._t('Today'),
+		        currentStatus: base._t('Show the current month'),
+		        monthNames: Date.CultureInfo.monthNames,
+		        monthNamesShort: Date.CultureInfo.abbreviatedMonthNames,
+		        monthStatus: base._t('Show a different month'),
+		        yearStatus: base._t('Show a different year'),
+		        weekHeader: base._t('Wk'),
+		        weekStatus: base._t('Week of the year'),
+		        dayNames: Date.CultureInfo.dayNames,
+		        dayNamesShort: Date.CultureInfo.abbreviatedDayNames,
+		        dayNamesMin: Date.CultureInfo.shortestDayNames,
+		        dayStatus: base._t('Set DD as first week day'),
+		        dateStatus: base._t('Select D, M d'),
+		        firstDay: Date.CultureInfo.firstDayOfWeek,
+		        initStatus: base._t('Select a date'),
+		        isRTL: false
+		    });
+		    $.timepicker.setDefaults({
+		        timeOnlyTitle: base._t('Choose Time'),
+		        timeText: base._t('Time'),
+		        hourText: base._t('Hour'),
+		        minuteText: base._t('Minute'),
+		        secondText: base._t('Second'),
+		        currentText: base._t('Now'),
+		        closeText: base._t('Done')
+		    });
+        	
             this.ui.inputs.datepicker({
                     changeMonth: true,
                     changeYear: true,
