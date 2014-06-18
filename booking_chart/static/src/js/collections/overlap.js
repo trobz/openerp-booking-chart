@@ -67,8 +67,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                         err = new Error('attribute "' + group_by +  '" is not defined');
                     }
                     
-                    var start = moment(attrs[date_start]),
-                        end = moment(attrs[date_end]);
+                    var start = moment(attrs[date_start], 'YYYY-MM-DD'),
+                        end = moment(attrs[date_end], 'YYYY-MM-DD');
                     
                     if(!start.isValid()){
                         err = new Error('start date "' + attrs[date_start] +  '" is not valid');

@@ -1,17 +1,34 @@
 openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
     openerp.testing.section('Overlap Collection', function (test) {
-        
-        var Connector = base.utils('Connector');
-        var connection = null;
+
+        var Connector = base.utils('Connector'),
+            Model = null;
+
         var sync = function(method, model, options){
+            if(!model.model_name){
+                throw base.error('The "model_name" is not defined on Backbone Model.');
+            }
+
+            // compound query context with user context
+            options = options || {};
+
+            // instantiate a JSON-RPC model object to communicate with OpenERP by JSON-RPC
+            var connection = new Model(
+                model.model_name,
+                options.context
+            );
+
             return Connector[method].apply(Connector, [model, options, connection]);
         };
-        
+
+
         var Overlap = booking.collections('Overlap'); 
             
         test('fetch', {templates: false, rpc: 'mock', asserts: 83 }, function (instance, $fixture, mock) {
-            
+
+            Model = instance.web.Model;
+
             /*
                 2013-10       01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 
                              |__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|
