@@ -1,5 +1,5 @@
 from openerp.osv import fields
-from booking_chart.mixin import mixin
+from openerp.addons.booking_chart.mixin import mixin
     
 class task(mixin.resource):
     _inherit = "project.task"
