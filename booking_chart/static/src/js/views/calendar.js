@@ -14,24 +14,24 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             months: '.booking-chart-months',
             controls: '.booking-chart-controls' 
         },
-        
+
         ui: {
             items: '.booking-chart-items',
             months: '.booking-chart-months', 
-            controls: '.booking-chart-controls', 
+            controls: '.booking-chart-controls'
         },
         
         initialize: function(options){
             
             this.collection = this.model.items;
-            
+
             var Items = booking.views('Items'),
                 Months = booking.views('Months'),
                 Controls = booking.views('Controls'),
                 Graph = booking.views('Graph');
-            
+
             this.period = options.period;
-            
+
             this.views = {
                 items: new Items({
                     collection: this.collection
@@ -69,7 +69,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             this.months.directShow(this.views.months);
             this.controls.directShow(this.views.controls);
             
-            // the graph view is mixed with the months view (share the same DOM Element) and 
+            // the graph view is  = mixed with the months view (share the same DOM Element) and
             // display his items inside...
             this.views.graph.setElement(this.views.months.$el);
             this.views.graph.render();
@@ -77,5 +77,4 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     });     
 
     booking.views('Calendar', Calendar);
-
 });

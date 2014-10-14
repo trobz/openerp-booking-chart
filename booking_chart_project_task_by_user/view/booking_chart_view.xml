@@ -12,7 +12,6 @@
             </field>
         </record>
         
-        
         <record id="view_res_users_search" model="ir.ui.view">
             <field name="name">res.users.search</field>
             <field name="model">res.users</field>
@@ -25,6 +24,5 @@
                 </search>
             </field>
         </record>
-        
     </data>
 </openerp>

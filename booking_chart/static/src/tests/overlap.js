@@ -22,7 +22,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return Connector[method].apply(Connector, [model, options, connection]);
         };
 
-
         var Overlap = booking.collections('Overlap'); 
             
         test('fetch', {templates: false, rpc: 'mock', asserts: 83 }, function (instance, $fixture, mock) {
@@ -60,40 +59,39 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 var records = [
                     { 
                         records: [
-                            {id: 1, name: 'test 1', item_id: 1, start_at: '2013-10-02', end_at: '2013-10-05' },
-                            {id: 2, name: 'test 2', item_id: 1, start_at: '2013-10-06', end_at: '2013-10-09' },
-                            {id: 3, name: 'test 3', item_id: 1, start_at: '2013-10-04', end_at: '2013-10-12' },
-                            {id: 4, name: 'test 4', item_id: 1, start_at: '2013-10-17', end_at: '2013-10-21' },
-                            {id: 5, name: 'test 5', item_id: 2, start_at: '2013-10-11', end_at: '2013-10-13' },
-                            {id: 6, name: 'test 6', item_id: 2, start_at: '2013-10-09', end_at: '2013-10-15' }
+                            {id: 1, name: 'test 1', item_id: 1, start_at: '2013-10-02 00:00:00', end_at: '2013-10-05 23:59:59' },
+                            {id: 2, name: 'test 2', item_id: 1, start_at: '2013-10-06 00:00:00', end_at: '2013-10-09 23:59:59' },
+                            {id: 3, name: 'test 3', item_id: 1, start_at: '2013-10-04 00:00:00', end_at: '2013-10-12 23:59:59' },
+                            {id: 4, name: 'test 4', item_id: 1, start_at: '2013-10-17 00:00:00', end_at: '2013-10-21 23:59:59' },
+                            {id: 5, name: 'test 5', item_id: 2, start_at: '2013-10-11 00:00:00', end_at: '2013-10-13 23:59:59' },
+                            {id: 6, name: 'test 6', item_id: 2, start_at: '2013-10-09 00:00:00', end_at: '2013-10-15 23:59:59' }
                         ]
                     },
-                    { 
+                    {
                         records: [
-                            {id: 9, name: 'test 9', item_id: 2, start_at: '2013-10-23', end_at: '2013-10-26' },
-                            {id: 10, name: 'test 10', item_id: 2, start_at: '2013-10-23', end_at: '2013-10-27' },
-                            {id: 11, name: 'test 11', item_id: 2, start_at: '2013-10-20', end_at: '2013-10-22' },
-                            {id: 12, name: 'test 12', item_id: 2, start_at: '2013-10-28', end_at: '2013-10-28' },
-                            {id: 13, name: 'test 13', item_id: 2, start_at: '2013-10-11', end_at: '2013-10-20' },
-                            {id: 14, name: 'test 14', item_id: 2, start_at: '2013-10-28', end_at: '2013-10-28' },
+                            {id: 9,  name: 'test 9', item_id: 2,  start_at: '2013-10-23 00:00:00', end_at: '2013-10-26 23:59:59' },
+                            {id: 10, name: 'test 10', item_id: 2, start_at: '2013-10-23 00:00:00', end_at: '2013-10-27 23:59:59' },
+                            {id: 11, name: 'test 11', item_id: 2, start_at: '2013-10-20 00:00:00', end_at: '2013-10-22 23:59:59' },
+                            {id: 12, name: 'test 12', item_id: 2, start_at: '2013-10-28 00:00:00', end_at: '2013-10-28 23:59:59' },
+                            {id: 13, name: 'test 13', item_id: 2, start_at: '2013-10-11 00:00:00', end_at: '2013-10-20 23:59:59' },
+                            {id: 14, name: 'test 14', item_id: 2, start_at: '2013-10-28 00:00:00', end_at: '2013-10-28 23:59:59' },
                         ]
                     },
                 ];
-                
-                
+
                 var ret = first_call ? records[0] : records[1];
                 first_call = false;
                 return ret;
             });
             
             var additional_data = [
-                {id: 7, name: 'test 7', item_id: 2, start_at: '2013-10-23', end_at: '2013-10-26' },
-                {id: 8, name: 'test 8', item_id: 2, start_at: '2013-10-08', end_at: '2013-10-11' }
+                {id: 7, name: 'test 7', item_id: 2, start_at: '2013-10-23 00:00:00', end_at: '2013-10-26 23:59:59' },
+                {id: 8, name: 'test 8', item_id: 2, start_at: '2013-10-08 00:00:00', end_at: '2013-10-11 23:59:59' }
             ];
             
             // test
             var def = $.Deferred();
-            
+
             connection = instance.web.Model;
             
             var List = Overlap.extend({
@@ -174,21 +172,21 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     message = options.validationError.message;
                 });
             
-                list.add({id: 9, name: 'test 9', start_at: '2013-10-23', end_at: '2013-10-27' });
+                list.add({id: 9, name: 'test 9', start_at: '2013-10-23 00:00:00', end_at: '2013-10-27 23:59:59' });
                 strictEqual(message, 'attribute "item_id" is not defined', 'validation error when the model does not have a required attribute');
                     
-                list.add({id: 9, name: 'test 9', item_id: 1, start_at: 'foobar', end_at: '2013-10-27' });
+                list.add({id: 9, name: 'test 9', item_id: 1, start_at: 'foobar', end_at: '2013-10-27 23:59:59' });
                 strictEqual(message, 'start date "foobar" is not valid', 'validation error when a date is not valid');
                     
-                list.add({id: 9, name: 'test 9', item_id: 1, start_at: '2015-01-01', end_at: '2013-10-27' });
-                strictEqual(message, 'start date "2015-01-01" is greater than end date "2013-10-27"', 'validation error when the start date is greater than the end date');
+                list.add({id: 9, name: 'test 9', item_id: 1, start_at: '2015-01-01 00:00:00', end_at: '2013-10-27 23:59:59' });
+                strictEqual(message, 'start date "2015-01-01 00:00:00" is greater than end date "2013-10-27 23:59:59"', 'validation error when the start date is greater than the end date');
                 
                 strictEqual(list.length, 8, 'list still have 8 models');
                 strictEqual(_.size(list.groups()), 4, 'list still have 4 overlaps');
             
                 // test remove
             
-                list.add({id: 9, name: 'test 9', item_id: 1, start_at: '2013-10-11', end_at: '2013-10-18' });
+                list.add({id: 9, name: 'test 9', item_id: 1, start_at: '2013-10-11 00:00:00', end_at: '2013-10-18 23:59:59' });
                 
                 strictEqual(list.length, 9, 'list have 9 models');
                 strictEqual(_.size(list.groups()), 3, 'list have 3 overlaps');
@@ -204,7 +202,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 strictEqual(list.max, 5, 'the biggest group has 5 elements');
                 
                 
-                list.remove({id: 9, name: 'test 9', item_id: 1, start_at: '2013-10-11', end_at: '2013-10-18' });
+                list.remove({id: 9, name: 'test 9', item_id: 1, start_at: '2013-10-11 00:00:00', end_at: '2013-10-18 23:59:59' });
                
                 strictEqual(list.length, 8, 'list have 8 models');
                 strictEqual(_.size(list.groups()), 4, 'list have 4 overlaps');
@@ -237,15 +235,15 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     }
                     
                 });
-                
+
                 strictEqual(list.max, 3, 'the biggest group has 3 elements');
-                
+
                 //test second fetch with merge
                 list.fetch({remove: false}).done(function(){
-                
+
                     strictEqual(list.length, 14, 'list have 14 models');
                     strictEqual(_.size(list.groups()), 5, 'list have 5 overlaps');
-                    
+
                     var updated = 0, created = 0;
                     _.each(list.groupChanged(), function(group){
                         created = group.status.created ? created + 1 : created;
@@ -255,7 +253,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     strictEqual(created, 2, '2 groups has been created');
                     strictEqual(updated, 3, '3 groups has been updated');
                     strictEqual(list.groupRemoved().length, 2, '2 groups has been removed');
-                    
+
                     _.each(list.groups(), function(group){
                     
                         if(group.length == 1 && group.item_id == 1){
@@ -302,22 +300,19 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                             console.log('group no conform', group, group.item_id, group.period().start('s'), group.period().end('s'));
                             throw new Error('group "' + group.options.index + '" is not conform');
                         }
-                        
-                    });    
-                
+
+                    });
+
                 	strictEqual(list.max, 5, 'the biggest group has 5 elements');
-                                
+
                     def.resolve();
                 });
                 
             });
             
-            
-            
-            
             return def.promise();
         });
     
     });    
-    
+
 });

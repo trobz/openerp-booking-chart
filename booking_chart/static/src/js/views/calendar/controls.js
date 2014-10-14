@@ -13,7 +13,10 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         ui: {
             current: 'li.active a'
         },
-        
+
+        /*
+         * zoom chart based on level attribute of anchor tag
+         */
         zoom: function(e){
             e.preventDefault();
             this.bindUIElements();

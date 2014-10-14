@@ -48,11 +48,15 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         refreshDiffs: function(){
+
             var start  = this.start(),
                 end    = this.end(),
-                days   = end.diff(start, 'days') + 1,
+
+                quarters = Math.round((end.diff(start, 'minutes', true) / 15) * 100) / 100,
+                days   = Math.round(end.diff(start, 'days', true)),
                 months = end.diff(start, 'months');
-           
+
+           this.nb_quarters = quarters;
            this.nb_months = months;
            this.nb_days = days;
         }
@@ -60,5 +64,4 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     });
 
     booking.models('Resource', Resource);
-
 });

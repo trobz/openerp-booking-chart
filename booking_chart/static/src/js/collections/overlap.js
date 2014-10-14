@@ -66,10 +66,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     if(!(group_by in attrs)){
                         err = new Error('attribute "' + group_by +  '" is not defined');
                     }
-                    
-                    var start = moment(attrs[date_start], 'YYYY-MM-DD'),
-                        end = moment(attrs[date_end], 'YYYY-MM-DD');
-                    
+
+                    var start = moment(attrs[date_start], 'YYYY-MM-DD HH:mm:ss'),
+                        end = moment(attrs[date_end], 'YYYY-MM-DD HH:mm:ss');
+
                     if(!start.isValid()){
                         err = new Error('start date "' + attrs[date_start] +  '" is not valid');
                     }
@@ -90,30 +90,33 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 }    
             });
         },
-        
+
+        /*
+         * This is where the magic happen:
+         *
+         * When a new model is added into a collection, it should be determined whether
+         * it's being overlapped with a group or not (by comparing 'start' and 'end' period
+         * of a specific group with 'start' and 'end' period of the added model)
+         *
+         * check: /web_unleashed_extra/static/src/js/models/periods.js
+         */
         addToGroup: function(model, index){
+
             var start = model.get(this.options.attr_date_start),
                 end = model.get(this.options.attr_date_end),
-                model_period = new Period({start: moment(start), end: moment(end)}),
                 group_by = model.get(this.options.attr_group_by),
+                model_period = new Period({start: moment(start), end: moment(end)}),
+
                 existingOverlap = [],
                 overlap = null,
                 groups = this.groups();
             
             _.each(groups, function(group){
-                if(
-                    group[this.options.attr_group_by] == group_by 
-                    && (
-                        ( group.inPeriod(start) || group.inPeriod(end) )
-                        || 
-                        (
-                            group.period().isValid() 
-                            && ( model_period.has(group.period().start()) || model_period.has(group.period().end()) )
-                        )
-                    )
-                ){
+                if(group[this.options.attr_group_by] == group_by
+                    && group.period().isValid()
+                    && group.overlap_with(model_period)){
                     existingOverlap.push(group);
-                }    
+                }
             }, this);
             
             if(existingOverlap.length > 1){
@@ -131,8 +134,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             this.max = overlap.length > this.max 
             		 ? overlap.length : this.max;
         },
-        
-        
+
         merge: function(groups){
             var overlap = this.createOverlap(this.uid());
             
@@ -153,7 +155,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     attr_end = this.options.attr_date_end,
                     attr_group_by = this.options.attr_group_by,
                     sorted = this.sortBy(function(model){ 
-                        return moment(model.get(attr_start)).diff(start, 'days'); 
+                        return moment(model.get(attr_start)).diff(start, 'minutes');
                     }),
                     previous_end = null;
                 
@@ -185,7 +187,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
         },
 
-
         getGroupConstructor: function(){
             return this.collection_group || Overlap;
         },
@@ -199,18 +200,24 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 group_by: this.group_by, 
                 grouped: true, 
                 parent: this, 
-                index: index,
+                index: index
             }, this.baseOptions));
         },
         
         uid: function(){
             return Math.random().toString(36).substr(2, 12);
         },
-        
+
+        // FIXME: old way to check overlap
         inPeriod: function(date){
-            return this.period().has(moment(date));    
+            return this.period().has(moment(date));
         },
-        
+
+        // TODO: new way to check overlap
+        overlap_with: function(model){
+            return this.period().overlap(model);
+        },
+
         period: function(period){
             if(period){
                 this.data.period = period;
@@ -266,8 +273,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if(this.isGroup() && this.length < before && options.updateOverlap){
                 this.reviewOverlap();   
             }    
-        },
-    
+        }
     });
 
     booking.collections('Overlap', Overlap);

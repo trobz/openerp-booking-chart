@@ -22,8 +22,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             size: 'm',
             scroll: 0
         },
-        
-        
+
         constructor: function(model, options){
             var format_option = options && options.format ? options.format : {};
                     
@@ -31,7 +30,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 format: _.extend({
                     year:    'YYYY',
                     month:   'MMMM YYYY',
-                    day:     'ddd[<br />]D',
+                    day:     'ddd[<br />]D'
                 }, format_option)
             };
         
@@ -91,24 +90,17 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         set: function(key, val, options){
-            var attrs, attr;
-            if ( typeof key === 'object') {
+
+            var attrs;
+            if (typeof key === 'object') {
                 attrs = key;
                 options = val;
             } else {
                 (attrs = {})[key] = val;
             }
-            
-            // force moment to date attributes
-            _(attrs).each(function(val, name){
-                if(/start|end/.test(name) && !moment.isMoment(val)){
-                    attrs[name] = moment(val);
-                    if(!attrs[name].isValid()){
-                        throw new Error(name + ' is not a correct moment attibute for the period');
-                    }
-                }
-            });
-            
+
+            _super.set.apply(this, [attrs, options]);
+
             // force dates to be start|end of months
             if(moment.isMoment(attrs.start)){
                 attrs.start.startOf('month');
@@ -130,15 +122,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if(attrs.end && !attrs.added_end){
                 attrs.added_end = moment(attrs.end);
             }
-        
-            var ret = _super.set.apply(this, [attrs, options]);
-            
+
             // caculate the current diff when both start and end are set (init the daterange)
             if(attrs.start && attrs.end){
                 this.diffCurrent();
             }
         
-            return ret;
+            return this;
         },
         
         reset: function(attributes){

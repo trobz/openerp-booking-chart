@@ -19,7 +19,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
         State: booking.models('State'),    
         
         module: booking,
-        
+
         stateConfig: function(){
             this.state.link({
                 chart: this.models.chart,
@@ -27,8 +27,9 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 calendar: this.views.calendar
             });
         },
-            
+
         start: function(){
+
             // models
             var DateRange = booking.models('DateRange'),
                 Chart = booking.models('Chart');
@@ -37,18 +38,19 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 chart = new Chart({ 
                     //id: this.context.booking_chart_id
                     id: this.dataset.context.booking_chart_id
-                }, {
+                },
+                {
                     resource_model: this.dataset.model,
                     period: period 
                 });
             
-            // views    
+            // views
             var Pager = base.views('Pager'),
                 Buttons = booking.views('Buttons'),
                 Toolbar = booking.views('Toolbar'),
                 Calendar = booking.views('Calendar'),
                 Graph = booking.views('Graph');
-        
+
             var calendar = new Calendar({
                     model: chart,
                     period: period
@@ -62,19 +64,28 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 toolbar = new Toolbar({
                     model: period
                 });
-        
+
+            // model for the booking view including 'period' and 'chart'
             this.models = { period: period, chart: chart };
+
+            // booking view will contain the following view inside
+            // + calendar: a big view with many things inside
+            // + buttons: allow to 'freeze' the calendar +  scroll calendar view to 'Today'
+            // + toolbar: allow to choose 'from' moment and to 'moment' + button Show
             this.views = { calendar: calendar, pager: pager, buttons: buttons, toolbar: toolbar };
-                    
+
             return this._super();
         },
-
 
         configure: function(data){
             // use arch data to configure the booking chart
             _(data.arch.children).each(function(obj){
-                if(obj.tag == 'items'){
+                if(obj.tag === 'items'){
                     this.models.chart.items.setOptions(obj.attrs);
+                }
+                else if(obj.tag === 'calendar' && obj.attrs.base === 'hour'){
+                    var working_dates = obj.attrs.date; // get all working dates defined on the view
+                    this.models.period.set('working_date', working_dates);
                 }
             }, this);
         },

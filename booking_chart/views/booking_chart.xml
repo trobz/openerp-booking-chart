@@ -47,6 +47,7 @@
             <xpath expr="//script[last()]" position="after">
                 <script type="text/javascript" src="/booking_chart/static/src/tests/dateRange.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/tests/overlap.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/tests/overlap-hour.js"></script>
             </xpath>
         </template>
 

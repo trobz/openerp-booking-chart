@@ -11,6 +11,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     
         
     var Item = ItemView.extend({
+
         template: 'Base.Empty',
         
         className: 'resources-container',
@@ -25,10 +26,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return ItemView.apply(this, arguments);
         },
         
-        
         modelEvents: {
             'change:height': 'setHeight',
-            'change:open': 'setHeight',
+            'change:open': 'setHeight'
         },
         
         onRender: function(){
@@ -59,7 +59,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         attributes: function(){
             return {
-                'class': 'resources-group' + (this.model.isOpen() ? ' open' : ''),
+                'class': 'resources-group' + (this.model.isOpen() ? ' open' : '')
             };
         },
         
@@ -126,8 +126,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         modelEvents: {
             'change:size': 'zoom',
             'change:frozen': 'freeze',
-            'scroll:today': 'scroll',
-            
+            'scroll:today': 'scroll'
         },
         
         ui: {
@@ -136,7 +135,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         loading: false,
-        
         
         initialize: function(options){
             this.items = options.items;
@@ -208,8 +206,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         scrollDone: function(metric){
             this.model.set('scroll', Math.round(Math.abs(metric.left / this.$el.fontSize())));
         },
-        
-        
+
         freeze: function(){
             this.$el.toggleClass('freeze');    
         },
@@ -225,7 +222,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if(_.isNumber(position)){
                 this.model.set('scroll', position);
             }
-                
+
             if(animation){
                 this.scrollbar("scrollTo", this.scrollSize());
             }

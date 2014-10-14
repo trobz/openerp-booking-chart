@@ -26,7 +26,7 @@
              
              <div class="resources"
                  t-att-style="
-                    'background-position: -' + ( ( month.weekday() == 0 ? 7 : month.weekday() ) - 1) + 'em 0em,' + 
+                    'background-position: -' + ( ( month.weekday() == 0 ? 7 : month.weekday() ) - 1) + 'em 0em,' +
                                                (month.current() ? month.numberOfDaysFromToday() : '0') + 'em 0em;'
                  ">
             </div>

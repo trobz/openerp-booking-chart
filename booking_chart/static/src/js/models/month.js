@@ -36,7 +36,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         weekend: function(){
             var day = this.moment.day();
             return day == 0 || day == 6;
-        }
+        },
     };
     
     

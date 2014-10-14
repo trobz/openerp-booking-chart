@@ -13,13 +13,13 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         
         modelEvents: {
             'change:start': 'updateDateStart',
-            'change:end': 'updateDateEnd',
+            'change:end': 'updateDateEnd'
         },
         
         ui: {
             from:   '#date_picker_from',
             to:     '#date_picker_to',
-            inputs: '.rangepicker input',
+            inputs: '.rangepicker input'
         },
 
         serializeData: function(){
@@ -30,7 +30,6 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         },
 
         onRender: function () {
-        	
         	
         	// FIXME: find a better place to handle language (ie. web unleashed...)
         	$.datepicker.setDefaults({
@@ -99,9 +98,17 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             input.datepicker('option', 'defaultDate', new Date(input.attr('date')));
             input.datepicker('option', (isFrom ? 'maxDate' : 'minDate'), new Date(other_input.attr('date')));
         },
-        
+
+        /*
+         * FIXME: should consider if we use month or day on datetime picker popup
+         *  if we use like default booking chart, only show month and year as before
+         *  if we use for spa project, need to display day also
+         *  ------------------------------------------------------------------------
+         *  we need a reference to chart model in-order-to get type of
+         *  chart (month or days)
+         */
         dateFocus: function(){
-            this.ui.picker.find('.ui-datepicker-calendar').hide();
+            //this.ui.picker.find('.ui-datepicker-calendar').hide();
         },
 
         updateDateStart: function(){
@@ -109,13 +116,13 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             this.ui.from.datepicker('setDate', start.toDate());
             this.ui.from.attr('date', start.format('YYYY-MM-DD'));
         },
-        
+
         updateDateEnd: function(){
             var end = this.model.end();
             this.ui.to.datepicker('setDate', end.toDate());
             this.ui.to.attr('date', end.format('YYYY-MM-DD'));
         },
-        
+
         show: function(e) {
             //reset the period, should render again all the calendar
             var from = moment(this.ui.from.attr('date')),
