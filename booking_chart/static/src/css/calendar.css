@@ -22,7 +22,7 @@
 
 .booking-chart-controls .booking-chart-zoom ul li.oe_i {
     font-family: 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif !important;
-    font-size: 14px;
+    font-size: 14px; height: 23px;
 }
 
 /* bootstrap tooltip overrides */

@@ -40,8 +40,8 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     id: this.dataset.context.booking_chart_id
                 },
                 {
-                    resource_model: this.dataset.model,
-                    period: period 
+                    resource_model: this.dataset.model, // res.users for example
+                    period: period // global period
                 });
             
             // views
@@ -65,27 +65,37 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     model: period
                 });
 
-            // model for the booking view including 'period' and 'chart'
+            // models for the booking view
             this.models = { period: period, chart: chart };
 
-            // booking view will contain the following view inside
-            // + calendar: a big view with many things inside
-            // + buttons: allow to 'freeze' the calendar +  scroll calendar view to 'Today'
-            // + toolbar: allow to choose 'from' moment and to 'moment' + button Show
+            // booking view will contain the following views
             this.views = { calendar: calendar, pager: pager, buttons: buttons, toolbar: toolbar };
 
             return this._super();
         },
 
         configure: function(data){
+
+            this.models.period.set({
+                'base': "days"
+            });
+
             // use arch data to configure the booking chart
             _(data.arch.children).each(function(obj){
+
                 if(obj.tag === 'items'){
                     this.models.chart.items.setOptions(obj.attrs);
                 }
-                else if(obj.tag === 'calendar' && obj.attrs.base === 'hour'){
-                    var working_dates = obj.attrs.date; // get all working dates defined on the view
-                    this.models.period.set('working_date', working_dates);
+
+                // TODO: need these data for the hours booking chart
+                else if(obj.tag === 'calendar' && obj.attrs.base === 'hours' && obj.attrs.timezone){
+                    // get all working dates defined on the view
+                    var working_dates = obj.attrs.date;
+                    this.models.period.set({
+                        'base': obj.attrs.base,
+	                    'timezone': obj.attrs.timezone,
+                        'working_date': working_dates
+                    });
                 }
             }, this);
         },

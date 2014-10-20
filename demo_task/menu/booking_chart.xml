@@ -12,6 +12,13 @@
             <field name="arch" type="xml">
                 <booking version="7.0">
                     <items title="name" />
+                    <calendar base="hours">
+                        <date name="monday" start="09" end="21" />
+                        <date name="tuesday" start="09" end="21" />
+                        <date name="wednesday" start="09" end="21" />
+                        <date name="thursday" start="09" end="21" />
+                        <date name="friday" start="09" end="21" />
+                    </calendar>
                 </booking>
             </field>
         </record>

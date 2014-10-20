@@ -19,7 +19,7 @@ class booking_resource(osv.osv):
 
     def _get_tags(self, cr, uid, ids, field_names, arg, context=None):
         res = {}
-        for item in self.browse(cr, uid, ids, fields_process=['tag_ids', 'id']):
+        for item in self.browse(cr, uid, ids):
             res[item.id] = []
             if item.tag_ids:
                 for tag in item.tag_ids:

@@ -1,4 +1,4 @@
-from openerp.osv import osv
+from openerp.osv import osv, orm
 
 class resource_mixin(osv.osv): 
     """
@@ -156,7 +156,7 @@ class resource_mixin(osv.osv):
                 if custom:
                     # custom mapping
                     mapping[name] = model[custom]
-                elif isinstance(model[target], osv.orm.browse_record):
+                elif isinstance(model[target], orm.browse_record):
                     # object mapping
                     mapping[name] = "%s,%s" % (model[target]._name, model[target].id)
                 else:

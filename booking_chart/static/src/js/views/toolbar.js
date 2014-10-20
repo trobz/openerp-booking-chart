@@ -1,7 +1,8 @@
 openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) {
 
-    var View = Backbone.Marionette.ItemView,
-        _super = View.prototype;
+    var View = Backbone.Marionette.ItemView;
+
+    var default_format = "MM yy";
 
     var Toolbar = View.extend({
 
@@ -23,10 +24,19 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         },
 
         serializeData: function(){
+
+            var format = this.model.get('base') === 'hours' ? 'YYYY-MM-DD' : 'MMMM YYYY';
+
             return {
                 from: this.model.start(),
-                to: this.model.end()
+                to: this.model.end(),
+                format: format
             };    
+        },
+
+        onBeforeRender: function(){
+            // TODO: change the format for datetime picker plugin
+            default_format = this.model.get('base') === 'hours' ? 'yy-mm-dd' : default_format;
         },
 
         onRender: function () {
@@ -67,25 +77,29 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
 		        currentText: base._t('Now'),
 		        closeText: base._t('Done')
 		    });
-        	
+
             this.ui.inputs.datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    showButtonPanel: true,
-                    dateFormat: 'MM yy',
-                    onClose: _.bind(this.dateOnClose, this),
-                    beforeShow: _.bind(this.dateBeforeShow, this)
-                })
-                .focus(_.bind(this.dateFocus, this));
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: default_format,
+                onClose: _.bind(this.dateOnClose, this),
+                beforeShow: _.bind(this.dateBeforeShow, this)
+            })
+            .focus(_.bind(this.dateFocus, this));
         
             // no choices, this element in injected in the body by the datepicker plugin...
             this.ui.picker = $('#ui-datepicker-div');
         },
-        
+
         dateOnClose: function(text, options){
+
+            // TODO: if user use hours booking chart, allow to choose specific day
+            var selectedDay = this.model.get("base") === "hours" ? (options.selectedDay || 1) : 1;
+
             var input = options.input,
-                date = new Date(options.selectedYear, options.selectedMonth, 1);
-            
+                date = new Date(options.selectedYear, options.selectedMonth, selectedDay);
+
             input.datepicker('setDate', date);
             input.attr('date', moment(date).format('YYYY-MM-DD'));
         },
@@ -94,21 +108,15 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             var input = options.input,
                 other_input = this.ui.inputs.not(input),
                 isFrom = options.id == 'date_picker_from';
-            
+
             input.datepicker('option', 'defaultDate', new Date(input.attr('date')));
             input.datepicker('option', (isFrom ? 'maxDate' : 'minDate'), new Date(other_input.attr('date')));
         },
 
-        /*
-         * FIXME: should consider if we use month or day on datetime picker popup
-         *  if we use like default booking chart, only show month and year as before
-         *  if we use for spa project, need to display day also
-         *  ------------------------------------------------------------------------
-         *  we need a reference to chart model in-order-to get type of
-         *  chart (month or days)
-         */
         dateFocus: function(){
-            //this.ui.picker.find('.ui-datepicker-calendar').hide();
+            if(this.model.get('base') !== "hours"){
+                this.ui.picker.find('.ui-datepicker-calendar').hide();
+            }
         },
 
         updateDateStart: function(){
@@ -123,7 +131,8 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             this.ui.to.attr('date', end.format('YYYY-MM-DD'));
         },
 
-        show: function(e) {
+        show: function() {
+
             //reset the period, should render again all the calendar
             var from = moment(this.ui.from.attr('date')),
                 to = moment(this.ui.to.attr('date'));
@@ -137,15 +146,23 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             
             if( this.model.start().format('YYYY-MM-DD') != from.format('YYYY-MM-DD') 
             ||  this.model.end().format('YYYY-MM-DD') != to.format('YYYY-MM-DD')){
+
+                // TODO: skip the setting
+                // to prevent the 'end' and 'start' moment from global period from being reset
+                // to the start or the end of month|day (depends on type of the booking chart)
+                var options = {};
+                if (this.model.get("base") === "hours"){
+                    options.skip_set = true;
+                }
+
                 this.model.reset({
                     start: from,
                     end: to,
                     frozen: true
-                });
+                }, options);
             }
         }
     });
 
     booking.views('Toolbar', Toolbar);
-
 });
