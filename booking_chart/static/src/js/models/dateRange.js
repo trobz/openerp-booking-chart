@@ -45,10 +45,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             // load additional months, to have enough month to display
 	        // icase using hours booking chart, load addition days instead
             if(size == 'xs'){
-                this.reachMonthCount(6);
+                this.reachTimelapseCount(6);
             }
             if(size == 's'){
-                this.reachMonthCount(4);
+                this.reachTimelapseCount(4);
             }
             
             this.set({
@@ -192,15 +192,15 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             this.attributes.added_end = moment(this.attributes.end);
         },
 
-        monthsCount: function(){
+        timelapsesCount: function(){
 	        // load day or month depending on the base of global period
-	        var df = this.get(base) === 'hours' ? 'months' : 'days';
+	        var df = this.get(base) === 'hours' ? 'days' : 'months';
 
             return Math.round(this.end().diff(this.start(), df, true));
         },
 
-        reachMonthCount: function(number){
-            var count = this.monthsCount();
+        reachTimelapseCount: function(number){
+            var count = this.timelapsesCount();
             if(number - count > 0){
                 this.nextTimelapse(number - count);
             }
