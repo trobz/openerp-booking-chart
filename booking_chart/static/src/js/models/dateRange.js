@@ -74,13 +74,26 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         scrollToday: function(){
             var diff = Math.round(moment().subtract(7, 'days').diff(this.start(), 'days', true));
+
+	        if(this.get('base') === 'hours'){
+
+		        var current = moment().format('YYYY-MM-DD');
+
+		        diff = this.timelapses.reduce(function(incr, model){
+			        if(model.id < current) {
+				        return incr + _.size(model.get('quarters')) - 1;
+			        }
+			        return incr;
+		        },  0);
+	        }
+
             this.set('scroll', diff);
             // should not have to send an event from here, but it make life easier :)
             this.trigger('scroll:today', diff, true);
         },
         
         hasToday: function(){
-            return this.has(moment());
+            return this.get('start').twix(this.get('end')).contains(moment());
         },
         
         set: function(key, val, options){
