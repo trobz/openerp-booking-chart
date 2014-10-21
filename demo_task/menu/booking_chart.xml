@@ -11,6 +11,20 @@
             <field name="arch" type="xml">
                 <booking version="7.0">
                     <items title="name" />
+                    <!--
+                        base can be hours|days
+                         hours = hours booking chart with day, time style display
+                         days = months booking chart with months, dates style display
+
+                        if the base attribute is not set, booking chart will be 'days' by default
+                    -->
+                    <calendar base="hours" timezone="+07:00">
+                        <date name="monday" start="09" end="23" />
+                        <date name="tuesday" start="09" end="21" />
+                        <date name="wednesday" start="09" end="22" />
+                        <date name="thursday" start="08" end="21" />
+                        <date name="friday" start="09" end="21" />
+                    </calendar>
                 </booking>
             </field>
         </record>
@@ -23,7 +37,7 @@
                <search string="Users">
                     <field name="name" string="Users"/>
                     <group expand="0" string="Group By...">
-                        <filter string="Company" name="company_id" icon="terp-personal" domain="[]"  context="{'group_by':'company_id'}"/>
+                        <filter string="Login" name="company_id" icon="terp-personal" domain="[]"  context="{'group_by':'company_id'}"/>
                     </group>
                 </search>
             </field>
