@@ -149,7 +149,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 }
             }
 
-            // TODO: also setting added start and added end for the query 'search'
+            // manually set added start and added end for the query 'search'
 	        else {
 	            if (moment.isMoment(attrs.start)) {
                     attrs.added_start = attrs.start.clone();
@@ -174,11 +174,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             this.trigger('reset');
         },
 
-        //TODO: set the size (main width) for all resources displayed on the chart
+        // width for all resources displayed on the chart
         duration: function(){
 
             if(this.get('base') == 'hours'){
-                // TODO: if dateRange for hour, duration should get all hours of all days
                 // = day(s) * hours
                 return this.timelapses.size();
             }
@@ -223,13 +222,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
             if(this.get('base') === 'hours'){
 
-                // TODO:: start with one more day
+                // start with one more day
                 var end_plus = moment(this.end()).add('days', 1),
                     next_day = moment(end_plus).add('days', nb - 1),
                     next_start = moment(end_plus).startOf('day'),
                     next_end = moment(next_day).endOf('day');
 
-                // TODO:: exclude non-working date
+                // exclude non-working date
                 while(true){
                     if (this.isWorkingDate(next_day)) break;
                     end_plus = end_plus.add('days', 1);
@@ -239,7 +238,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 }
             }
             else {
-                // TODO::  start with one more month
+                // start with one more month
                 var end_plus = moment(this.end()).add('months', 1),
                     next_month = moment(end_plus).add('months', nb - 1),
                     next_start = moment(end_plus).startOf('month'),
@@ -302,7 +301,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             console.time('[DateRange][diffTime]');
 
             // if user uses months/days booking chart
-            if(this.get("base") === "days"){
+            if(!this.get("base") || this.get("base") === "days"){
 
                 var format = this.options.format,
                 month_iterator = start.twix(end).iterate('months'),
@@ -398,7 +397,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             var quarters = [],
                 incr = hours[0];
 
-            // TODO: get quarters from hour ranges
             _.each(hours, function(hour){
 
                 while(true){
