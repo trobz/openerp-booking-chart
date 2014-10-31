@@ -43,8 +43,7 @@
                             </li>
                         </ul>
                         <span class="tip-duration">
-                            <t t-esc="single.duration(true)" />
-                            <t t-esc="single.tooltipTimeIndicator()" /><t t-if="single.duration() > 1">s</t>
+                            <t t-esc="single.tooltipTimeDuration()" />
                         </span>
                     </div>
                 </div>
@@ -84,8 +83,7 @@
                             </li>
                         </ul>
                         <span class="tip-duration">            
-                            <t t-esc="group.period().duration()" />
-                            <t t-esc="group.period().tooltipTimeIndicator()" /><t t-if="group.period().duration() > 1">s</t>
+                            <t t-esc="group.period().tooltipTimeDuration()" />
                         </span>
                      </div>
                 </div>
@@ -127,8 +125,7 @@
                             </li>
                         </ul>
                         <span class="tip-duration">
-                            <t t-esc="model.duration(true)" />
-                            <t t-esc="model.tooltipTimeIndicator()" /><t t-if="model.duration() > 1">s</t>
+                            <t t-esc="model.tooltipTimeDuration()" />
                         </span>
                     </div>
 

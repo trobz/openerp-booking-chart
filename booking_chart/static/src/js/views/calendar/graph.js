@@ -66,27 +66,42 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
 	            var timelapse = moment(group.period().start()).startOf('month');
 
-	            if(this.period.get('base') === 'hours'){
+	            var hour_booking = this.period.get('base') === 'hours';
+
+	            if(hour_booking){
 
 		            // get working date on the group
-		            var working_date = this.$workingDate(group);
+		            var group_start = group.period().start();
+		            var working_date = this.period.workingDay(group_start);
 
-		            // TODO: start moment should be 'start' of the working date instead of first date of a month
+		            // start moment should be 'start' of the working date instead of first date of a month
 					timelapse = moment(group.period().start()).hour(working_date.start).minute(0).second(0);
 	            }
 
+	            // place where we inject the resource inside
 	            var $target = this.$target(group, timelapse);
 
+	            // TODO: if this is true => start of global period is after start of resource (for hours booking)
+	            var start_in_past = false;
+
+	            // if no group found, the resource must start from few days ago
+	            // and the start of the resource is before the start of global period
                 if($target.length == 0){
-                    timelapse = this.period.start();
+
+	                // set flag to true to change the diff (left)
+	                start_in_past = hour_booking && $target.length == 0;
+
+	                // then the start must be the start of global period
+	                timelapse = this.period.start();
+
                     $target = this.$target(group, timelapse);
                 }
-                
+
                 if(!group.status.created && group.status.updated){
                     this.$group(group.options.index).remove();
                 }
-                
-                var $html = this.$renderGroup(group, timelapse);
+
+                var $html = this.$renderGroup(group, timelapse, start_in_past);
                 
                 $target.append($html);
 
@@ -94,39 +109,56 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     var $el = $(el), html = $el.find('.tooltip-info').html();
                     $el.tooltip({title:  html});
                 });
-                
+
             }, this);
         },
-        
+
         /*
          * DOM Element getter
          */
-	    $workingDate: function(group){
-
-		    var working_dates = this.period.get('working_date'),
-			    group_date = group.period().start().format('dddd').toLowerCase();
-
-		    return _.find(working_dates, function(date){
-			    return date.name === group_date;
-		    })
-	    },
-
         // TODO: render resource with specific 'left'
-        $renderGroup: function(group, timelapse){
+        $renderGroup: function(group, timelapse, start_in_past){
+
+	        var group_start = group.period().start().clone();
+
+	        var diff =  Math.round(group_start.diff(timelapse, 'days', true));
+
             if(this.period.get('base') === 'hours'){
 
-	            // FIXME: remove .add(7, 'hour') because of timezone issue
-	            // from 09:00:00 to 09:15:00 = 1em => 1m = 1/15
-	            var diff = Math.round(group.period().start().diff(timelapse, 'minutes', true)) * (1 / 15);
+				diff = Math.round(group_start.diff(timelapse, 'minutes', true)) * (1 / 15);
 
-                var $el = $(base.render(this.template, {group: group })).css({
-                    left: diff + 'em'
-                });
+	            // recalculate the left in special case: [resource start] < [global period start]
+	            if(start_in_past){
 
-                return $el;
+		            var global_period_start = this.period.start().clone();
+
+					var group_start_wd = this.period.workingDay(group_start),
+		                group_wd_end = group_start.clone().hour(group_start_wd.end).minute(0).second(0);
+
+		            // reset diff
+					diff = group_start.diff(group_wd_end, 'minutes')  * (1 / 15);
+
+		            var range = group_start.twix(global_period_start);
+		            var days = range.count('days') - 2;
+
+		            _(days).times(function(){
+
+			            // add one more day
+			            var gap_day = group_start.clone().add(1, 'day'),
+			                gap_day_wd = this.period.workingDay(gap_day);
+
+			            if (gap_day_wd){
+				            var gap_day_start = group_start.clone().hour(gap_day_wd.start).minute(0).second(0),
+					            gap_day_end = group_start.clone().hour(gap_day_wd.end).minute(0).second(0);
+
+				            diff += (gap_day_start.diff(gap_day_end, 'minutes')  * (1 / 15) );
+			            }
+		            }, this);
+	            }
             }
+
             return $(base.render(this.template, {group: group })).css({
-                left: Math.round(group.period().start().diff(timelapse, 'days', true)) + 'em'
+                left: diff + 'em'
             });
         },
         
@@ -134,7 +166,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.$el.find('.resources-container[item-id="' + item_id + '"] ');
         },
 
-        // TODO: finding container to inject resource
         $target: function(group, timelapse){
             if(this.period.get('base') === 'hours'){
                 return this.$el.find('#day-' + timelapse.format('YYYY-MM-DD') + ' .resources-container[item-id="' + group.resource_id() + '"]');

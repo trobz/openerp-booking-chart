@@ -7,12 +7,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         model_name: 'booking.resource',
 
-	    /*
-	    * TODO:
-	    * each time a new resource is created, check the 'start'
-	    * and the 'end' of the resource to see whether it reach
-	    * the time
-	    * */
 	    validate: function(attrs){
 
 		    // should validate only when user use hours booking chart
@@ -27,10 +21,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 				    resc_end = moment(attrs[attr_date_end]);
 
 			    // if 'start' and 'end' in the same day, they must be different in hour or minute
-			    var current_wd_start = this.workingDay(resc_start),
-				    current_wd_end = this.workingDay(resc_end);
+			    var current_wd_start = this.collection.daterange.workingDay(resc_start),
+				    current_wd_end = this.collection.daterange.workingDay(resc_end);
 
-			    // if there is no working day defined => throw error to stop
+			    // id 'start' or 'end' of resource is not working day => stop
 			    if (!current_wd_start || !current_wd_end){
 				    throw new Error([
 					    "",
@@ -57,11 +51,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 		    }
 	    },
 
-	    /*
-	    * TODO:
-	    * should convert the current 'start' and 'end' to fixed timezine
-	    * configured through the view of the booking chart
-	    * */
 	    set: function(key, val, options) {
 
             var attrs, attr;
@@ -100,6 +89,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 					    attrs[attr_date_start] = moment(start_gmt._d).format('YYYY-MM-DD HH:mm:ss');
 					    attrs[attr_date_end] = moment(end_gmt._d).format('YYYY-MM-DD HH:mm:ss');
 
+					    attrs['range'] = start.twix(end);
+
 					    // mark this resource as converted
 					    attrs['fixed_timezone'] = true;
 				    }
@@ -109,27 +100,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 			return _super.set.apply(this, [attrs, options]);
 	    },
 
-	    /*
-	    * TODO:
-	    * get specific working date to check, usualy the
-	    * start attribute of a resource
-	    *
-	    * @param {object|moment} moment: a moment object
-	    * */
-	    workingDay: function(moment){
-			var working_days = this.collection.daterange.get('working_date'),
-				current_days = moment.format('dddd').toLowerCase();
-
-		    return _.find(working_days, function(day){
-				return day.name === current_days
-		    });
-	    },
-
-	    /*
-	    * TODO:
-	    * generate resource width on the view
-	    * -> called by the view template
-	    * */
 	    resourceWidth: function(){
 			if(this.collection.daterange.get('base') === 'hours') {
 				return this.duration() * (1 / 15);
@@ -137,11 +107,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 		    return this.duration();
 	    },
 
-	    /*
-	    * TODO:
-	    * used to generate format for moment object displayed
-	    * on the tooltip of graph view.
-	    * */
 	    tooltipDateTimeFormat: function(){
 			if(this.collection.daterange.get('base') === 'hours'){
 				return 'ddd. (Do MMM, YYYY) HH:mm:ss';
@@ -149,18 +114,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 		    return 'ddd. Do MMM, YYYY';
 	    },
 
-	    /*
-	    * TODO:W
-	    * used to generate time indicator displayed on the tooltip
-	    * possible option would be between
-	    *   - Day (for months booking chart)
-	    *   - Minute (for Hours booking chart)
-	    * */
-	    tooltipTimeIndicator: function(){
-			if(this.collection.daterange.get('base') === 'hours'){
-				return 'minute';
-			}
-		    return 'day';
+	    tooltipTimeDuration: function(){
+		    var duration = this.duration(true);
+		    return this.collection.daterange.humanizeDisplay(duration);
 	    },
 
         parse: function(response, options){
@@ -178,20 +134,19 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         diff: function(date){
+
 	        if(this.collection.daterange.get('base') === 'hours'){
-		        // TODO: remove .add(7,'hours') because of timezone issue
 		        var diff = Math.round(moment(this.get('date_start')).diff(date, 'minutes', true));
 		        return diff * (1 / 15);
 	        }
             return Math.round(moment(this.get('date_start')).diff(date, 'days', true));
         },
-        
+
         duration: function(refresh){
-            if(!this.nb_days || refresh){
+
+            if(!this.nb_days || !this.nb_minutes || refresh){
                 this.refreshDiffs();
             }
-
-	        // TODO: instead of amount of days, get amount of minutes of the resource
 	        // width for separated resource of an item
 			if(this.collection.daterange.get('base') === 'hours'){
 				return this.minutes();
@@ -213,29 +168,28 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
             return this.nb_minutes;
         },
-        
-        start: function(){
-            return moment(this.get('date_start'));
-        },
-        
-        end: function(){
-            return moment(this.get('date_end'));
-        },
-        
+
         refreshDiffs: function(){
 
             var start  = this.start(),
-                end    = this.end(),
+                end    = this.end();
 
-                minutes = Math.round(end.diff(start, 'minutes', true)),
-                days   = Math.round(end.diff(start, 'days', true)),
-                months = end.diff(start, 'months');
+            var minutes = this.collection.daterange.rescDuration(start, end),
+                days    = Math.round(end.diff(start, 'days', true)),
+                months  = end.diff(start, 'months');
 
-           this.nb_minutes = minutes;
-           this.nb_months = months;
-           this.nb_days = days;
+			this.nb_minutes = minutes;
+			this.nb_months = months;
+			this.nb_days = days;
+        },
+
+	    start: function(){
+            return moment(this.get('date_start'));
+        },
+
+        end: function(){
+            return moment(this.get('date_end'));
         }
-        
     });
 
     booking.models('Resource', Resource);

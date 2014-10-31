@@ -90,6 +90,14 @@
     margin-bottom: 0px !important;
 }
 
+.mCSB_horizontal>.mCSB_container > div:nth-child(even) > .calendar-day-container {
+    background-color: rgba(0, 0, 0, 0.025);
+}
+
+.calendar-day-container .calendar-day-name {
+    background-color: #FFF;
+}
+
 
 .dhx_cal_navline_bar {
     width: 100% !important;

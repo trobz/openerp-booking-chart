@@ -15,31 +15,24 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 			return _superPeriod.initialize.apply(this, arguments);
 	    },
 
-	    // TODO: width for overlap model (group that has overlapped models)
+	    // width for overlap model (group that has overlapped models)
 		duration: function(){
+
 			if(this.daterange.get('base') == 'hours'){
-				return this.get('range').count('minutes');
+
+				return this.daterange.rescDuration(this.get('start'), this.get('end'));
 			}
 			return _superPeriod.duration.apply(this, arguments);
 		},
 
-	    /*
-	    * TODO:
-	    * generate overlapped resource models width displayed on the graph
-	    * -> called by the view template
-	    * */
 	    toogleBarWidth: function(){
+
 		    if(this.daterange.get('base') === 'hours'){
 				return this.duration() * (1 / 15);
 		    }
 		    return this.duration();
 	    },
 
-	    /*
-	    * TODO:
-	    * used to generate format for moment object displayed
-	    * on the tooltip of graph view.
-	    * */
 	    tooltipDateTimeFormat: function(){
 			if(this.daterange.get('base') === 'hours'){
 				return 'ddd. (Do MMM, YYYY) HH:mm:ss';
@@ -47,18 +40,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 		    return 'ddd. Do MMM, YYYY';
 	    },
 
-	    /*
-	    * TODO:
-	    * used to generate time indicator displayed on the tooltip
-	    * possible option would be between
-	    *   - Day (for months booking chart)
-	    *   - Minute (for Hours booking chart)
-	    * */
-	    tooltipTimeIndicator: function(){
-			if(this.daterange.get('base') === 'hours'){
-				return 'minute';
-			}
-		    return 'day';
+	    tooltipTimeDuration: function(){
+			var duration = this.duration();
+		    return this.daterange.humanizeDisplay(duration);
 	    }
 	});
 
@@ -92,11 +76,12 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     var Resources = Overlap.extend({
 
         collection_group: Group,
+
+	    model: Resource,
 	    period_model: GroupPeriod,
 
-        model: Resource,
         model_name: 'booking.resource',
-        
+
         item_ids: [],
         
         initialize: function(models, options){
@@ -170,13 +155,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.fetch();
         },
 
-	    /*
-	    * TODO:
-	    * because booking.resources collection will be fetched based on 'added_start' and 'added_end'
-	    * of the global period (DateRange), so when user clicks on the 'show' button, we have to manually
-	    * update 'start', 'end' , 'added_start', 'added_end', also make sure that 'added_start' = 'start' and
-	    * 'added_end' = 'end'.
-	    **/
         search: function(){
             var period_start = this.daterange.get('added_start').format('YYYY-MM-DD'),
                 period_end = this.daterange.get('added_end').format('YYYY-MM-DD');

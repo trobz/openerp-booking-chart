@@ -207,15 +207,23 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
 
         isWorkingDate: function(moment){
-            var working_date = this.get("working_date");
-            var day_name = moment.format('dddd').toLowerCase();
 
-            var exist = _.find(working_date, function(date){
-                return date.name === day_name
-            });
-
-            return exist != null;
+            return this.workingDay(moment) != null;
         },
+
+	    workingDay: function(moment){
+		    if(this.has('working_date')) {
+			    var working_days = this.get('working_date'),
+				    current_days = moment.format('dddd').toLowerCase();
+
+			    return _.find(working_days, function (day) {
+				    return day.name === current_days
+			    });
+		    }
+		    else {
+			    throw new Error("This method can be called by Global Period only");
+		    }
+	    },
 
         nextTimelapse: function(nb){
             nb = nb || 1;
@@ -419,7 +427,107 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 }
             });
             return quarters;
-        }
+        },
+
+	    /*
+	    * get the total minutes between the two moment
+	    * used to s
+	    *
+	    * */
+		rescDuration: function(start, end){
+
+			var duration = 0; // usually minutes
+
+	        if (this.get('base') === 'hours'){
+
+		        // now we check on date
+		        var date_start = moment(start.format('YYYY-MM-DD')),
+			        date_end = end.format('YYYY-MM-DD');
+
+		        // if start day is not the same as end day
+		        if(!date_start.isSame(date_end)){
+
+			        // get defined working day from global period
+			        var start_wd = this.workingDay(start),
+				        end_wd = this.workingDay(end);
+
+			        // 'end' of working day of resource-start (ex: 2014-01-10 22:00:00)
+			        // 'start' of working day of resource-end (ex: 2014-01-12 09:00:00)
+			        var end_start_wd_moment = start.clone().hour(start_wd.end).minute(0).second(0),
+						start_end_wd_moment = end.clone().hour(end_wd.start).minute(0).second(0);
+
+			        // from resource start to the end of working day (ex:thursday)
+			        // from start of working day (ex: friday) to the end of resource
+			        var start_wd_minutes = end_start_wd_moment.diff(start, 'minutes'),
+						end_wd_minutes = end.diff(start_end_wd_moment, 'minutes');
+
+			        // incase there is two day only: today and tomorrow for example
+			        duration = start_wd_minutes + end_wd_minutes;
+
+			        // get date gap between 'start' and 'end'
+			        var gap_count = start.twix(end).count('days');
+
+					// diff from 'start' + 'end' + (day minutes gap between 'start' and 'end) - non-working days
+			        if (gap_count > 2) {
+
+						var current_start = start.clone();
+
+						_((gap_count - 2)).times(function(){
+
+							var wd = this.workingDay(current_start.add(1, 'day'));
+
+							if(wd){
+								var start_in_day = current_start.clone().hour(wd.start).minute(0).second(0),
+									end_in_day = current_start.clone().hour(wd.end).minute(0).second(0);
+
+								duration += end_in_day.diff(start_in_day, 'minutes');
+							}
+						}, this);
+					}
+		        }
+		        // if in the same day, 'diff' is enough
+		        else {
+			        duration = end.diff(start, 'minutes');
+		        }
+	        }
+
+			return duration;
+		},
+
+	    /*
+	    * get the humanize display used on the view
+	    * example : 1d 22h 15min
+	    **/
+	    humanizeDisplay: function(duration){
+
+		    var text = '';
+
+		    if (this.get('base') === 'hours'){
+
+			    // change name to minutes for easy
+			    var minutes = duration;
+
+			    // get hour and day division
+			    var hour_division = 60, day_division = 60 * 24;
+			    /* ------------------------------------------------- */
+				var ref_m = minutes % hour_division; // get minutes
+			    var rem_m = minutes - ref_m; // remaining minutes
+			    var ref_h = (rem_m % day_division) / hour_division; // get hours
+			    var ref_d = (rem_m - (rem_m % day_division)) / day_division; // get days
+
+			    return _([
+				    ref_d > 0 ? ref_d + 'd' : '',
+				    ref_h > 0 ? ref_h + 'h' : '',
+				    ref_m > 0 ? ref_m + 'min' : ''
+			    ])
+		        .without('').join(' ');
+	        }
+		    else {
+				text = duration.toString() + ' day' + ((duration > 1) ? 's' : '');
+		    }
+
+		    return text;
+	    }
     });
 
     booking.models('DateRange', DateRange);
