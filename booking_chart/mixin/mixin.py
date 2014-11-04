@@ -126,6 +126,9 @@ class resource_mixin(osv.osv):
                     for resource_id in model[resource_field_ref].ids:
                         resource_ref = "%s,%s" % (resource_name, resource_id)
                         ids.append({ref[1]: resource_ref})
+            elif resource_field_ref not in model:
+                raise Exception('Field %s does not exists in \
+                model %s' % (resource_field_ref, self._name))
         return ids
 
     #
