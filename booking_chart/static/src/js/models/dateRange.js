@@ -106,7 +106,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 (attrs = {})[key] = val;
             }
 
-            // TODO:: skip setting if show dates from toolbar
+            // skip setting if show dates from toolbar
             if (!_.result(options, "skip_set")) {
 
                 if (this.get("base") === "hours") {
@@ -338,13 +338,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                                 moment: day_current
                             });
                         }
-                        months.push(new Month(month)); // TODO: use 'Month' model
+                        months.push(new Month(month));
                     }
                     else {
                         console.log('month %s already added', month_id);
                     }
                 }
-                this.timelapses.add(months); // TODO: timelapses now is a collection of 'Month' model
+                this.timelapses.add(months);
             }
 
             // if user uses days/hours booking chart
@@ -370,9 +370,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
                         if(!this.timelapses.has(day_id)){
 
-	                        // should include one more hour to exclude at the end
-	                        // from 09:00 -> 22:00 => hours = [09, ...., 23]
-	                        // generate quarter from 09 to 22 (including 22) but stop at 23
+							// should include one more hour to exclude at the end
+							// from 09:00 -> 22:00 => hours = [09, ...., 23]
+							// generate quarter from 09 to 22 (including 22) but stop at 23
 							var hours = _.range(target.start, target.end + 1),
 								quarters = this.quartersFor(hours);
 
@@ -384,14 +384,14 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                                 quarters: quarters
                             };
 
-                            days.push(new Day(day)); // TODO: use 'Day' model
+                            days.push(new Day(day));
                         }
                         else {
                             console.log('day %s already added', day_id);
                         }
                     }
                 }
-                this.timelapses.add(days); // TODO: timelapse now contain only collection of days
+                this.timelapses.add(days);
             }
 
             console.timeEnd('[DateRange][diffTime]');
@@ -453,13 +453,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
 			        // 'end' of working day of resource-start (ex: 2014-01-10 22:00:00)
 			        // 'start' of working day of resource-end (ex: 2014-01-12 09:00:00)
-			        var end_start_wd_moment = start.clone().hour(start_wd.end).minute(0).second(0),
-						start_end_wd_moment = end.clone().hour(end_wd.start).minute(0).second(0);
+			        var end_start_wd_moment = start_wd && start.clone().hour(start_wd.end).minute(0).second(0) || 0,
+						start_end_wd_moment = end_wd && end.clone().hour(end_wd.start).minute(0).second(0) || 0;
 
 			        // from resource start to the end of working day (ex:thursday)
 			        // from start of working day (ex: friday) to the end of resource
-			        var start_wd_minutes = end_start_wd_moment.diff(start, 'minutes'),
-						end_wd_minutes = end.diff(start_end_wd_moment, 'minutes');
+			        var start_wd_minutes = start_wd && end_start_wd_moment.diff(start, 'minutes') || 0,
+						end_wd_minutes = end_wd && end.diff(start_end_wd_moment, 'minutes') || 0;
 
 			        // incase there is two day only: today and tomorrow for example
 			        duration = start_wd_minutes + end_wd_minutes;

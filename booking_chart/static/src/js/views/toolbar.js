@@ -35,7 +35,6 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         },
 
         onBeforeRender: function(){
-            // TODO: change the format for datetime picker plugin
             default_format = this.model.get('base') === 'hours' ? 'yy-mm-dd' : default_format;
         },
 
@@ -94,7 +93,7 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
 
         dateOnClose: function(text, options){
 
-            // TODO: if user use hours booking chart, allow to choose specific day
+            // if user use hours booking chart, allow to choose specific day
             var selectedDay = this.model.get("base") === "hours" ? (options.selectedDay || 1) : 1;
 
             var input = options.input,
@@ -147,7 +146,7 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             if( this.model.start().format('YYYY-MM-DD') != from.format('YYYY-MM-DD') 
             ||  this.model.end().format('YYYY-MM-DD') != to.format('YYYY-MM-DD')){
 
-                // TODO: skip the setting
+                // skip the setting
                 // to prevent the 'end' and 'start' moment from global period from being reset
                 // to the start or the end of month|day (depends on type of the booking chart)
                 var options = {};

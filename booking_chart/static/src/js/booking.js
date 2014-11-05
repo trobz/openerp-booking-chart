@@ -86,8 +86,6 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 if(obj.tag === 'items'){
                     this.models.chart.items.setOptions(obj.attrs);
                 }
-
-                // TODO: need these data for the hours booking chart
                 else if(obj.tag === 'calendar' && obj.attrs.base === 'hours' && obj.attrs.timezone){
                     // get all working dates defined on the view
                     var working_dates = obj.attrs.date;

@@ -11,13 +11,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
      * Manage by marionette
      * */
 
-    // TODO: DEFAULT state setting when user entering booking chart
-    var default_format = "YYYY-MM",
-        default_start = moment().subtract(1, 'months').format(default_format),
-        default_end = moment().add(2, 'months').format(default_format),
-        default_scroll = moment().subtract(7, 'days').diff(moment(default_start), 'days');
 
     var State = Backbone.Model.extend({
+
+	    date_format: 'YYYY-MM-DD',
 
         defaults: {
             action: null,
@@ -29,9 +26,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             page: 0,
 
             // config default state for the booking chart
-            period_start: default_start,
-            period_end: default_end,
-            scroll: default_scroll
+            period_start: null,
+            period_end: null,
+            scroll: null
         },
 
         link: function(options){
@@ -48,6 +45,26 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
                 this.bind()    
             );
         },
+
+	    getPeriodDefaults: function(){
+		    var default_start = moment().subtract(1, 'months').startOf('month').format(this.date_format),
+		        default_end = moment().add(2, 'months').endOf('month').format(this.date_format),
+			    default_scroll = moment().subtract(7, 'days').diff(moment(default_start), 'days');
+
+
+	        if(this.period.get("base") === "hours"){
+		        default_start = moment().subtract(3, 'days').format(this.date_format);
+		        default_end = moment().add(3, 'days').format(this.date_format);
+           		default_scroll = this.period.rescDuration(
+		            moment(default_start), moment().subtract(4, 'hours')
+	            ) / 15;
+            }
+		    return {
+			    start: default_start,
+			    end: default_end,
+			    scroll: default_scroll
+		    }
+	    },
         
         configPager: function(page, limit){
             var items = this.chart.items, 
@@ -71,45 +88,28 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
         
         configPeriod: function(start, end){
+			var period = this.period,
+	            defaults = this.getPeriodDefaults();
 
-            // TODO:
-            // change default setting for period 'start' + 'end', 'scroll' position
-            // if user use 'hours' booking chart instead of the old version
-            if(this.period.get("base") === "hours"){
+	        this.set({
+                period_start: start || defaults.start,
+                period_end: end || defaults.end
+            });
 
-                default_format = "YYYY-MM-DD";
-                this.defaults.period_start = moment().subtract(3, 'days').format(default_format);
-	            this.defaults.period_end = moment().add(3, 'days').format(default_format);
-            }
+            period.set({
+                start: moment(start || defaults.start),
+                end: moment(end || defaults.end)
+            }, {silent: true});
 
-            var period = this.period,
-                defaults = this.defaults,
-                start = moment(start),
-                end = moment(end);
 
-            if(start && end && start.isValid() && end.isValid() && (start < end) ){
-
-                period.set({ 
-                    start: start, 
-                    end: end 
-                }, {silent: true});
-            }
-            else {
-                period.set({ 
-                    start: moment(defaults.period_start),
-                    end: moment(defaults.period_end)
-                },{silent: true});
-
-                this.set({
-                    period_start: defaults.period_start,
-                    period_end: defaults.period_end
-                });
-            }
         },
 
         configScroll: function(scroll){
-            this.period.set({ 
-                scroll: scroll 
+			var defaults = this.getPeriodDefaults();
+
+
+            this.period.set({
+                scroll: scroll || defaults.scroll
             }, { silent: true });
         },
 
@@ -135,8 +135,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         
         periodChanged: function(period){
             this.set({
-                period_start: period.get('start').format(default_format),
-                period_end: period.get('end').format(default_format)
+                period_start: period.get('start').format(this.date_format),
+                period_end: period.get('end').format(this.date_format)
             }); 
         },
         

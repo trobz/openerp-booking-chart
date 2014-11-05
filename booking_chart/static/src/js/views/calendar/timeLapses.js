@@ -122,7 +122,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
         itemView: Timelapse,
 
-        // TODO: pass to 'initialize' function for item view
         itemViewOptions: function(model, index) {
             return {
                 model: model,

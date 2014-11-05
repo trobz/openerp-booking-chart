@@ -162,12 +162,12 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.nb_months;
         },
 
-	    minutes: function(refresh){
-            if(!this.nb_minutes || refresh){
-                this.refreshDiffs();
-            }
-            return this.nb_minutes;
-        },
+		minutes: function(refresh){
+			if(!this.nb_minutes || refresh){
+				this.refreshDiffs();
+			}
+			return this.nb_minutes;
+		},
 
         refreshDiffs: function(){
 

@@ -4,7 +4,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
     
     var Collection = Backbone.Collection;
 
-    /* TODO:
+    /*
      * `model` should not be specified for this collection because
      * there are 2 models to use : Month or Day - which would be changed
      * depending on type of DateRange (hours|days)
@@ -24,7 +24,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             // to exclude the last hour from day
             var hour_size = _.size(this.models);
 
-            // TODO: final size = total quarters in days excluding the last hour from each day
+            // total quarters in days excluding the last hour from each day
             return quater_size - hour_size;
         }
     });

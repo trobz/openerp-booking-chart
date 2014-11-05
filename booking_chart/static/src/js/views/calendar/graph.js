@@ -64,9 +64,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             // in the first month with a negative left position.
             _.each(this.collection.groupChanged(), function(group){
 
-	            var timelapse = moment(group.period().start()).startOf('month');
+				var timelapse = moment(group.period().start()).startOf('month');
 
-	            var hour_booking = this.period.get('base') === 'hours';
+				var hour_booking = this.period.get('base') === 'hours';
 
 	            if(hour_booking){
 
@@ -81,7 +81,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 	            // place where we inject the resource inside
 	            var $target = this.$target(group, timelapse);
 
-	            // TODO: if this is true => start of global period is after start of resource (for hours booking)
+	            // if this is true => start of global period is after start of resource (for hours booking)
 	            var start_in_past = false;
 
 	            // if no group found, the resource must start from few days ago
@@ -116,7 +116,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         /*
          * DOM Element getter
          */
-        // TODO: render resource with specific 'left'
+        // render resource with specific 'left'
         $renderGroup: function(group, timelapse, start_in_past){
 
 	        var group_start = group.period().start().clone();
