@@ -30,9 +30,7 @@
 
 .booking-chart-timelapses .calendar-day {
     width: 1em;
-    background-image: url('../images/border_pixel.png');
-    background-repeat: repeat-y;
-    background-position: top right;
+    background: url('../images/border_pixel.png') repeat-y top right;
     height: 32px;
     font-weight: normal;
     text-align: center;

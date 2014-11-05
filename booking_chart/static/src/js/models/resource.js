@@ -151,7 +151,6 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 			if(this.collection.daterange.get('base') === 'hours'){
 				return this.minutes();
 			}
-
             return this.nb_days;
         },
        
@@ -175,7 +174,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 end    = this.end();
 
             var minutes = this.collection.daterange.rescDuration(start, end),
-                days    = Math.round(end.diff(start, 'days', true)),
+                days    = Math.round(end.endOf('day').diff(start.startOf('day'), 'days', true)),
                 months  = end.diff(start, 'months');
 
 			this.nb_minutes = minutes;
