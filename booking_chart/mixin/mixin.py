@@ -29,6 +29,13 @@ class resource_mixin(osv.osv):
         """
         Create related booking resource
         """
+        context = context or {}
+        """
+        In many cases, in create function, we often call write to update
+        certain values after the creation. The flag create_booking_resource
+        is here to prevent the _create_resource running in write sub-calls.
+        """
+        context['create_booking_resource'] = True
         model_id = super(resource_mixin, self).create(cr, uid, vals,
                                                       context=context)
         models = self.browse(cr, uid, [model_id], context=context)
@@ -44,6 +51,8 @@ class resource_mixin(osv.osv):
         status = super(resource_mixin, self).write(
             cr, uid, ids, vals, context=context)
 
+        if context.get('create_booking_resource', False):
+            return status
         if status:
             models = self.browse(cr, uid, ids, context=context)
             resource = self.pool.get('booking.resource')
@@ -79,16 +88,24 @@ class resource_mixin(osv.osv):
         return status
 
     def _create_resource(self, cr, uid, models, context=None):
+        """
+        Create booking resources on all related booking charts.
+        """
         context = context or {}
         resource = self.pool.get('booking.resource')
         for model in models:
-            mapping = self._map_values(model)
+            # Common values for all related charts
+            mapping = self._map_common_values(model)
             datas = self.get_chart_ids(cr, uid, model)
             for data in datas:
                 for chart_id, resource_ref in data.iteritems():
-                    mapping['chart_id'] = chart_id
-                    mapping['resource_ref'] = resource_ref
-                    resource.create(cr, uid, mapping, context=context)
+                    chart_mapping = mapping.copy()
+                    chart_mapping['chart_id'] = chart_id
+                    chart_mapping['resource_ref'] = resource_ref
+                    chart_mapping.update(
+                        self._map_chart_values(cr, uid, model, chart_id)
+                    )
+                    resource.create(cr, uid, chart_mapping, context=context)
         return True
 
     #
@@ -108,27 +125,26 @@ class resource_mixin(osv.osv):
         ir_model = self.pool['ir.model.data']
         for _booking_chart_ref, resource_field_ref in \
                 self._booking_chart_refs.iteritems():
-            if model[resource_field_ref]:
-                xml_id = _booking_chart_ref.split('.')
-                ref = ir_model.get_object_reference(cr, uid,
-                                                    xml_id[0],
-                                                    xml_id[1])
-                if len(ref) < 2:
-                    raise Exception('%s model with booking resource mixin: \
-                        can not find the chart_id according to the \
-                        xml_id: %s' % (self._name, self._booking_chart_ref))
-                resource = ir_model.get_object(cr, uid,
-                                               xml_id[0],
-                                               xml_id[1])
-                resource_name = resource and \
-                    resource.resource_model.model or False
-                if resource_name:
-                    for resource_id in model[resource_field_ref].ids:
-                        resource_ref = "%s,%s" % (resource_name, resource_id)
-                        ids.append({ref[1]: resource_ref})
-            elif resource_field_ref not in model:
+            if resource_field_ref not in model:
                 raise Exception('Field %s does not exists in \
                 model %s' % (resource_field_ref, self._name))
+            xml_id = _booking_chart_ref.split('.')
+            ref = ir_model.get_object_reference(cr, uid,
+                                                xml_id[0],
+                                                xml_id[1])
+            if len(ref) < 2:
+                raise Exception('%s model with booking resource mixin: \
+                    can not find the chart_id according to the \
+                    xml_id: %s' % (self._name, self._booking_chart_ref))
+            resource = ir_model.get_object(cr, uid,
+                                           xml_id[0],
+                                           xml_id[1])
+            resource_name = resource and \
+                resource.resource_model.model or False
+            if resource_name:
+                for resource_id in model[resource_field_ref].ids:
+                    resource_ref = "%s,%s" % (resource_name, resource_id)
+                    ids.append({ref[1]: resource_ref})
         return ids
 
     #
@@ -180,7 +196,7 @@ class resource_mixin(osv.osv):
         return self._booking_resource_map[name] if name in \
             self._booking_resource_map else None
 
-    def _map_values(self, model):
+    def _map_common_values(self, model):
         """
         Get booking.resource data according to the mapping description
         """
@@ -190,13 +206,13 @@ class resource_mixin(osv.osv):
             target = self._get_map(name)
             custom = None
 
-            '''
-                If target is a function
-                def function(self, cr, uid, model, context=None)
-                    return string
-            '''
+            """
+            If target is a function, it will be processed in
+            _map_chart_values
+            """
             if hasattr(target, '__call__'):
-                target = target(model)
+                continue
+
             # custom mapping
             if ':' in target:
                 target, custom = target.split(':')
@@ -220,5 +236,24 @@ class resource_mixin(osv.osv):
                 mapping[name] = target
 
         return mapping
+
+    def _map_chart_values(self, cr, uid, model, chart_id, context=None):
+        """
+        Get booking.resource data which can be specific to each related chart
+        according to the mapping description
+        """
+        chart_mapping = {}
+        for name in self._booking_resource_map:
+            target = self._get_map(name)
+
+            """
+                If target is a function
+                def function(self, cr, uid, model, context=None)
+                    return string
+            """
+            if hasattr(target, '__call__'):
+                target = target(self, cr, uid, model, chart_id, context=context)
+                chart_mapping[name] = target
+        return chart_mapping
 
 resource = resource_mixin
