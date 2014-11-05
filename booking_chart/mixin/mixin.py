@@ -49,7 +49,7 @@ class resource_mixin(osv.osv):
             resource = self.pool.get('booking.resource')
             resource_ids = self._get_resources(cr, uid, ids, context)
 
-            if len(resource_ids) > 0 and len(models) > 0 and \
+            if len(models) > 0 and \
                     self._has_required_fields(models):
                 '''
                     use only the first model to update values,
