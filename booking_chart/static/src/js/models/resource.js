@@ -36,16 +36,20 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
 				// if the current resource exceed the range => stop this also
 				if(parseInt(resc_start.format('HH')) < current_wd_start.start
-					|| parseInt(resc_end.format('HH')) > current_wd_end.end + 1) {
-
+					|| (parseInt(resc_end.format('HH')) > current_wd_end.end)
+					|| (parseInt(resc_end.format('HH')) == current_wd_end.end
+						&& (
+							parseInt(resc_end.format('m')) != 0 || parseInt(resc_end.format('s')) != 0
+						) )
+				) {
 					throw new Error([
 						"",
 						"+ Resource ID: " + attrs["id"] + " :: " + attrs["name"],
 						"- Exceeds the start or end of current working date:",
 						"  - current timezone: " + timezone,
-						"  - Working day starts at: " + current_wd_start.start + ":00 (" + current_wd_start.name +
-									   ") ends at: " + current_wd_end.end + ":00 (" + current_wd_end.name + ")",
-						"  - Resource starts at: " + resc_start.format('HH:mm') + " ends at: " + resc_end.format('HH:mm')
+						"  - Working day starts at: " + current_wd_start.start + ":00:00 (" + current_wd_start.name +
+									   ") ends at: " + current_wd_end.end + ":00:00 (" + current_wd_end.name + ")",
+						"  - Resource starts at: " + resc_start.format('HH:mm:ss') + " ends at: " + resc_end.format('HH:mm:ss')
 					].join('\n'));
 				}
 		    }

@@ -381,7 +381,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                                 format: format,
                                 moment: day_current,
                                 hours: hours,
-                                quarters: quarters
+                                quarters: quarters,
+	                            global_period: this
                             };
 
                             days.push(new Day(day));

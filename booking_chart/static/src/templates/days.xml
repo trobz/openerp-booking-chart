@@ -7,7 +7,7 @@
     <!-- template for backbone Day model -->
     <t t-name="Booking.Calendar.day">
 
-        <div t-att-class="'calendar-day-container'"
+        <div t-att-class="'calendar-day-container ' + (model.current_day() ? 'current-day' : '')"
              t-att-id="'day-' + model.id"
              t-att-style="'width:' + model.nbQuarters() + 'em'">
 
@@ -27,7 +27,7 @@
                 <t t-if="hour_index != (_.size(model.get('hours')) - 1)">
 
                 <!-- always 4em to display from 0 to 45 step by 15 for quarter-->
-                <div class="calendar-hour" style="width: 4em">
+                <div style="width: 4em" t-att-class="'calendar-hour ' + (model.current_hour(hour) ? 'current-hour' : '')">
                     <span class="calendar-hour-name">
                         <t t-esc="hour" />h
                     </span>
@@ -49,7 +49,7 @@
                 </t>
             </div>
 
-            <div class="resources">
+            <div class="resources" t-att-style="'background-position:' + model.numberOfEmFromStartOfDay() + 'em'">
                 <!-- all the resources go here -->
             </div>
         </div>

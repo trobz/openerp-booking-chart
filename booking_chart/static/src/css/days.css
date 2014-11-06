@@ -2,6 +2,11 @@
     float: left;
 }
 
+.calendar-hour.current-hour {
+    background-color: #8F6A86 !important;
+    color: #FFF;
+}
+
 .booking-chart-timelapses .calendar-day-name {
     border-bottom: 1px solid #ddd;
     height: 18px;
@@ -56,7 +61,10 @@
     display: none;
 }
 .booking-chart-timelapses.zoom-xs .calendar-day-container div.resources {
-    background: url('../images/bg_day_hour_xs.png');
+    background-image: url('../images/bg_day_hour_xs.png');
+}
+.booking-chart-timelapses.zoom-xs .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_xs.png'), url('../images/bg_current_hour_xs.png') ;
 }
 
 /* S size */
@@ -64,12 +72,19 @@
     display: none;
 }
 .booking-chart-timelapses.zoom-s .calendar-day-container div.resources {
-    background: url('../images/bg_day_hour_s.png');
+    background-image: url('../images/bg_day_hour_s.png');
+}
+.booking-chart-timelapses.zoom-s .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_s.png'), url('../images/bg_current_hour_s.png');
 }
 
 /* M size */
 .calendar-day-container div.resources {
     background: url('../images/bg_day_hour.png');
+}
+.calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour.png'), url('../images/bg_current_hour.png');
+    background-repeat: repeat, repeat-y; background-position: 0em 0em, 0em 0em;
 }
 .calendar-day-container div.resources .tooltip-info {
     display: none;
@@ -89,7 +104,10 @@
     width: 6.4em;
 }
 .booking-chart-timelapses.zoom-l .calendar-day-container div.resources {
-    background: url('../images/bg_day_hour_l.png');
+    background-image: url('../images/bg_day_hour_l.png');
+}
+.booking-chart-timelapses.zoom-l .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_l.png'), url('../images/bg_current_hour_l.png');
 }
 
 /* XL size */
@@ -97,5 +115,8 @@
     width: 12.8em;
 }
 .booking-chart-timelapses.zoom-xl .calendar-day-container div.resources {
-    background: url('../images/bg_day_hour_xl.png');
+    background-image: url('../images/bg_day_hour_xl.png');
+}
+.booking-chart-timelapses.zoom-xl .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_xl.png'), url('../images/bg_current_hour_xl.png');
 }
