@@ -131,12 +131,31 @@ from booking_chart.mixin import mixin
 class task(mixin.resource):
     _inherit = "project.task"
     
-    # ref to the booking_chart xml_id 
-    #
-    # you can change the way to get the booking_chart by 
-    # overriding get_chart_id() method (more details below)
-    #
-    _booking_chart_ref = 'demo_task.users_booking_chart'
+    # ref to the booking_chart xml_id (if you have created the booking chart
+    # manually, you have to override the mixin.resource.get_chart_id method)
+    '''
+        _booking_chart_refs: {
+			module_name.booking_chart_xml_id: resource_field_ref
+		}
+        resource_field_ref: is field which link project.task with resource_model in users_booking_chart
+    '''
+
+    _booking_chart_refs = {
+        'demo_task.users_booking_chart': 'user_id'
+    }
+
+	'''
+		For _booking_resource_map, There are functions can be used
+		Eg:
+
+		def _get_message(self, cr, uid, model, context=None):
+			# param: model is a current object's browse record
+			return model and model.note or "It's empty"
+
+		_booking_resource_map = {
+			'message': _get_message,
+		}
+	'''
     
     _booking_resource_map = {
         # simple mapping, booking.resource field = task field 
@@ -146,6 +165,7 @@ class task(mixin.resource):
         'date_end':    'date_end',
         # reference mapping, booking.resource field = "task.field._name,task.field.id" 
         'resource_ref': 'user_id',
+		'origin_ref':   'user_id',
         'target_ref':   'project_id',
         # custom mapping, set booking.resource.css_class field when priority is 
         # updated with the value of task.booking_css_class
@@ -156,7 +176,11 @@ class task(mixin.resource):
     def _get_booking_custom_fields(self, cr, uid, ids, field_names, arg, context=None):
         # resource booking color mapping with task.priority
         colors = {
-            '0': 'red', '1': 'orange', '2': 'dark-blue',  '3': 'blue', '4': 'light-blue'
+            '0': 'red',
+			'1': 'orange',
+			'2': 'dark-blue',
+			'3': 'blue',
+			'4': 'light-blue',
         }
         res = {}
         
@@ -179,7 +203,7 @@ task()
 
 #### Customize the booking chart associated with the resource booking 
 
-If you need a specific way to get the chart associated with the resource booking, you can override `get_chart_id()`.
+If you need a specific way to get the chart associated with the resource booking, you can override `get_chart_ids()`.
 
 This method has to return the booking.chart id, and in addition to `cr` and `uid`  parameters, the method get the current model.
 
@@ -193,20 +217,42 @@ class task(mixin.resource):
 	
 	...
 	
-	def get_chart_id(self, cr, uid, model):
-		xml_id = 'users_booking_chart'
-		
-		if model.priority > 2:
-			xml_id = 'priority_tasks_booking_chart'
-		
-		model_data = self.pool.get('ir.model.data')
-		
-		ref = model_data.get_object_reference(cr, uid, 'demo_task', xml_id)
-        
-        if len(ref) < 2:
-            raise Exception('invalid xml_id: %s' % (xml_id))
-        
-        return ref[1] 
+	def get_chart_ids(self, cr, uid, model):
+        """
+            Get the booking chart id in relation with
+            auto created booking.resource.
+            Override this method if you want to implement
+            your own way to get chart id.
+        """
+        if not self._booking_chart_refs:
+            raise Exception('%s model with booking resource mixin: \
+                _booking_chart_refs property required' % (self._name))
+        ids = []
+        ir_model = self.pool['ir.model.data']
+        for _booking_chart_ref, resource_field_ref in \
+                self._booking_chart_refs.iteritems():
+            if model[resource_field_ref]:
+                xml_id = _booking_chart_ref.split('.')
+                ref = ir_model.get_object_reference(cr, uid,
+                                                    xml_id[0],
+                                                    xml_id[1])
+                if len(ref) < 2:
+                    raise Exception('%s model with booking resource mixin: \
+                        can not find the chart_id according to the \
+                        xml_id: %s' % (self._name, self._booking_chart_ref))
+                resource = ir_model.get_object(cr, uid,
+                                               xml_id[0],
+                                               xml_id[1])
+                resource_name = resource and \
+                    resource.resource_model.model or False
+                if resource_name:
+                    for resource_id in model[resource_field_ref].ids:
+                        resource_ref = "%s,%s" % (resource_name, resource_id)
+                        ids.append({ref[1]: resource_ref})
+            elif resource_field_ref not in model:
+                raise Exception('Field %s does not exists in \
+                model %s' % (resource_field_ref, self._name))
+        return ids
 	
 	...
 
