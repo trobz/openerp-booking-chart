@@ -373,8 +373,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 							// should include one more hour to exclude at the end
 							// from 09:00 -> 22:00 => hours = [09, ...., 23]
 							// generate quarter from 09 to 22 (including 22) but stop at 23
-							var hours = _.range(target.start, target.end + 1),
-								quarters = this.quartersFor(hours);
+                            var hours = _.range(target.start, target.end + 1),
+	                            quarters = this.quartersFor(hours);
 
                             day = {
                                 id: day_id,

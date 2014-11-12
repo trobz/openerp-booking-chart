@@ -47,7 +47,7 @@
         Action 
         -->
         <record id="action_demo_task" model="ir.actions.act_window">
-            <field name="name">Tasks by Users</field>
+            <field name="name">Tasks by users</field>
             
             <!--
             Name of the booking chart view, required
@@ -68,11 +68,9 @@
             The context need to define which booking chart to use, required
             -->
             <field name="context" eval="{'booking_chart_id': ref('demo_task.users_booking_chart')}" />
-            
+
             <field name="search_view_id" ref="view_users_search_form"/>
-            
         </record>
-        
         
         <!--
         add a Booking Chart sub menu into Project menu
@@ -81,7 +79,5 @@
             id="menu_demo_task"
             parent="project.menu_project_management" 
             sequence="100" />
-      
-        
     </data>
 </openerp>

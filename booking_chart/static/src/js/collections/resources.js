@@ -158,7 +158,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         search: function(){
             var period_start = this.daterange.get('added_start').format('YYYY-MM-DD'),
                 period_end = this.daterange.get('added_end').format('YYYY-MM-DD');
-            
+
             var search = {
                 remove: false,
                 filter: [
@@ -167,9 +167,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     '|',
                     '&', [ 'date_start', '>=',  period_start ], [ 'date_start', '<=',  period_end ],
                     '&', [ 'date_end', '>=', period_start  ], [ 'date_end', '<=', period_end ],
-                ]
+                ].concat(this.query.persistent && this.query.filter || [])
             };
-            return search;
+            return  search;
         },
         
         modelError: function(model, error, options){

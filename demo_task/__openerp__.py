@@ -33,6 +33,9 @@ notes:
         
         # declare an init function to generate booking.resource from existing tasks
         'data/task_function.xml',
+
+        # support filter domain by action button
+        'view/project_task_view.xml'
     ],
     
     'js': [],

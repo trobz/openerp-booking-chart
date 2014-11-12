@@ -104,17 +104,25 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             this.panel.sidebar.directShow(this.views.toolbar);
             this.panel.calendar.directShow(this.views.calendar);
         },
-        
+
         search_disabled: false,
-        
+
         do_action: function(){
             // hack to disable the search the first time when the user
             // go back to the booking chart view
             this.search_disabled = true;
             this._super.apply(this, arguments);
         },
-        
+
         do_search: function(domain, context, group_by){
+
+	        if ('booking_resource_domain' in context){
+				this.models.chart.resources.query = {
+					filter: context['booking_resource_domain'],
+					persistent: true
+				}
+	        }
+
             if(!this.search_disabled){
                 this.models.chart.items.load({
                     filter: domain,

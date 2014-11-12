@@ -66,7 +66,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
 
 		    // only with hours booking chart - handle current resource with fixed timezone
-		    if (this.collection.daterange.get('base') === 'hours'){
+            if (this.collection.daterange.get('base') === 'hours'){
 
 			    // convert to fixed timezone if the resource is not fetched
 			    // if we dont handle this case, the resource will get added by timezone
