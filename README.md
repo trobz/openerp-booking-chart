@@ -259,6 +259,122 @@ class task(mixin.resource):
 task()
 ```
 
+----
+
+## Update 12/11/2014
+- New support for display days/hours style and interchangable with months/days style on the booking chart.
+- Filtering resource and booking resources based on domain and context from mixin object.
+
+
+###- Using Days/Hours display style or Months/Days display style:
+
+```xml
+<record id="bar_booking_view" model="ir.ui.view">
+    ...
+    <field name="arch" type="xml">
+        <booking version="7.0">
+            <items title="name" />
+            <!-- base should be hours|days -->
+            <calendar base="hours" timezone="+07:00">
+                <date name="monday" start="09" end="23" />
+                <date name="tuesday" start="09" end="21" />
+                <date name="wednesday" start="09" end="22" />
+                <date name="thursday" start="08" end="21" />
+                <date name="friday" start="09" end="21" />
+            </calendar>
+        </booking>
+    </field>
+</record>
+```
+
+- `calendar` tag: addition tag to indicate the style of the booking chart, this tag is optional.
+
+- `base` attribute: the style that booking chart will use to display can be:
+    - `hours`: days/hours booking chart
+    - `days`: months/days booking chart
+
+- `timezone` attribute: the timezone to be applied on the resource data.
+    - example: `+07:00`.
+    - this attribute is mandatory if `base` is `hours`.
+    - more information: [momentjs timezone offset](http://momentjs.com/docs/#/manipulating/timezone-offset/)
+
+- `date` tag: define working days will be displayed on days/hours style booking chart.
+    - `name`: name of week day (from monday to sunday).
+    - `start`: start point (hour) of a day.
+    - `end`: end point (hour) of a day.
+
+**NOTICE**: if the resources is exceeded (start or end or both) or not defined in the list of week days, booking chart will throw an error and stop everything.
+
+###- Filtering resources / booking resources for mixin object: 
+
+- To applied filter on resources and booking resources, a context and domain should be applied.
+
+**example on the `project.task` object:**
+
+```python
+
+def button_go_to_filtered_resources(self, cr, uid, ids, context=None):
+
+    if context is None:
+        context = {}
+
+    # get object pool references
+    resource_pool = self.pool.get('booking.resource')
+    data_pool = self.pool.get('ir.model.data')
+
+    # get the current clicking task
+    _task = self.browse(cr, uid, ids[0], context=context)
+
+    # get all related booking resources for this task
+    domain = [('origin_ref', '=', u'{0},{1}'.format(self._name, ids[0]))]
+    booking_resource_ids = resource_pool.search(cr, uid, domain, context=context)
+
+    # get the booking chart id by xml
+    booking_data = data_pool.xmlid_lookup(cr, uid, self._booking_chart_ref)
+
+    # context to filter booking resources on the booking chart
+    context.update({
+        'booking_chart_id': booking_data[2],
+        'booking_resource_domain': [('id', 'in', booking_resource_ids)]
+    })
+
+    # domain to filter resource on the booking chart
+    domain = [
+        ('id', 'in', [
+            _task.user_id and _task.user_id.id,
+            _task.reviewer_id and _task.reviewer_id.id
+        ])
+    ]
+
+    return {
+        'name': 'Task by users',
+        'view_type': 'booking',
+        'view_mode': 'booking',
+        'res_model': 'res.users',
+        'context': context,
+        'domain': domain,
+        'type': 'ir.actions.act_window',
+    }
+```
+
+**On the `project.task` view:**
+
+```xml
+<field name="stage_id" position="before">
+    <button string="Booking" type="object" class="oe_highlight" name="button_go_to_filtered_resources" />
+</field>
+```
+
+**Things to notice from above example (function and the view):**
+
+- The `context`:
+    - `booking_chart_id` key: indicates which booking chart will be used for the mixin model.
+    - `booking_resource_domain` key: domain will be used to filter booking resources (applied on `booking.resource` object)
+    
+- The `domain`:
+    - This domain will be used to restrict the number of resources to be displayed on the booking chart.
+    - The domain will be applied on mixin object model (in example is `project.task`)
+
 ## Dependencies
 
 - [Web Unleashed module](https://github.com/trobz/openerp-web-unleashed "OpenERP Web Unleashed")     
