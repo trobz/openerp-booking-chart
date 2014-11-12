@@ -266,7 +266,7 @@ task()
 - Filtering resource and booking resources based on domain and context from mixin object.
 
 
-###- Using Days/Hours display style or Months/Days display style:
+###Using Days/Hours display style or Months/Days display style:
 
 ```xml
 <record id="bar_booking_view" model="ir.ui.view">
@@ -305,7 +305,7 @@ task()
 
 **NOTICE**: if the resources is exceeded (start or end or both) or not defined in the list of week days, booking chart will throw an error and stop everything.
 
-###- Filtering resources / booking resources for mixin object: 
+###Filtering resources / booking resources for mixin object: 
 
 - To applied filter on resources and booking resources, a context and domain should be applied.
 
@@ -378,4 +378,4 @@ def button_go_to_filtered_resources(self, cr, uid, ids, context=None):
 ## Dependencies
 
 - [Web Unleashed module](https://github.com/trobz/openerp-web-unleashed "OpenERP Web Unleashed")     
-This module provide native support of Backbone and Marionette, simplifing dramatically the creation of rich views in OpenERP.  
+This module provide native support of Backbone and Marionette, simplifing dramatically the creation of rich views in OpenERP.
