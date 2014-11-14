@@ -9,6 +9,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
     var Period = base.models('Period'),
         _super = Period.prototype;
+        
+    var superModel = Backbone.Model.prototype;
 
     var DateRange = Period.extend({
         
@@ -212,7 +214,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
 
 	    workingDay: function(moment){
-		    if(this.has('working_date')) {
+	        // should call from the root Model, not from period
+		    if(superModel.has.call(this, 'working_date')) {
 			    var working_days = this.get('working_date'),
 				    current_days = moment.format('dddd').toLowerCase();
 
