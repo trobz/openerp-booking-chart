@@ -15,7 +15,6 @@ class task(mixin.resource):
         'date_end':    'date_end',
         # object mapping, booking.resource field = "task.field._name,task.field.id" 
         'resource_ref': 'user_id',
-        'target_ref':   'project_id',
         # custom mapping, set booking.resource.css_class field when priority is updated with the value of task.booking_css_class
         'css_class':   'priority:booking_css_class'
     }

@@ -35,6 +35,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             
             var period = new DateRange(),
                 chart = new Chart({ 
+                    //id: this.context.booking_chart_id
                     id: this.dataset.context.booking_chart_id
                 }, {
                     resource_model: this.dataset.model,
