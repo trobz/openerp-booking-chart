@@ -1,6 +1,0 @@
-<openerp>
-  <data>
-    <!-- Generate booking resources from existing tasks, useful to initialize your booking chart. -->
-    <function model="project.task" name="_generate_resources"/>
-  </data>
-</openerp>
