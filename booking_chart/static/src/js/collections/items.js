@@ -58,7 +58,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if(title){
                 this.resource_title = title;
             }
-        	return this.resource_title;
+    return this.resource_title;
         }
     });
 

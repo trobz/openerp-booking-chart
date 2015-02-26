@@ -6,49 +6,49 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     
 
     var Period = base.models('Period'),
-	    _superPeriod = Period.prototype;
+        _superPeriod = Period.prototype;
 
     var GroupPeriod = Period.extend({
 
-	    initialize: function(data, options){
-		    this.daterange = options.period;
-			return _superPeriod.initialize.apply(this, arguments);
-	    },
+        initialize: function(data, options){
+            this.daterange = options.period;
+            return _superPeriod.initialize.apply(this, arguments);
+        },
 
-	    // width for overlap model (group that has overlapped models)
-		duration: function(){
+        // width for overlap model (group that has overlapped models)
+        duration: function(){
 
-			if(this.daterange.get('base') == 'hours'){
+            if(this.daterange.get('base') == 'hours'){
 
-				return this.daterange.rescDuration(this.get('start'), this.get('end'));
-			}
-			return _superPeriod.duration.apply(this, arguments);
-		},
+                return this.daterange.rescDuration(this.get('start'), this.get('end'));
+            }
+            return _superPeriod.duration.apply(this, arguments);
+        },
 
-	    toogleBarWidth: function(){
+        toogleBarWidth: function(){
 
-		    if(this.daterange.get('base') === 'hours'){
-				return this.duration() * (1 / 15);
-		    }
-		    return this.duration();
-	    },
+            if(this.daterange.get('base') === 'hours'){
+                return this.duration() * (1 / 15);
+            }
+            return this.duration();
+        },
 
-	    tooltipDateTimeFormat: function(){
-			if(this.daterange.get('base') === 'hours'){
-				return 'ddd. (Do MMM, YYYY) HH:mm:ss';
-			}
-		    return 'ddd. Do MMM, YYYY';
-	    },
+        tooltipDateTimeFormat: function(){
+            if(this.daterange.get('base') === 'hours'){
+                return 'ddd. (Do MMM, YYYY) HH:mm:ss';
+            }
+            return 'ddd. Do MMM, YYYY';
+        },
 
-	    tooltipTimeDuration: function(){
-			var duration = this.duration();
-		    return this.daterange.humanizeDisplay(duration);
-	    }
-	});
+        tooltipTimeDuration: function(){
+            var duration = this.duration();
+            return this.daterange.humanizeDisplay(duration);
+        }
+    });
 
     var Group = Overlap.extend({
 
-	    period_model: GroupPeriod,
+        period_model: GroupPeriod,
         
         label: function(){
             var title = [];
@@ -67,8 +67,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         resource_id: function(){
-        	var resource = this.resource_ref.split(',');
-        	return resource.length == 2 ? parseInt(resource[1]) : null; 
+    var resource = this.resource_ref.split(',');
+    return resource.length == 2 ? parseInt(resource[1]) : null; 
         }
     });
 
@@ -77,8 +77,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
         collection_group: Group,
 
-	    model: Resource,
-	    period_model: GroupPeriod,
+        model: Resource,
+        period_model: GroupPeriod,
 
         model_name: 'booking.resource',
 
@@ -95,7 +95,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         bind: function(){
-        	this.listenTo(this.daterange, 'change:added_start change:added_end reset', this.fetch);
+    this.listenTo(this.daterange, 'change:added_start change:added_end reset', this.fetch);
             this.listenTo(this.items, 'sync', this.loadPage);
             this.listenTo(this.items, 'group:sync', this.loadGroup);
             this.listenTo(this, 'invalid', this.modelError);
@@ -107,15 +107,15 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
         
         updateItemsHeight: function(){
-        	var group_by_item = {};
+    var group_by_item = {};
         
-        	// each group, with max length calculation
-        	this.eachAggregatedGroups(function(groups){
+    // each group, with max length calculation
+    this.eachAggregatedGroups(function(groups){
                 var max = 0, last_group;
                 
                 _(groups).each(function(group){
-                	max = group.length > max ? group.length : max;  
-                	last_group = group;
+    max = group.length > max ? group.length : max;  
+    last_group = group;
                 });
                 
                 // get the item, in the collection or in a group_by element if any 

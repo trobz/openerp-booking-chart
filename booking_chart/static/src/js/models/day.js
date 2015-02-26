@@ -8,30 +8,30 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return _.size(this.get("hours"));
         },
 
-	    current_day: function(){
-			return this.id === moment().format("YYYY-MM-DD");
-	    },
+        current_day: function(){
+            return this.id === moment().format("YYYY-MM-DD");
+        },
 
-	    numberOfEmFromStartOfDay: function(){
+        numberOfEmFromStartOfDay: function(){
 
-		    var period = this.get('global_period'),
-			    today = moment().minute(0).second(0),
-			    today_wd = period.workingDay(today);
+            var period = this.get('global_period'),
+                today = moment().minute(0).second(0),
+                today_wd = period.workingDay(today);
 
-		    if (period.isWorkingDate(today) && this.get('moment').isSame(today, 'day')){
+            if (period.isWorkingDate(today) && this.get('moment').isSame(today, 'day')){
 
-				var start_today_wd = today.clone().hour(today_wd.start).minute(0).second(0),
-					duration = period.rescDuration(start_today_wd, today);
+                var start_today_wd = today.clone().hour(today_wd.start).minute(0).second(0),
+                    duration = period.rescDuration(start_today_wd, today);
 
-			    return duration / 15;
-		    }
+                return duration / 15;
+            }
 
-		    return -10; // any number less than 0
-	    },
+            return -10; // any number less than 0
+        },
 
-	    current_hour: function(hour){
-			return this.current_day() && moment().format('H') == hour;
-	    },
+        current_hour: function(hour){
+            return this.current_day() && moment().format('H') == hour;
+        },
 
         // get size as width for 'calendar-day-container' (exclude the last hour of day)
         nbQuarters: function(){

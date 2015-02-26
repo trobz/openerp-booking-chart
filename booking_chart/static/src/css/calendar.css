@@ -103,8 +103,8 @@
     width: 100% !important;
     height: 39px !important;
     position: inherit ;
-	z-index:3;
-	background-color: #EBEBEB;
+    z-index:3;
+    background-color: #EBEBEB;
 }
 
 /* frozen scrollbar */

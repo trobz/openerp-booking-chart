@@ -14,7 +14,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
 
     var State = Backbone.Model.extend({
 
-	    date_format: 'YYYY-MM-DD',
+        date_format: 'YYYY-MM-DD',
 
         defaults: {
             action: null,
@@ -46,25 +46,25 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             );
         },
 
-	    getPeriodDefaults: function(){
-		    var default_start = moment().subtract(1, 'months').startOf('month').format(this.date_format),
-		        default_end = moment().add(2, 'months').endOf('month').format(this.date_format),
-			    default_scroll = moment().subtract(7, 'days').diff(moment(default_start), 'days');
+        getPeriodDefaults: function(){
+            var default_start = moment().subtract(1, 'months').startOf('month').format(this.date_format),
+                default_end = moment().add(2, 'months').endOf('month').format(this.date_format),
+                default_scroll = moment().subtract(7, 'days').diff(moment(default_start), 'days');
 
 
-	        if(this.period.get("base") === "hours"){
-		        default_start = moment().subtract(3, 'days').format(this.date_format);
-		        default_end = moment().add(3, 'days').format(this.date_format);
-           		default_scroll = this.period.rescDuration(
-		            moment(default_start), moment().subtract(4, 'hours')
-	            ) / 15;
+            if(this.period.get("base") === "hours"){
+                default_start = moment().subtract(3, 'days').format(this.date_format);
+                default_end = moment().add(3, 'days').format(this.date_format);
+        default_scroll = this.period.rescDuration(
+                    moment(default_start), moment().subtract(4, 'hours')
+                ) / 15;
             }
-		    return {
-			    start: default_start,
-			    end: default_end,
-			    scroll: default_scroll
-		    }
-	    },
+            return {
+                start: default_start,
+                end: default_end,
+                scroll: default_scroll
+            }
+        },
         
         configPager: function(page, limit){
             var items = this.chart.items, 
@@ -88,10 +88,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
         
         configPeriod: function(start, end){
-			var period = this.period,
-	            defaults = this.getPeriodDefaults();
+            var period = this.period,
+                defaults = this.getPeriodDefaults();
 
-	        this.set({
+            this.set({
                 period_start: start || defaults.start,
                 period_end: end || defaults.end
             });
@@ -105,7 +105,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
         },
 
         configScroll: function(scroll){
-			var defaults = this.getPeriodDefaults();
+            var defaults = this.getPeriodDefaults();
 
 
             this.period.set({

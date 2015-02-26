@@ -303,7 +303,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
                     });
 
-                	strictEqual(list.max, 5, 'the biggest group has 5 elements');
+    strictEqual(list.max, 5, 'the biggest group has 5 elements');
 
                     def.resolve();
                 });
