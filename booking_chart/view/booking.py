@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp.osv import osv
+from openerp import api
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval
 from openerp.addons.base.ir.ir_actions import VIEW_TYPES
@@ -15,22 +16,22 @@ VIEW_TYPES.append(VIEW_TYPE)
 
 def valid_node_group(node):
     res = True
-
     if not valid_type_booking(node):
         res = False
-
     return res
 
 
 def valid_type_booking(arch, fromgroup=True):
+    # TODO: missing arch validator
     return True
 
 
-class IrUiView(osv.Model):
+class BookingView(osv.Model):
     _inherit = 'ir.ui.view'
 
-    def __init__(self, pool, cr):
-        res = super(IrUiView, self).__init__(pool, cr)
+    @api.model
+    def _setup_fields(self):
+        res = super(BookingView, self)._setup_fields()
         select = [k for k, v in self._columns['type'].selection]
         if VIEW_TYPE[0] not in select:
             self._columns['type'].selection.append(VIEW_TYPE)
@@ -52,7 +53,6 @@ class IrUiView(osv.Model):
             for view_arch in view_docs:
                 if not valid_type_booking(view_arch, fromgroup=False):
                     return False
-
         return True
 
     _constraints = [
