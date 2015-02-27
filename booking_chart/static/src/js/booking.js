@@ -90,7 +90,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     var working_dates = obj.attrs.date;
                     this.models.period.set({
                         'base': obj.attrs.base,
-                        'timezone': obj.attrs.timezone || 0,
+                        'timezone': obj.attrs.timezone || '+00:00',
                         'working_date': obj.attrs.date || []
                     });
                 }
