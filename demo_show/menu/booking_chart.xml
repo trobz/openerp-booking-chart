@@ -39,6 +39,8 @@
             <field name="res_model">tv.serie</field>
             <field name="context"
                    eval="{'booking_chart_id': ref('demo_show.tv_serie_booking_chart')}" />
+
+            <field name="search_view_id" ref="view_tv_serie_search_form"/>
         </record>
 
         <!-- Menu -->

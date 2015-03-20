@@ -38,6 +38,7 @@
             <field name="arch" type="xml">
                 <tree string="Series">
                     <field name="name"/>
+                    <field name="genre"/>
                     <field name="episode_ids"/>
                 </tree>
             </field>
@@ -51,6 +52,7 @@
                     <sheet>
                         <group col="4">
                             <field name="name"/>
+                            <field name="genre"/>
                         </group>
                     </sheet>
                 </form>
@@ -68,7 +70,6 @@
                     <field name="serie_id"/>
                     <field name="number"/>
                     <field name="season"/>
-                    <field name="genre"/>
                 </tree>
             </field>
         </record>
@@ -85,7 +86,6 @@
                             <field name="number"/>
                             <field name="season"/>
                             <field name="duration"/>
-                            <field name="genre"/>
                         </group>
                     </sheet>
                 </form>
@@ -123,7 +123,6 @@
                 </form>
             </field>
         </record>
-
 
     </data>
 </openerp>

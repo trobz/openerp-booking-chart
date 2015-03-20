@@ -36,7 +36,6 @@
             </field>
         </record>
 
-
         <record id="view_tv_serie" model="ir.ui.view">
             <field name="name">tv.serie.booking</field>
             <field name="model">tv.serie</field>
@@ -48,22 +47,20 @@
             </field>
         </record>
 
-
         <!--
-            Allow to group by channel style
-            (see action_booking_tv_channelrecord)
+            Allow to group by channel style and serie genre
+            (see action_booking_tv_channel and action_booking_tv_serie record)
         -->
 
         <record id="view_tv_channel_search_form" model="ir.ui.view">
             <field name="name">tv.channel.search.form</field>
             <field name="model">tv.channel</field>
             <field name="arch" type="xml">
-               <search string="Users">
+               <search string="Channel">
                     <field name="name" string="Channel"/>
                     <group expand="0" string="Group By...">
                         <filter string="Style"
                                 name="style"
-                                icon="terp-personal"
                                 domain="[]"
                                 context="{'group_by':'style'} "/>
                     </group>
@@ -71,7 +68,20 @@
             </field>
         </record>
 
-
-
+        <record id="view_tv_serie_search_form" model="ir.ui.view">
+            <field name="name">tv.serie.search.form</field>
+            <field name="model">tv.serie</field>
+            <field name="arch" type="xml">
+               <search string="Serie">
+                    <field name="name" string="Serie"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Genre"
+                                name="genre"
+                                domain="[]"
+                                context="{'group_by':'genre'} "/>
+                    </group>
+                </search>
+            </field>
+        </record>
     </data>
 </openerp>

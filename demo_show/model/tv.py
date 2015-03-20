@@ -31,7 +31,16 @@ class tv_serie(osv.osv):
 
     _columns = {
         'name': fields.char('Name'),
-        'episode_ids': fields.one2many('tv.episode', 'serie_id',
+        'genre': fields.selection((('action', 'Action'),
+                                   ('adventure', 'Adventure'),
+                                   ('comedy', 'Comedy'),
+                                   ('drama', 'Drama'),
+                                   ('horror', 'Horror'),
+                                   ('epic', 'Epic'),
+                                   ('sf', 'Science Fiction'),
+                                   ('western', 'Western')), string='Genre'),
+        'episode_ids': fields.one2many('tv.episode',
+                                       'serie_id',
                                        string="Episodes"),
     }
 
@@ -45,14 +54,6 @@ class tv_episode(osv.osv):
         'number': fields.integer('Episode Number'),
         'season': fields.integer('Season Number'),
         'duration': fields.integer('Duration (s)'),
-        'genre': fields.selection((('action', 'Action'),
-                                   ('adventure', 'Adventure'),
-                                   ('comedy', 'Comedy'),
-                                   ('drama', 'Drama'),
-                                   ('horror', 'Horror'),
-                                   ('epic', 'Epic'),
-                                   ('sf', 'Science Fiction'),
-                                   ('western', 'Western')), string='Genre'),
         'serie_id': fields.many2one('tv.serie', string="Serie"),
     }
 

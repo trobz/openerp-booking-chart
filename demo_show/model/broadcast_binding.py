@@ -22,7 +22,7 @@ class tv_broadcast(mixin.resource):
                                          episode.number)
 
     def _episode_color(self, broadcast):
-        genre = broadcast.episode_id.genre
+        genre = broadcast.episode_id.serie_id.genre
 
         color_map = {
             'action': 'red', 'adventure': 'green', 'comedy': 'blue',
