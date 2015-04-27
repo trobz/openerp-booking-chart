@@ -7,16 +7,16 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
     var Toolbar = View.extend({
 
         template: 'Booking.Toolbar',
-        
+
         events: {
             'click .btn_show': 'show'
         },
-        
+
         modelEvents: {
             'change:start': 'updateDateStart',
             'change:end': 'updateDateEnd'
         },
-        
+
         ui: {
             from:   '#date_picker_from',
             to:     '#date_picker_to',
@@ -31,7 +31,7 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
                 from: this.model.start(),
                 to: this.model.end(),
                 format: format
-            };    
+            };
         },
 
         onBeforeRender: function(){
@@ -39,9 +39,9 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
         },
 
         onRender: function () {
-    
-    // FIXME: find a better place to handle language (ie. web unleashed...)
-    $.datepicker.setDefaults({
+
+            // FIXME: find a better place to handle language (ie. web unleashed...)
+            $.datepicker.setDefaults({
                 clearText: base._t('Clear'),
                 clearStatus: base._t('Erase the current date'),
                 closeText: base._t('Done'),
@@ -86,7 +86,7 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
                 beforeShow: _.bind(this.dateBeforeShow, this)
             })
             .focus(_.bind(this.dateFocus, this));
-        
+
             // no choices, this element in injected in the body by the datepicker plugin...
             this.ui.picker = $('#ui-datepicker-div');
         },
@@ -135,15 +135,15 @@ openerp.unleashed.module('booking_chart', function (booking, _, Backbone, base) 
             //reset the period, should render again all the calendar
             var from = moment(this.ui.from.attr('date')),
                 to = moment(this.ui.to.attr('date'));
-            
+
             if(!from.isValid() || !to.isValid()){
                 throw new Error('date range is not correct');
             }
             if(from > to){
                 throw new Error('"date from" should be lower than "date to"');
             }
-            
-            if( this.model.start().format('YYYY-MM-DD') != from.format('YYYY-MM-DD') 
+
+            if( this.model.start().format('YYYY-MM-DD') != from.format('YYYY-MM-DD')
             ||  this.model.end().format('YYYY-MM-DD') != to.format('YYYY-MM-DD')){
 
                 // skip the setting

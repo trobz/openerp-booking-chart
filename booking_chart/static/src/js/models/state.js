@@ -36,13 +36,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             this.period = options.period;
             this.calendar = options.calendar;
         },
-        
+
         process: function(){
             return $.when(
                 this.configPager(this.get('page'), this.get('limit')),
                 this.configPeriod(this.get('period_start'), this.get('period_end')),
                 this.configScroll(this.get('scroll')),
-                this.bind()    
+                this.bind()
             );
         },
 
@@ -55,38 +55,39 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             if(this.period.get("base") === "hours"){
                 default_start = moment().subtract(3, 'days').format(this.date_format);
                 default_end = moment().add(3, 'days').format(this.date_format);
-        default_scroll = this.period.rescDuration(
+                default_scroll = this.period.rescDuration(
                     moment(default_start), moment().subtract(4, 'hours')
                 ) / 15;
             }
+
             return {
                 start: default_start,
                 end: default_end,
                 scroll: default_scroll
-            }
+            };
         },
-        
+
         configPager: function(page, limit){
-            var items = this.chart.items, 
+            var items = this.chart.items,
                 defaults = this.defaults;
-            
+
             page = $.isNumeric(page) ? parseInt(page) : defaults.page;
             limit = $.isNumeric(limit) ? parseInt(limit) : defaults.limit;
-            
+
             items.pager.limit = limit;
             var promise = items.init(), state = this;
-            
+
             promise.done(function(){
                 items.pager.page = page < items.pager.nb_pages ? page : defaults.page;
                 state.set({
                     page: items.pager.page,
                     limit: items.pager.limit
-                });    
+                });
             });
-            
+
             return promise;
         },
-        
+
         configPeriod: function(start, end){
             var period = this.period,
                 defaults = this.getPeriodDefaults();
@@ -130,19 +131,19 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone){
             this.set({
                 page: pager.page,
                 limit: pager.limit
-            }); 
+            });
         },
-        
+
         periodChanged: function(period){
             this.set({
                 period_start: period.get('start').format(this.date_format),
                 period_end: period.get('end').format(this.date_format)
-            }); 
+            });
         },
-        
+
         scrollChanged: function(){
-            this.set({ 
-                scroll: this.period.get('scroll') 
+            this.set({
+                scroll: this.period.get('scroll')
             });
         }
     });

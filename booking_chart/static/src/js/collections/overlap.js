@@ -1,5 +1,5 @@
 openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
-    
+
     var Period = base.models('Period');
 
     var Group = base.collections('Group'),
@@ -13,51 +13,51 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         period_model: Period,
 
         initialize: function(models, options){
-            
+
             //use option from the main model to create group models, see "createOverlap"
-            this.baseOptions = _.clone(options);                
-            
+            this.baseOptions = _.clone(options);
+
             this.options = _.extend({
                 attr_date_start: '',
                 attr_date_end: '',
                 attr_group_by: ''
             }, options);
-            
+
             this.data = _.extend({
                 period: new this.period_model({}, options)
             }, this.data || {});
-            
+
             this.addModelValidator();
-            
+
             _super.initialize.apply(this, [models, this.options]);
         },
-        
+
         group_by: function(model){
             return this.uid();
         },
-        
+
         /*
          * Get groups aggregated by  with the group_by attribute
          */
         eachAggregatedGroups: function(callback, context){
-    return _.chain(this.groups()).groupBy(this.options.attr_group_by)
-                                 .each(callback, context);
+            return _.chain(this.groups()).groupBy(this.options.attr_group_by)
+                    .each(callback, context);
         },
 
         /*
          * add specific validation step for overlapping models
          */
         addModelValidator: function(){
-            var _super = this.model.prototype; 
-            
+            var _super = this.model.prototype;
+
             var date_start = this.options.attr_date_start,
                 date_end = this.options.attr_date_end,
                 group_by = this.options.attr_group_by;
-            
+
             this.model = this.model.extend({
                 validate: function(attrs, options){
                     var err = null;
-                    
+
                     if(!(date_start in attrs)){
                         err = new Error('attribute "' + date_start +  '" is not defined');
                     }
@@ -80,15 +80,15 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                     if(start > end){
                         err = new Error('start date "' + attrs[date_start] +  '" is greater than end date "' + attrs[date_end] +  '"');
                     }
-                
+
                     if(_super.validate){
                         err = _super.validate.apply(this, arguments);
                     }
-                    
+
                     if(err){
                         return err;
                     }
-                }    
+                }
             });
         },
 
@@ -111,14 +111,14 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 existingOverlap = [],
                 overlap = null,
                 groups = this.groups();
-            
+
             _.each(groups, function(group){
                 if(group[this.options.attr_group_by] == group_by
                     && group.period().isValid() && group.overlap_with(model_period)){
                     existingOverlap.push(group);
                 }
             }, this);
-            
+
             if(existingOverlap.length > 1){
                 // merge all overlap together
                 overlap = this.merge(existingOverlap);
@@ -126,43 +126,43 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             else {
                 overlap = existingOverlap.length > 0 ? existingOverlap[0] : this.createOverlap(index);
             }
-        
+
             overlap[this.options.attr_group_by] = group_by;
             groups[overlap.options.index] = overlap;
             groups[overlap.options.index].add(model, {group: false});
-            
-            this.max = overlap.length > this.max 
+
+            this.max = overlap.length > this.max
          ? overlap.length : this.max;
         },
 
         merge: function(groups){
             var overlap = this.createOverlap(this.uid());
-            
+
             _.each(groups, function(group){
                 overlap.add(group.models, {group: false, updatePeriod: false});
-                this.removeGroup(group.options.index);    
+                this.removeGroup(group.options.index);
             }, this);
-        
+
             return overlap.updatePeriod();
         },
-        
+
         reviewOverlap: function(){
             if(this.isGroup()){
                 var groups = this.options.parent.groups(),
                     new_groups = [],
-                    start = this.period().start(), 
+                    start = this.period().start(),
                     attr_start = this.options.attr_date_start,
                     attr_end = this.options.attr_date_end,
                     attr_group_by = this.options.attr_group_by,
-                    sorted = this.sortBy(function(model){ 
+                    sorted = this.sortBy(function(model){
                         return moment(model.get(attr_start)).diff(start, 'minutes');
                     }),
                     previous_end = null;
-                
+
                 _.each(sorted, function(model){
                     var model_start = moment(model.get(attr_start)),
                         model_end = moment(model.get(attr_end));
-                        
+
                     if(previous_end && previous_end < model_start){
                         this.remove(model, {group: false, updateOverlap: false});
                         var uid = this.uid();
@@ -170,40 +170,40 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                         groups[uid][attr_group_by] = this[attr_group_by];
                         groups[uid].add(model, {group: false, updatePeriod: false});
                     }
-                    
+
                     previous_end = !previous_end || previous_end < model_end ? model_end : previous_end;
                 }, this);
-                
+
                 _.each(new_groups, function(group){
                     group.updatePeriod();
                 });
-                
+
                 if(this.length <= 0){
                     this.options.parent.removeGroup(this.options.index);
                 }
                 else {
                     this.updatePeriod();
-                }    
+                }
             }
         },
 
         getGroupConstructor: function(){
             return this.collection_group || Overlap;
         },
-        
+
         createOverlap: function(index){
             var GroupConstructor = this.getGroupConstructor();
-            return new GroupConstructor([], _.extend({ 
+            return new GroupConstructor([], _.extend({
                 attr_date_start: this.options.attr_date_start,
                 attr_date_end: this.options.attr_date_end,
-                attr_group_by: this.options.attr_group_by,   
-                group_by: this.group_by, 
-                grouped: true, 
-                parent: this, 
+                attr_group_by: this.options.attr_group_by,
+                group_by: this.group_by,
+                grouped: true,
+                parent: this,
                 index: index
             }, this.baseOptions));
         },
-        
+
         uid: function(){
             return Math.random().toString(36).substr(2, 12);
         },
@@ -218,7 +218,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
             return this.data.period;
         },
-        
+
         updatePeriod: function(){
             var start = null,
                 end = null,
@@ -226,32 +226,32 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 period_end = null,
                 attr_start = this.options.attr_date_start,
                 attr_end = this.options.attr_date_end;
-                
+
             this.each(function(model){
                 start = moment(model.get(attr_start));
                 end =  moment(model.get(attr_end));
                 period_start = !period_start || period_start > start ? start : period_start;
-                period_end = !period_end || period_end < end ? end : period_end;  
+                period_end = !period_end || period_end < end ? end : period_end;
             });
-            
+
             this.period().set({
                 start: period_start,
                 end: period_end
             });
-            
+
             return this;
         },
-        
+
         set: function(models, options){
             options = _.extend({
                 updatePeriod: true,
                 validate:true
             }, options);
-            
+
             _super.set.apply(this, arguments);
-            
+
             if(options.updatePeriod){
-                this.updatePeriod();    
+                this.updatePeriod();
             }
         },
 
@@ -260,13 +260,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 group: true,
                 updateOverlap: true
             }, options);
-            
+
             var before = this.length;
             _super.remove.apply(this, arguments);
-            
+
             if(this.isGroup() && this.length < before && options.updateOverlap){
-                this.reviewOverlap();   
-            }    
+                this.reviewOverlap();
+            }
         }
     });
 
