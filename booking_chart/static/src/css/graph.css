@@ -23,6 +23,7 @@
     line-height: 18px;
     overflow: hidden;
     height: 18px;
+    padding: 0 0 0 2px;
 }
 
 
@@ -50,7 +51,7 @@
 }
 
 .resources-container .resource-group {
-    position: relative;    
+    position: relative;
 }
 
 .resources-container .resource-group .group-icon {
@@ -116,7 +117,7 @@
 }
 
 .resources-container.open .resource-group .group-icon {
-    top: 0px;
+    top: 1px;
     font-size: 10px;
 }
 
@@ -135,7 +136,7 @@
 
 
 /*
- * booking resource color (booking_resource.css_class): 
+ * booking resource color (booking_resource.css_class):
  * dark-blue, blue, light-blue, yellow, red, light-red, green, light-green, pink, light-pink, orange, black
  */
 

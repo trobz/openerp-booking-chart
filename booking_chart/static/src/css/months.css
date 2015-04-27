@@ -1,5 +1,5 @@
 .booking-chart-timelapses .calendar-day span.day_fullname { display: none; }
-    
+
 .booking-chart-timelapses {
     height: 100%;
 }
@@ -42,9 +42,9 @@
     display: block;
     margin-top: 2px;
 }
-    
+
 .booking-chart-timelapses .today {
-    background-color: #D4F3A5 !important;
+    background-color: #DAF7C4 !important;
     color: #44690B !important;
 }
 
@@ -124,7 +124,7 @@
 /* S size */
 
 .booking-chart-timelapses.zoom-s .calendar-day span.day_name { display: none; }
-.booking-chart-timelapses.zoom-s .calendar-day span.day_number { 
+.booking-chart-timelapses.zoom-s .calendar-day span.day_number {
     font-size: 10px;
     margin: 10px 0 0 -4px;
     -webkit-transform: rotate(90deg);
@@ -148,7 +148,7 @@
 
 .booking-chart-timelapses.zoom-xl .calendar-day span.day_fullname { display: block; }
 .booking-chart-timelapses.zoom-xl .calendar-day span.day_name { display: none; }
-.booking-chart-timelapses.zoom-xl .calendar-day span.day_number { 
+.booking-chart-timelapses.zoom-xl .calendar-day span.day_number {
     font-size: 11px;
 }
 .booking-chart-timelapses.zoom-xl .calendar-month div.resources { background-image: url('../images/bg_week_xl.png'); }

@@ -10,14 +10,14 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
 
     instance.web.views.add('booking', 'instance.booking_chart.BookingView');
     instance.booking_chart.BookingView = UnleashedView.extend({
-        
+
         display_name: base._lt('Booking'),
         template: "Booking",
         view_type: 'booking',
-        
+
         Panel: booking.views('Panel'),
-        State: booking.models('State'),    
-        
+        State: booking.models('State'),
+
         module: booking,
 
         stateConfig: function(){
@@ -33,17 +33,16 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
             // models
             var DateRange = booking.models('DateRange'),
                 Chart = booking.models('Chart');
-            
+
             var period = new DateRange(),
-                chart = new Chart({ 
-                    //id: this.context.booking_chart_id
+                chart = new Chart({
                     id: this.dataset.context.booking_chart_id
                 },
                 {
-                    resource_model: this.dataset.model, // res.users for example
+                    resource_model: this.dataset.model,
                     period: period // global period
                 });
-            
+
             // views
             var Pager = base.views('Pager'),
                 Buttons = booking.views('Buttons'),
@@ -86,18 +85,18 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 if(obj.tag === 'items'){
                     this.models.chart.items.setOptions(obj.attrs);
                 }
-                else if(obj.tag === 'calendar' && obj.attrs.base === 'hours' && obj.attrs.timezone){
+                else if(obj.tag === 'calendar'){
                     // get all working dates defined on the view
                     var working_dates = obj.attrs.date;
                     this.models.period.set({
                         'base': obj.attrs.base,
-	                    'timezone': obj.attrs.timezone,
-                        'working_date': working_dates
+                        'timezone': obj.attrs.timezone || '+00:00',
+                        'working_date': obj.attrs.date || []
                     });
                 }
             }, this);
         },
-        
+
         ready: function(data){
             this.panel.pager.directShow(this.views.pager);
             this.panel.buttons.directShow(this.views.buttons);
@@ -116,12 +115,12 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
 
         do_search: function(domain, context, group_by){
 
-	        if ('booking_resource_domain' in context){
-				this.models.chart.resources.query = {
-					filter: context['booking_resource_domain'],
-					persistent: true
-				}
-	        }
+            if ('booking_resource_domain' in context){
+                this.models.chart.resources.query = {
+                    filter: context['booking_resource_domain'],
+                    persistent: true
+                }
+            }
 
             if(!this.search_disabled){
                 this.models.chart.items.load({
@@ -130,12 +129,12 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                     context: context,
                     persistent: true,
                     reset: true
-                });    
+                });
             }
             else {
                 this.stateChanged();
                 this.search_disabled = false;
             }
-        } 
+        }
     });
 });

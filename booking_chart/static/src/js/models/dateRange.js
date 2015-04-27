@@ -45,7 +45,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         zoom: function(size){
         
             // load additional months, to have enough month to display
-	        // icase using hours booking chart, load addition days instead
+            // icase using hours booking chart, load addition days instead
             if(size == 'xs'){
                 this.reachTimelapseCount(6);
             }
@@ -77,17 +77,17 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         scrollToday: function(){
             var diff = Math.round(moment().subtract(7, 'days').diff(this.start(), 'days', true));
 
-	        if(this.get('base') === 'hours'){
+            if(this.get('base') === 'hours'){
 
-		        var current = moment().format('YYYY-MM-DD');
+                var current = moment().format('YYYY-MM-DD');
 
-		        diff = this.timelapses.reduce(function(incr, model){
-			        if(model.id < current) {
-				        return incr + _.size(model.get('quarters')) - 1;
-			        }
-			        return incr;
-		        },  0);
-	        }
+                diff = this.timelapses.reduce(function(incr, model){
+                    if(model.id < current) {
+                        return incr + _.size(model.get('quarters')) - 1;
+                    }
+                    return incr;
+                },  0);
+            }
 
             this.set('scroll', diff);
             // should not have to send an event from here, but it make life easier :)
@@ -152,8 +152,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
 
             // manually set added start and added end for the query 'search'
-	        else {
-	            if (moment.isMoment(attrs.start)) {
+            else {
+                if (moment.isMoment(attrs.start)) {
                     attrs.added_start = attrs.start.clone();
                 }
                 if (moment.isMoment(attrs.end)) {
@@ -161,7 +161,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 }
             }
 
-	        _super.set.apply(this, [attrs, options]);
+            _super.set.apply(this, [attrs, options]);
 
             // caculate the current diff when both start and end are set (init the daterange)
             if (attrs.start && attrs.end) {
@@ -195,8 +195,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         },
 
         timelapsesCount: function(){
-	        // load day or month depending on the base of global period
-	        var df = this.get(base) === 'hours' ? 'days' : 'months';
+            // load day or month depending on the base of global period
+            var df = this.get(base) === 'hours' ? 'days' : 'months';
 
             return Math.round(this.end().diff(this.start(), df, true));
         },
@@ -213,20 +213,20 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.workingDay(moment) != null;
         },
 
-	    workingDay: function(moment){
-	        // should call from the root Model, not from period
-		    if(superModel.has.call(this, 'working_date')) {
-			    var working_days = this.get('working_date'),
-				    current_days = moment.format('dddd').toLowerCase();
+        workingDay: function(moment){
+            // should call from the root Model, not from period
+            if(superModel.has.call(this, 'working_date')) {
+                var working_days = this.get('working_date'),
+                    current_days = moment.format('dddd').toLowerCase();
 
-			    return _.find(working_days, function (day) {
-				    return day.name === current_days
-			    });
-		    }
-		    else {
-			    throw new Error("This method can be called by Global Period only");
-		    }
-	    },
+                return _.find(working_days, function (day) {
+                    return day.name === current_days
+                });
+            }
+            else {
+                throw new Error("This method can be called by Global Period only");
+            }
+        },
 
         nextTimelapse: function(nb){
             nb = nb || 1;
@@ -373,11 +373,11 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
 
                         if(!this.timelapses.has(day_id)){
 
-							// should include one more hour to exclude at the end
-							// from 09:00 -> 22:00 => hours = [09, ...., 23]
-							// generate quarter from 09 to 22 (including 22) but stop at 23
+                            // should include one more hour to exclude at the end
+                            // from 09:00 -> 22:00 => hours = [09, ...., 23]
+                            // generate quarter from 09 to 22 (including 22) but stop at 23
                             var hours = _.range(target.start, target.end + 1),
-	                            quarters = this.quartersFor(hours);
+                                quarters = this.quartersFor(hours);
 
                             day = {
                                 id: day_id,
@@ -385,7 +385,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                                 moment: day_current,
                                 hours: hours,
                                 quarters: quarters,
-	                            global_period: this
+                                global_period: this
                             };
 
                             days.push(new Day(day));
@@ -401,10 +401,10 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             console.timeEnd('[DateRange][diffTime]');
         },
 
-	    /*
-	    * get quarters for list of hours
-	    * @param {Array} hours: array of hours to get quarters
-	    **/
+        /*
+        * get quarters for list of hours
+        * @param {Array} hours: array of hours to get quarters
+        **/
         quartersFor: function(hours){
             var quarters = [],
                 incr = hours[0];
@@ -433,105 +433,105 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return quarters;
         },
 
-	    /*
-	    * get the total minutes between the two moment
-	    * used to s
-	    *
-	    * */
-		rescDuration: function(start, end){
+        /*
+        * get the total minutes between the two moment
+        * used to s
+        *
+        * */
+        rescDuration: function(start, end){
 
-			var duration = 0; // usually minutes
+            var duration = 0; // usually minutes
 
-	        if (this.get('base') === 'hours'){
+            if (this.get('base') === 'hours'){
 
-		        // now we check on date
-		        var date_start = moment(start.format('YYYY-MM-DD')),
-			        date_end = end.format('YYYY-MM-DD');
+                // now we check on date
+                var date_start = moment(start.format('YYYY-MM-DD')),
+                    date_end = end.format('YYYY-MM-DD');
 
-		        // if start day is not the same as end day
-		        if(!date_start.isSame(date_end)){
+                // if start day is not the same as end day
+                if(!date_start.isSame(date_end)){
 
-			        // get defined working day from global period
-			        var start_wd = this.workingDay(start),
-				        end_wd = this.workingDay(end);
+                    // get defined working day from global period
+                    var start_wd = this.workingDay(start),
+                        end_wd = this.workingDay(end);
 
-			        // 'end' of working day of resource-start (ex: 2014-01-10 22:00:00)
-			        // 'start' of working day of resource-end (ex: 2014-01-12 09:00:00)
-			        var end_start_wd_moment = start_wd && start.clone().hour(start_wd.end).minute(0).second(0) || 0,
-						start_end_wd_moment = end_wd && end.clone().hour(end_wd.start).minute(0).second(0) || 0;
+                    // 'end' of working day of resource-start (ex: 2014-01-10 22:00:00)
+                    // 'start' of working day of resource-end (ex: 2014-01-12 09:00:00)
+                    var end_start_wd_moment = start_wd && start.clone().hour(start_wd.end).minute(0).second(0) || 0,
+                        start_end_wd_moment = end_wd && end.clone().hour(end_wd.start).minute(0).second(0) || 0;
 
-			        // from resource start to the end of working day (ex:thursday)
-			        // from start of working day (ex: friday) to the end of resource
-			        var start_wd_minutes = start_wd && end_start_wd_moment.diff(start, 'minutes') || 0,
-						end_wd_minutes = end_wd && end.diff(start_end_wd_moment, 'minutes') || 0;
+                    // from resource start to the end of working day (ex:thursday)
+                    // from start of working day (ex: friday) to the end of resource
+                    var start_wd_minutes = start_wd && end_start_wd_moment.diff(start, 'minutes') || 0,
+                        end_wd_minutes = end_wd && end.diff(start_end_wd_moment, 'minutes') || 0;
 
-			        // incase there is two day only: today and tomorrow for example
-			        duration = start_wd_minutes + end_wd_minutes;
+                    // incase there is two day only: today and tomorrow for example
+                    duration = start_wd_minutes + end_wd_minutes;
 
-			        // get date gap between 'start' and 'end'
-			        var gap_count = start.twix(end).count('days');
+                    // get date gap between 'start' and 'end'
+                    var gap_count = start.twix(end).count('days');
 
-					// diff from 'start' + 'end' + (day minutes gap between 'start' and 'end) - non-working days
-			        if (gap_count > 2) {
+                    // diff from 'start' + 'end' + (day minutes gap between 'start' and 'end) - non-working days
+                    if (gap_count > 2) {
 
-						var current_start = start.clone();
+                        var current_start = start.clone();
 
-						_((gap_count - 2)).times(function(){
+                        _((gap_count - 2)).times(function(){
 
-							var wd = this.workingDay(current_start.add(1, 'day'));
+                            var wd = this.workingDay(current_start.add(1, 'day'));
 
-							if(wd){
-								var start_in_day = current_start.clone().hour(wd.start).minute(0).second(0),
-									end_in_day = current_start.clone().hour(wd.end).minute(0).second(0);
+                            if(wd){
+                                var start_in_day = current_start.clone().hour(wd.start).minute(0).second(0),
+                                    end_in_day = current_start.clone().hour(wd.end).minute(0).second(0);
 
-								duration += end_in_day.diff(start_in_day, 'minutes');
-							}
-						}, this);
-					}
-		        }
-		        // if in the same day, 'diff' is enough
-		        else {
-			        duration = end.diff(start, 'minutes');
-		        }
-	        }
+                                duration += end_in_day.diff(start_in_day, 'minutes');
+                            }
+                        }, this);
+                    }
+                }
+                // if in the same day, 'diff' is enough
+                else {
+                    duration = end.diff(start, 'minutes');
+                }
+            }
 
-			return duration;
-		},
+            return duration;
+        },
 
-	    /*
-	    * get the humanize display used on the view
-	    * example : 1d 22h 15min
-	    **/
-	    humanizeDisplay: function(duration){
+        /*
+        * get the humanize display used on the view
+        * example : 1d 22h 15min
+        **/
+        humanizeDisplay: function(duration){
 
-		    var text = '';
+            var text = '';
 
-		    if (this.get('base') === 'hours'){
+            if (this.get('base') === 'hours'){
 
-			    // change name to minutes for easy
-			    var minutes = duration;
+                // change name to minutes for easy
+                var minutes = duration;
 
-			    // get hour and day division
-			    var hour_division = 60, day_division = 60 * 24;
-			    /* ------------------------------------------------- */
-				var ref_m = minutes % hour_division; // get minutes
-			    var rem_m = minutes - ref_m; // remaining minutes
-			    var ref_h = (rem_m % day_division) / hour_division; // get hours
-			    var ref_d = (rem_m - (rem_m % day_division)) / day_division; // get days
+                // get hour and day division
+                var hour_division = 60, day_division = 60 * 24;
+                /* ------------------------------------------------- */
+                var ref_m = minutes % hour_division; // get minutes
+                var rem_m = minutes - ref_m; // remaining minutes
+                var ref_h = (rem_m % day_division) / hour_division; // get hours
+                var ref_d = (rem_m - (rem_m % day_division)) / day_division; // get days
 
-			    return _([
-				    ref_d > 0 ? ref_d + 'd' : '',
-				    ref_h > 0 ? ref_h + 'h' : '',
-				    ref_m > 0 ? ref_m + 'min' : ''
-			    ])
-		        .without('').join(' ');
-	        }
-		    else {
-				text = duration.toString() + ' day' + ((duration > 1) ? 's' : '');
-		    }
+                return _([
+                    ref_d > 0 ? ref_d + 'd' : '',
+                    ref_h > 0 ? ref_h + 'h' : '',
+                    ref_m > 0 ? ref_m + 'min' : ''
+                ])
+                .without('').join(' ');
+            }
+            else {
+                text = duration.toString() + ' day' + ((duration > 1) ? 's' : '');
+            }
 
-		    return text;
-	    }
+            return text;
+        }
     });
 
     booking.models('DateRange', DateRange);

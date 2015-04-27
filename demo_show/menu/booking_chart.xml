@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Action -->
+
+        <record id="action_booking_tv_channel" model="ir.actions.act_window">
+            <field name="name">Channel broadcasting by hours</field>
+
+            <!--
+            Name of the booking chart view, required
+            -->
+            <field name="view_mode">booking</field>
+
+            <!--
+            Set views accessible by this action, booking view is recognized
+            -->
+            <field name="view_type">tree</field>
+
+            <!--
+            The model used in the search widget, like on default tree view
+            -->
+            <field name="res_model">tv.channel</field>
+
+            <!--
+            The context need to define which booking chart to use, required
+            -->
+            <field name="context"
+                   eval="{'booking_chart_id': ref('demo_show.tv_channel_booking_chart')}" />
+
+            <field name="search_view_id" ref="view_tv_channel_search_form"/>
+        </record>
+
+
+        <record id="action_booking_tv_serie" model="ir.actions.act_window">
+            <field name="name">Series on Channel</field>
+            <field name="view_mode">booking</field>
+            <field name="view_type">tree</field>
+            <field name="res_model">tv.serie</field>
+            <field name="context"
+                   eval="{'booking_chart_id': ref('demo_show.tv_serie_booking_chart')}" />
+
+            <field name="search_view_id" ref="view_tv_serie_search_form"/>
+        </record>
+
+        <!-- Menu -->
+
+        <!-- add a Booking Chart sub menu into TV menu -->
+
+        <menuitem id="menu_demo_show"
+                  name="TV"
+                  sequence="10" />
+
+        <menuitem id="menu_demo_booking"
+                  parent="demo_show.menu_demo_show"
+                  name="TV Schedules"
+                  sequence="2" />
+
+        <menuitem id="menu_booking_tv_channel"
+                  action="action_booking_tv_channel"
+                  parent="demo_show.menu_demo_booking"
+                  sequence="3" />
+
+        <menuitem id="menu_booking_tv_serie"
+                  action="action_booking_tv_serie"
+                  parent="demo_show.menu_demo_booking"
+                  sequence="4" />
+    </data>
+</openerp>

@@ -11,6 +11,7 @@ you can have different type of resource booking in your calendar and you can fre
 ### Features
 
 - Display any resources in a booking chart
+- 2 display modes: by days or by hours
 - Easy scrolling navigation
 - Resource lazy loading
 - Zoom levels (from 1 week to 6 months)
@@ -88,12 +89,35 @@ Access to booking chart model views:
 
 ## Configuration
 
+
+### Booking chart by days
+
 The booking chart support some `arch` view configuration:
 
 - tag `<items>`
   - attribute `title`: field from `booking_chart.resource_model` to display in the booking list
+- tag `<calendar>`
+  - attribute `base`  
+    define the display type, `days` or `hours`.   
+    Use `days` configuration by default.
+  - attribute `timezone`  
+    The calendar timezone, we decided to fix it instead of having a dynamic timezone
+    based on the current user configuration because most of the time (e.g. room booking, etc...)
+    the booking will be based on a specific geo-location, not related to the user connected.
+    Actually, not geo-located booking (e.g. online meeting, etc...) are not supported.   
+    More information about the [momentjs timezone offset](http://momentjs.com/docs/#/manipulating/timezone-offset/).
+    
+  - tag `<date>`   
+    In hours mode, working days can be defined, with a range of hours to display.   
+    Booking resource have to exists in defined ranges or an exception would be raised,
+    it's up to the developer to ensure that booking resource are not created outside ranges.
+    - attribute `name`:    
+      day name: `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`
+    - attribute `start`:  start time of the day
+    - attribute `end`:  end time of the day
 
-**example:**
+
+**example 1: booking chart by days**
 
 ```xml
 <record id="bar_booking_view" model="ir.ui.view">
@@ -101,6 +125,27 @@ The booking chart support some `arch` view configuration:
     <field name="arch" type="xml">
         <booking version="7.0">
             <items title="name" />
+            <calendar base="days" timezone="+01:00" />
+        </booking>
+    </field>
+</record>
+```
+
+**example 2: booking chart by hours**
+
+```xml
+<record id="foo_booking_view" model="ir.ui.view">
+    ...
+    <field name="arch" type="xml">
+        <booking version="7.0">
+            <items title="name" />
+            <calendar base="hours" timezone="+01:00">
+                <date name="monday" start="09" end="23" />
+                <date name="tuesday" start="09" end="23" />
+                <date name="wednesday" start="09" end="23" />
+                <date name="thursday" start="10" end="20" />
+                <date name="friday" start="10" end="20" />
+            </calendar>
         </booking>
     </field>
 </record>
@@ -109,201 +154,101 @@ The booking chart support some `arch` view configuration:
 ### Model Mixin
 
 To simplify this task, mixin model is available in `booking_chart.mixin`, 
-this mixin is used by the `demo_task` module.
+this mixin is used by the `demo_show` module.
 
-
-Basically, only a mapping between your model and the booking.resource has to be done, 
-with different type of relation:
-
-- simple mapping: value is just copied
-- reference mapping: the value is defined according to a `osv.model` object
-- custom mapping: define the field to get when an other field has been modified. useful to define mapping on function fields, see the example below.
-
+Basically, only a mapping between your model and some booking.chart has to be done.
 
 The mixin is designed to automatically create, update and delete resources booking associated with the model.
 
-**example from `demo_task` module**
+**example from `demo_show` module**
+
+This example will bind `tv.broadcast` records with 2 booking charts.
+Specific methods are used to generate the `booking.resource` name, css class, etc...
 
 ```python
 from openerp.osv import fields
-from booking_chart.mixin import mixin
-    
-class task(mixin.resource):
-    _inherit = "project.task"
-    
-    # ref to the booking_chart xml_id (if you have created the booking chart
-    # manually, you have to override the mixin.resource.get_chart_id method)
-    '''
-        _booking_chart_refs: {
-			module_name.booking_chart_xml_id: resource_field_ref
-		}
-        resource_field_ref: is field which link project.task with resource_model in users_booking_chart
-    '''
+from openerp.addons.booking_chart.mixin import mixin
 
-    _booking_chart_refs = {
-        'demo_task.users_booking_chart': 'user_id'
-    }
+class tv_broadcast(mixin.resource):
+    _inherit = 'tv.broadcast'
 
-	'''
-		For _booking_resource_map, There are functions can be used
-		Eg:
+    # mapping methods for tv_channel_booking_chart
 
-		def _get_message(self, cr, uid, model, context=None):
-			# param: model is a current object's browse record
-			return model and model.note or "It's empty"
+    def _episode_name(self, broadcast):
+        episode = broadcast.episode_id
+        return '%s / S%02dE%02d' % (episode.serie_id.name, 
+                                    episode.season,
+                                    episode.number)
 
-		_booking_resource_map = {
-			'message': _get_message,
-		}
-	'''
-    
-    _booking_resource_map = {
-        # simple mapping, booking.resource field = task field 
-        'name':        'name',
-        'message':     'description',
-        'date_start':  'date_start',
-        'date_end':    'date_end',
-        # reference mapping, booking.resource field = "task.field._name,task.field.id" 
-        'resource_ref': 'user_id',
-		'origin_ref':   'user_id',
-        'target_ref':   'project_id',
-        # custom mapping, set booking.resource.css_class field when priority is 
-        # updated with the value of task.booking_css_class
-        'css_class':   'priority:booking_css_class'
-    }
-    
-    
-    def _get_booking_custom_fields(self, cr, uid, ids, field_names, arg, context=None):
-        # resource booking color mapping with task.priority
-        colors = {
-            '0': 'red',
-			'1': 'orange',
-			'2': 'dark-blue',
-			'3': 'blue',
-			'4': 'light-blue',
+    def _episode_desc(self, broadcast):
+        episode = broadcast.episode_id
+        return '%s / %s (S%02dE%02d)' % (episode.serie_id.name,
+                                         episode.name,
+                                         episode.season,
+                                         episode.number)
+
+    def _episode_color(self, broadcast):
+        genre = broadcast.episode_id.serie_id.genre
+
+        color_map = {
+            'action': 'red', 'adventure': 'green', 'comedy': 'blue',
+            'drama': 'black', 'horror': 'red', 'epic': 'light-blue',
+            'sf': 'yellow', 'western': 'orange'
         }
-        res = {}
-        
-        for task in self.browse(cr, uid, ids):
-            res[task.id] = colors[task.priority] if task.priority in colors else ""
-        
-        return res
-    
-    # add a custom field to get the booking class css according to current status
-    _columns = {
-        'booking_css_class': fields.function(_get_booking_custom_fields, 
-        									 method=True, 
-        									 type='char', 
-        									 string='Booking CSS Class', 
-        									 readonly=True),
+
+        return color_map[genre]
+
+    # mapping methods for tv_serie_booking_chart
+
+    def _channel_name(self, broadcast):
+        return broadcast.channel_id.name
+
+    def _channel_desc(self, broadcast):
+        episode = broadcast.episode_id
+        return '%s (S%02dE%02d)' % (episode.name,
+                                    episode.season,
+                                    episode.number)
+
+    def _serie_ref(self, broadcast):
+        return 'tv.serie,%s' % broadcast.episode_id.serie_id.id
+
+    def _channel_color(self, broadcast):
+        style = broadcast.channel_id.style
+
+        color_map = {
+            'documentary': 'light-green', 'education': 'blue',
+            'entertainment': 'green', 'movie': 'black',
+            'music': 'red', 'news': 'light-blue', 'sf': 'orange', 
+            'sport': 'yellow'
+        }
+
+        return color_map[style]
+
+
+    _booking_chart_mapping = {
+        'demo_show.tv_channel_booking_chart': {
+            'name':         _episode_name,
+            'message':      _episode_desc,
+            'date_start':   'start',
+            'date_end':     'end',
+            'resource_ref': 'channel_id',
+            'css_class':    _episode_color,
+        },
+        'demo_show.tv_serie_booking_chart': {
+            'name':         _channel_name,
+            'message':      _episode_desc,
+            'date_start':   'start',
+            'date_end':     'end',
+            'resource_ref': _serie_ref,
+            'css_class':    _channel_color,
+        }
     }
-       
-task()
+
 ```
 
-#### Customize the booking chart associated with the resource booking 
-
-If you need a specific way to get the chart associated with the resource booking, you can override `get_chart_ids()`.
-
-This method has to return the booking.chart id, and in addition to `cr` and `uid`  parameters, the method get the current model.
-
-** example **
-
-```python
-from booking_chart.mixin import mixin
-    
-class task(mixin.resource):
-    _inherit = "project.task"
-	
-	...
-	
-	def get_chart_ids(self, cr, uid, model):
-        """
-            Get the booking chart id in relation with
-            auto created booking.resource.
-            Override this method if you want to implement
-            your own way to get chart id.
-        """
-        if not self._booking_chart_refs:
-            raise Exception('%s model with booking resource mixin: \
-                _booking_chart_refs property required' % (self._name))
-        ids = []
-        ir_model = self.pool['ir.model.data']
-        for _booking_chart_ref, resource_field_ref in \
-                self._booking_chart_refs.iteritems():
-            if model[resource_field_ref]:
-                xml_id = _booking_chart_ref.split('.')
-                ref = ir_model.get_object_reference(cr, uid,
-                                                    xml_id[0],
-                                                    xml_id[1])
-                if len(ref) < 2:
-                    raise Exception('%s model with booking resource mixin: \
-                        can not find the chart_id according to the \
-                        xml_id: %s' % (self._name, self._booking_chart_ref))
-                resource = ir_model.get_object(cr, uid,
-                                               xml_id[0],
-                                               xml_id[1])
-                resource_name = resource and \
-                    resource.resource_model.model or False
-                if resource_name:
-                    for resource_id in model[resource_field_ref].ids:
-                        resource_ref = "%s,%s" % (resource_name, resource_id)
-                        ids.append({ref[1]: resource_ref})
-            elif resource_field_ref not in model:
-                raise Exception('Field %s does not exists in \
-                model %s' % (resource_field_ref, self._name))
-        return ids
-	
-	...
-
-task()
-```
-
-----
-
-## Update 12/11/2014
-- New support for display days/hours style and interchangable with months/days style on the booking chart.
-- Filtering resource and booking resources based on domain and context from mixin object.
+**Note**: the mixin has not been ported yet to the new Odoo API.
 
 
-### Using Days/Hours display style or Months/Days display style:
-
-```xml
-<record id="bar_booking_view" model="ir.ui.view">
-    ...
-    <field name="arch" type="xml">
-        <booking version="7.0">
-            <items title="name" />
-            <!-- base should be hours|days -->
-            <calendar base="hours" timezone="+07:00">
-                <date name="monday" start="09" end="23" />
-                <date name="tuesday" start="09" end="21" />
-                <date name="wednesday" start="09" end="22" />
-                <date name="thursday" start="08" end="21" />
-                <date name="friday" start="09" end="21" />
-            </calendar>
-        </booking>
-    </field>
-</record>
-```
-
-- `calendar` tag: addition tag to indicate the style of the booking chart, this tag is optional.
-
-- `base` attribute: the style that booking chart will use to display can be:
-    - `hours`: days/hours booking chart
-    - `days`: months/days booking chart
-
-- `timezone` attribute: the timezone to be applied on the resource data.
-    - example: `+07:00`.
-    - this attribute is mandatory if `base` is `hours`.
-    - more information: [momentjs timezone offset](http://momentjs.com/docs/#/manipulating/timezone-offset/)
-
-- `date` tag: define working days will be displayed on days/hours style booking chart.
-    - `name`: name of week day (from monday to sunday).
-    - `start`: start point (hour) of a day.
-    - `end`: end point (hour) of a day.
-
-**NOTICE**: if the resources is exceeded (start or end or both) or not defined in the list of week days, booking chart will throw an error and stop everything.
 
 ### Filtering resources / booking resources for mixin object: 
 

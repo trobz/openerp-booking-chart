@@ -3,6 +3,7 @@
 
 from openerp.osv import osv, fields
 
+
 class booking_resource_tag(osv.osv):
 
     _name = "booking.resource.tag"
@@ -10,10 +11,9 @@ class booking_resource_tag(osv.osv):
 
     _columns = {
         'name': fields.char('Name'),
-		'icon_name': fields.char('Icon Name')
+        'icon_name': fields.char('Icon Name')
     }
 
 booking_resource_tag()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

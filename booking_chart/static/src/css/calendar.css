@@ -1,6 +1,6 @@
 .oe-booking-container {
     table-layout: fixed;
-    width: 100%;    
+    width: 100%;
 }
 
 .booking-chart {
@@ -16,13 +16,27 @@
 /* controls view */
 
 .booking-chart-controls {
+    margin: 5px 10px;
+}
+
+.booking-chart-controls .booking-chart-zoom {
     float: right;
-    margin: 10px 10px 0;
 }
 
 .booking-chart-controls .booking-chart-zoom ul li.oe_i {
     font-family: 'Lucida Grande', Helvetica, Verdana, Arial, sans-serif !important;
-    font-size: 14px; height: 23px;
+    font-size: 14px;
+    height: 23px;
+}
+
+.booking-chart-controls .booking-chart-timezone {
+    float: left;
+}
+
+.booking-chart-controls .booking-chart-timezone span {
+    font-style: italic;
+    font-size: 0.8em;
+    color: #666;
 }
 
 /* bootstrap tooltip overrides */
@@ -103,8 +117,8 @@
     width: 100% !important;
     height: 39px !important;
     position: inherit ;
-	z-index:3;
-	background-color: #EBEBEB;
+    z-index:3;
+    background-color: #EBEBEB;
 }
 
 /* frozen scrollbar */
