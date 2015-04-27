@@ -11,6 +11,7 @@
                 <link rel="stylesheet" href="/booking_chart/static/src/css/calendar.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/items.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/months.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/days.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/graph.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/buttons.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/toolbar.css"/>
@@ -20,7 +21,8 @@
                 <script type="text/javascript" src="/booking_chart/static/src/js/widgets/supported.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/lib/scrollbar/js/jquery.scrollbar.min.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/models/month.js"></script>
-                <script type="text/javascript" src="/booking_chart/static/src/js/collections/months.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/day.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/collections/timelapses.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/models/chart.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/models/resource.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/models/item.js"></script>
@@ -34,7 +36,7 @@
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/buttons.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/toolbar.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/items.js"></script>
-                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/months.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/timeLapses.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/graph.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/controls.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar.js"></script>
@@ -47,6 +49,7 @@
             <xpath expr="//script[last()]" position="after">
                 <script type="text/javascript" src="/booking_chart/static/src/tests/dateRange.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/tests/overlap.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/tests/overlap-hour.js"></script>
             </xpath>
         </template>
 

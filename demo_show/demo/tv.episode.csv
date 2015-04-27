@@ -1,0 +1,331 @@
+id,name,number,season,duration,serie_id:id
+breaking_s1e1,"Pilot",1,1,2700,demo_show.breaking_bad
+breaking_s1e2,"Cat's in the Bag...",2,1,2700,demo_show.breaking_bad
+breaking_s1e3,"...And the Bag's in the River",3,1,2700,demo_show.breaking_bad
+breaking_s1e4,"Cancer Man",4,1,2700,demo_show.breaking_bad
+breaking_s1e5,"Gray Matter",5,1,2700,demo_show.breaking_bad
+breaking_s1e6,"Crazy Handful of Nothin'",6,1,2700,demo_show.breaking_bad
+breaking_s1e7,"A No-Rough-Stuff-Type Deal",7,1,2700,demo_show.breaking_bad
+breaking_s2e1,"Seven Thirty-Seven",1,2,2700,demo_show.breaking_bad
+breaking_s2e2,"Grilled",2,2,2700,demo_show.breaking_bad
+breaking_s2e3,"Bit by a Dead Bee",3,2,2700,demo_show.breaking_bad
+breaking_s2e4,"Down",4,2,2700,demo_show.breaking_bad
+breaking_s2e5,"Breakage",5,2,2700,demo_show.breaking_bad
+breaking_s2e6,"Peekaboo",6,2,2700,demo_show.breaking_bad
+breaking_s2e7,"Negro Y Azul",7,2,2700,demo_show.breaking_bad
+breaking_s2e8,"Better Call Saul",8,2,2700,demo_show.breaking_bad
+breaking_s2e9,"4 Days Out",9,2,2700,demo_show.breaking_bad
+breaking_s2e10,"Over",10,2,2700,demo_show.breaking_bad
+breaking_s2e11,"Mandala",11,2,2700,demo_show.breaking_bad
+breaking_s2e12,"Phoenix",12,2,2700,demo_show.breaking_bad
+breaking_s2e13,"ABQ",13,2,2700,demo_show.breaking_bad
+breaking_s3e1,"No Mas",1,3,2700,demo_show.breaking_bad
+breaking_s3e2,"Caballo Sin Nombre",2,3,2700,demo_show.breaking_bad
+breaking_s3e3,"I.F.T.",3,3,2700,demo_show.breaking_bad
+breaking_s3e4,"Green Light",4,3,2700,demo_show.breaking_bad
+breaking_s3e5,"Mas",5,3,2700,demo_show.breaking_bad
+breaking_s3e6,"Sunset",6,3,2700,demo_show.breaking_bad
+breaking_s3e7,"One Minute",7,3,2700,demo_show.breaking_bad
+breaking_s3e8,"I See You",8,3,2700,demo_show.breaking_bad
+breaking_s3e9,"Kafkaesque",9,3,2700,demo_show.breaking_bad
+breaking_s3e10,"Fly",10,3,2700,demo_show.breaking_bad
+breaking_s3e11,"Abiquiu",11,3,2700,demo_show.breaking_bad
+breaking_s3e12,"Half Measures",12,3,2700,demo_show.breaking_bad
+breaking_s3e13,"Full Measure",13,3,2700,demo_show.breaking_bad
+breaking_s4e1,"Box Cutter",1,4,2700,demo_show.breaking_bad
+breaking_s4e2,"Thirty-Eight Snub",2,4,2700,demo_show.breaking_bad
+breaking_s4e3,"Open House",3,4,2700,demo_show.breaking_bad
+breaking_s4e4,"Bullet Points",4,4,2700,demo_show.breaking_bad
+breaking_s4e5,"Shotgun",5,4,2700,demo_show.breaking_bad
+breaking_s4e6,"Cornered",6,4,2700,demo_show.breaking_bad
+breaking_s4e7,"Problem Dog",7,4,2700,demo_show.breaking_bad
+breaking_s4e8,"Hermanos",8,4,2700,demo_show.breaking_bad
+breaking_s4e9,"Bug",9,4,2700,demo_show.breaking_bad
+breaking_s4e10,"Salud",10,4,2700,demo_show.breaking_bad
+breaking_s4e11,"Crawl Space",11,4,2700,demo_show.breaking_bad
+breaking_s4e12,"End Times",12,4,2700,demo_show.breaking_bad
+breaking_s4e13,"Face Off",13,4,2700,demo_show.breaking_bad
+breaking_s5e1,"Live Free or Die",1,5,2700,demo_show.breaking_bad
+breaking_s5e2,"Madrigal",2,5,2700,demo_show.breaking_bad
+breaking_s5e3,"Hazard Pay",3,5,2700,demo_show.breaking_bad
+breaking_s5e4,"Fifty-One",4,5,2700,demo_show.breaking_bad
+breaking_s5e5,"Dead Freight",5,5,2700,demo_show.breaking_bad
+breaking_s5e6,"Buyout",6,5,2700,demo_show.breaking_bad
+breaking_s5e7,"Say My Name",7,5,2700,demo_show.breaking_bad
+breaking_s5e8,"Gliding Over All",8,5,2700,demo_show.breaking_bad
+breaking_s5e9,"Blood Money",9,5,2700,demo_show.breaking_bad
+breaking_s5e10,"Buried",10,5,2700,demo_show.breaking_bad
+breaking_s5e11,"Confessions",11,5,2700,demo_show.breaking_bad
+breaking_s5e12,"Rabid Dog",12,5,2700,demo_show.breaking_bad
+breaking_s5e13,"To'hajiilee",13,5,2700,demo_show.breaking_bad
+breaking_s5e14,"Ozymandias",14,5,2700,demo_show.breaking_bad
+breaking_s5e15,"Granite State",15,5,2700,demo_show.breaking_bad
+breaking_s5e16,"Felina",16,5,2700,demo_show.breaking_bad
+breaking_s6e1,"Good Cop / Bad Cop",1,6,2700,demo_show.breaking_bad
+breaking_s6e2,"Wedding Day",2,6,2700,demo_show.breaking_bad
+breaking_s6e3,"TwaüghtHammër",3,6,2700,demo_show.breaking_bad
+breaking_s6e4,"Marie's Confession",4,6,2700,demo_show.breaking_bad
+breaking_s6e5,"The Break-In",5,6,2700,demo_show.breaking_bad
+got_s1e1,"Winter Is Coming",1,1,3120,demo_show.game_of_thrones
+got_s1e2,"The Kingsroad",2,1,3120,demo_show.game_of_thrones
+got_s1e3,"Lord Snow",3,1,3120,demo_show.game_of_thrones
+got_s1e4,"Cripples, Bastards, and Broken Things",4,1,3120,demo_show.game_of_thrones
+got_s1e5,"The Wolf and the Lion",5,1,3120,demo_show.game_of_thrones
+got_s1e6,"A Golden Crown",6,1,3120,demo_show.game_of_thrones
+got_s1e7,"You Win or You Die",7,1,3120,demo_show.game_of_thrones
+got_s1e8,"The Pointy End",8,1,3120,demo_show.game_of_thrones
+got_s1e9,"Baelor",9,1,3120,demo_show.game_of_thrones
+got_s1e10,"Fire and Blood",10,1,3120,demo_show.game_of_thrones
+got_s2e1,"The North Remembers",1,2,3120,demo_show.game_of_thrones
+got_s2e2,"The Night Lands",2,2,3120,demo_show.game_of_thrones
+got_s2e3,"What Is Dead May Never Die",3,2,3120,demo_show.game_of_thrones
+got_s2e4,"Garden of Bones",4,2,3120,demo_show.game_of_thrones
+got_s2e5,"The Ghost of Harrenhal",5,2,3120,demo_show.game_of_thrones
+got_s2e6,"The Old Gods and the New",6,2,3120,demo_show.game_of_thrones
+got_s2e7,"A Man Without Honor",7,2,3120,demo_show.game_of_thrones
+got_s2e8,"The Prince of Winterfell",8,2,3120,demo_show.game_of_thrones
+got_s2e9,"Blackwater",9,2,3120,demo_show.game_of_thrones
+got_s2e10,"Valar Morghulis",10,2,3120,demo_show.game_of_thrones
+got_s3e1,"Valar Dohaeris",1,3,3120,demo_show.game_of_thrones
+got_s3e2,"Dark Wings, Dark Words",2,3,3120,demo_show.game_of_thrones
+got_s3e3,"Walk of Punishment",3,3,3120,demo_show.game_of_thrones
+got_s3e4,"And Now His Watch Is Ended",4,3,3120,demo_show.game_of_thrones
+got_s3e5,"Kissed by Fire",5,3,3120,demo_show.game_of_thrones
+got_s3e6,"The Climb",6,3,3120,demo_show.game_of_thrones
+got_s3e7,"The Bear and the Maiden Fair",7,3,3120,demo_show.game_of_thrones
+got_s3e8,"Second Sons",8,3,3120,demo_show.game_of_thrones
+got_s3e9,"The Rains of Castamere",9,3,3120,demo_show.game_of_thrones
+got_s3e10,"Mhysa",10,3,3120,demo_show.game_of_thrones
+got_s4e1,"Two Swords",1,4,3120,demo_show.game_of_thrones
+got_s4e2,"The Lion and the Rose",2,4,3120,demo_show.game_of_thrones
+got_s4e3,"Breaker of Chains",3,4,3120,demo_show.game_of_thrones
+got_s4e4,"Oathkeeper",4,4,3120,demo_show.game_of_thrones
+got_s4e5,"First of His Name",5,4,3120,demo_show.game_of_thrones
+got_s4e6,"The Laws of Gods and Men",6,4,3120,demo_show.game_of_thrones
+got_s4e7,"Mockingbird",7,4,3120,demo_show.game_of_thrones
+got_s4e8,"The Mountain and the Viper",8,4,3120,demo_show.game_of_thrones
+got_s4e9,"The Watchers on the Wall",9,4,3120,demo_show.game_of_thrones
+got_s4e10,"The Children",10,4,3120,demo_show.game_of_thrones
+dexter_s1e1,"Dexter",1,1,3120,demo_show.dexter
+dexter_s1e2,"Crocodile",2,1,3120,demo_show.dexter
+dexter_s1e3,"Popping Cherry",3,1,3120,demo_show.dexter
+dexter_s1e4,"Let's Give the Boy a Hand",4,1,3120,demo_show.dexter
+dexter_s1e5,"Love American Style",5,1,3120,demo_show.dexter
+dexter_s1e6,"Return to Sender",6,1,3120,demo_show.dexter
+dexter_s1e7,"Circle of Friends",7,1,3120,demo_show.dexter
+dexter_s1e8,"Shrink Wrap",8,1,3120,demo_show.dexter
+dexter_s1e9,"Father Knows Best",9,1,3120,demo_show.dexter
+dexter_s1e10,"Seeing Red",10,1,3120,demo_show.dexter
+dexter_s1e11,"Truth Be Told",11,1,3120,demo_show.dexter
+dexter_s1e12,"Born Free",12,1,3120,demo_show.dexter
+dexter_s2e1,"It's Alive!",1,2,3120,demo_show.dexter
+dexter_s2e2,"Waiting to Exhale",2,2,3120,demo_show.dexter
+dexter_s2e3,"An Inconvenient Lie",3,2,3120,demo_show.dexter
+dexter_s2e4,"See-Through",4,2,3120,demo_show.dexter
+dexter_s2e5,"The Dark Defender",5,2,3120,demo_show.dexter
+dexter_s2e6,"Dex, Lies, and Videotape",6,2,3120,demo_show.dexter
+dexter_s2e7,"That Night, A Forest Grew",7,2,3120,demo_show.dexter
+dexter_s2e8,"Morning Comes",8,2,3120,demo_show.dexter
+dexter_s2e9,"Resistance Is Futile",9,2,3120,demo_show.dexter
+dexter_s2e10,"There's Something About Harry",10,2,3120,demo_show.dexter
+dexter_s2e11,"Left Turn Ahead",11,2,3120,demo_show.dexter
+dexter_s2e12,"The British Invasion",12,2,3120,demo_show.dexter
+dexter_s3e1,"Our Father",1,3,3120,demo_show.dexter
+dexter_s3e2,"Finding Freebo",2,3,3120,demo_show.dexter
+dexter_s3e3,"The Lion Sleeps Tonight",3,3,3120,demo_show.dexter
+dexter_s3e4,"All in the Family",4,3,3120,demo_show.dexter
+dexter_s3e5,"Turning Biminese",5,3,3120,demo_show.dexter
+dexter_s3e6,"Sí Se Puede",6,3,3120,demo_show.dexter
+dexter_s3e7,"Easy as Pie",7,3,3120,demo_show.dexter
+dexter_s3e8,"The Damage a Man Can Do",8,3,3120,demo_show.dexter
+dexter_s3e9,"About Last Night",9,3,3120,demo_show.dexter
+dexter_s3e10,"Go Your Own Way",10,3,3120,demo_show.dexter
+dexter_s3e11,"I Had a Dream",11,3,3120,demo_show.dexter
+dexter_s3e12,"Do You Take Dexter Morgan?",12,3,3120,demo_show.dexter
+dexter_s4e1,"Living the Dream",1,4,3120,demo_show.dexter
+dexter_s4e2,"Remains to Be Seen",2,4,3120,demo_show.dexter
+dexter_s4e3,"Blinded by the Light",3,4,3120,demo_show.dexter
+dexter_s4e4,"Dex Takes a Holiday",4,4,3120,demo_show.dexter
+dexter_s4e5,"Dirty Harry",5,4,3120,demo_show.dexter
+dexter_s4e6,"If I Had a Hammer",6,4,3120,demo_show.dexter
+dexter_s4e7,"Slack Tide",7,4,3120,demo_show.dexter
+dexter_s4e8,"Road Kill",8,4,3120,demo_show.dexter
+dexter_s4e9,"Hungry Man",9,4,3120,demo_show.dexter
+dexter_s4e10,"Lost Boys",10,4,3120,demo_show.dexter
+dexter_s4e11,"Hello, Dexter Morgan",11,4,3120,demo_show.dexter
+dexter_s4e12,"The Getaway",12,4,3120,demo_show.dexter
+dexter_s5e1,"My Bad",1,5,3120,demo_show.dexter
+dexter_s5e2,"Hello, Bandit",2,5,3120,demo_show.dexter
+dexter_s5e3,"Practically Perfect",3,5,3120,demo_show.dexter
+dexter_s5e4,"Beauty and the Beast",4,5,3120,demo_show.dexter
+dexter_s5e5,"First Blood",5,5,3120,demo_show.dexter
+dexter_s5e6,"Everything is Illumenated",6,5,3120,demo_show.dexter
+dexter_s5e7,"Circle Us",7,5,3120,demo_show.dexter
+dexter_s5e8,"Take It!",8,5,3120,demo_show.dexter
+dexter_s5e9,"Teenage Wasteland",9,5,3120,demo_show.dexter
+dexter_s5e10,"In the Beginning",10,5,3120,demo_show.dexter
+dexter_s5e11,"Hop a Freighter",11,5,3120,demo_show.dexter
+dexter_s5e12,"The Big One",12,5,3120,demo_show.dexter
+dexter_s6e1,"Those Kinds of Things",1,6,3120,demo_show.dexter
+dexter_s6e2,"Once Upon a Time...",2,6,3120,demo_show.dexter
+dexter_s6e3,"Smokey and the Bandit",3,6,3120,demo_show.dexter
+dexter_s6e4,"A Horse of a Different Color",4,6,3120,demo_show.dexter
+dexter_s6e5,"The Angel of Death",5,6,3120,demo_show.dexter
+dexter_s6e6,"Just Let Go",6,6,3120,demo_show.dexter
+dexter_s6e7,"Nebraska",7,6,3120,demo_show.dexter
+dexter_s6e8,"Sin of Omission",8,6,3120,demo_show.dexter
+dexter_s6e9,"Get Gellar",9,6,3120,demo_show.dexter
+dexter_s6e10,"Ricochet Rabbit",10,6,3120,demo_show.dexter
+dexter_s6e11,"Talk to the Hand",11,6,3120,demo_show.dexter
+dexter_s6e12,"This is the Way the World Ends",12,6,3120,demo_show.dexter
+dexter_s7e1,"Are You...?",1,7,3120,demo_show.dexter
+dexter_s7e2,"Sunshine and Frosty Swirl",2,7,3120,demo_show.dexter
+dexter_s7e3,"Buck the System",3,7,3120,demo_show.dexter
+dexter_s7e4,"Run",4,7,3120,demo_show.dexter
+dexter_s7e5,"Swim Deep",5,7,3120,demo_show.dexter
+dexter_s7e6,"Do the Wrong Thing",6,7,3120,demo_show.dexter
+dexter_s7e7,"Chemistry",7,7,3120,demo_show.dexter
+dexter_s7e8,"Argentina",8,7,3120,demo_show.dexter
+dexter_s7e9,"Helter Skelter",9,7,3120,demo_show.dexter
+dexter_s7e10,"The Dark… Whatever",10,7,3120,demo_show.dexter
+dexter_s7e11,"Do You See What I See?",11,7,3120,demo_show.dexter
+dexter_s7e12,"Surprise, Motherfucker!",12,7,3120,demo_show.dexter
+dexter_s8e1,"A Beautiful Day",1,8,3120,demo_show.dexter
+dexter_s8e2,"Every Silver Lining...",2,8,3120,demo_show.dexter
+dexter_s8e3,"What's Eating Dexter Morgan?",3,8,3120,demo_show.dexter
+dexter_s8e4,"Scar Tissue",4,8,3120,demo_show.dexter
+dexter_s8e5,"This Little Piggy",5,8,3120,demo_show.dexter
+dexter_s8e6,"A Little Reflection",6,8,3120,demo_show.dexter
+dexter_s8e7,"Dress Code",7,8,3120,demo_show.dexter
+dexter_s8e8,"Are We There Yet?",8,8,3120,demo_show.dexter
+dexter_s8e9,"Make Your Own Kind of Music",9,8,3120,demo_show.dexter
+dexter_s8e10,"Goodbye Miami",10,8,3120,demo_show.dexter
+dexter_s8e11,"Monkey in a Box",11,8,3120,demo_show.dexter
+dexter_s8e12,"Remember the Monsters?",12,8,3120,demo_show.dexter
+dexter_s9e1,"Alex Timmons, October 2003",1,9,3120,demo_show.dexter
+dexter_s9e2,"Gene Marshall, June 1993",2,9,3120,demo_show.dexter
+dexter_s9e3,"Cindy Landon, March 2004",3,9,3120,demo_show.dexter
+dexter_s9e4,"Dark Echo",4,9,3120,demo_show.dexter
+dexter_s9e5,"All In The Family",5,9,3120,demo_show.dexter
+sfu_s1e1,"Pilot",1,1,2520,demo_show.six_feet_under
+sfu_s1e2,"The Will",2,1,2520,demo_show.six_feet_under
+sfu_s1e3,"The Foot",3,1,2520,demo_show.six_feet_under
+sfu_s1e4,"Familia",4,1,2520,demo_show.six_feet_under
+sfu_s1e5,"An Open Book",5,1,2520,demo_show.six_feet_under
+sfu_s1e6,"The Room",6,1,2520,demo_show.six_feet_under
+sfu_s1e7,"Brotherhood",7,1,2520,demo_show.six_feet_under
+sfu_s1e8,"Crossroads",8,1,2520,demo_show.six_feet_under
+sfu_s1e9,"Life's Too Short",9,1,2520,demo_show.six_feet_under
+sfu_s1e10,"The New Person",10,1,2520,demo_show.six_feet_under
+sfu_s1e11,"The Trip",11,1,2520,demo_show.six_feet_under
+sfu_s1e12,"A Private Life",12,1,2520,demo_show.six_feet_under
+sfu_s1e13,"Knock, Knock",13,1,2520,demo_show.six_feet_under
+sfu_s2e1,"In the Game",1,2,2520,demo_show.six_feet_under
+sfu_s2e2,"Out, Out Brief Candle",2,2,2520,demo_show.six_feet_under
+sfu_s2e3,"The Plan",3,2,2520,demo_show.six_feet_under
+sfu_s2e4,"Driving Mr. Mossback",4,2,2520,demo_show.six_feet_under
+sfu_s2e5,"The Invisible Woman",5,2,2520,demo_show.six_feet_under
+sfu_s2e6,"In Place of Anger",6,2,2520,demo_show.six_feet_under
+sfu_s2e7,"Back to the Garden",7,2,2520,demo_show.six_feet_under
+sfu_s2e8,"It's the Most Wonderful Time of the Year",8,2,2520,demo_show.six_feet_under
+sfu_s2e9,"Someone Else's Eyes",9,2,2520,demo_show.six_feet_under
+sfu_s2e10,"The Secret",10,2,2520,demo_show.six_feet_under
+sfu_s2e11,"The Liar and the Whore",11,2,2520,demo_show.six_feet_under
+sfu_s2e12,"I'll Take You",12,2,2520,demo_show.six_feet_under
+sfu_s2e13,"The Last Time",13,2,2520,demo_show.six_feet_under
+sfu_s3e1,"Perfect Circles",1,3,2520,demo_show.six_feet_under
+sfu_s3e2,"You Never Know",2,3,2520,demo_show.six_feet_under
+sfu_s3e3,"The Eye Inside",3,3,2520,demo_show.six_feet_under
+sfu_s3e4,"Nobody Sleeps",4,3,2520,demo_show.six_feet_under
+sfu_s3e5,"The Trap",5,3,2520,demo_show.six_feet_under
+sfu_s3e6,"Making Love Work",6,3,2520,demo_show.six_feet_under
+sfu_s3e7,"Timing & Space",7,3,2520,demo_show.six_feet_under
+sfu_s3e8,"Tears, Bones and Desire",8,3,2520,demo_show.six_feet_under
+sfu_s3e9,"The Opening",9,3,2520,demo_show.six_feet_under
+sfu_s3e10,"Everyone Leaves",10,3,2520,demo_show.six_feet_under
+sfu_s3e11,"Death Works Overtime",11,3,2520,demo_show.six_feet_under
+sfu_s3e12,"Twilight",12,3,2520,demo_show.six_feet_under
+sfu_s3e13,"I'm Sorry, I'm Lost",13,3,2520,demo_show.six_feet_under
+sfu_s4e1,"Falling into Place",1,4,2520,demo_show.six_feet_under
+sfu_s4e2,"In Case of Rapture",2,4,2520,demo_show.six_feet_under
+sfu_s4e3,"Parallel Play",3,4,2520,demo_show.six_feet_under
+sfu_s4e4,"Can I Come Up Now?",4,4,2520,demo_show.six_feet_under
+sfu_s4e5,"That's My Dog",5,4,2520,demo_show.six_feet_under
+sfu_s4e6,"Terror Starts at Home",6,4,2520,demo_show.six_feet_under
+sfu_s4e7,"The Dare",7,4,2520,demo_show.six_feet_under
+sfu_s4e8,"Coming and Going",8,4,2520,demo_show.six_feet_under
+sfu_s4e9,"Grinding the Corn",9,4,2520,demo_show.six_feet_under
+sfu_s4e10,"The Black Forest",10,4,2520,demo_show.six_feet_under
+sfu_s4e11,"Bomb Shelter",11,4,2520,demo_show.six_feet_under
+sfu_s4e12,"Untitled",12,4,2520,demo_show.six_feet_under
+sfu_s5e1,"A Coat of White Primer",1,5,2520,demo_show.six_feet_under
+sfu_s5e2,"Dancing for Me",2,5,2520,demo_show.six_feet_under
+sfu_s5e3,"Hold My Hand",3,5,2520,demo_show.six_feet_under
+sfu_s5e4,"Time Flies",4,5,2520,demo_show.six_feet_under
+sfu_s5e5,"Eat a Peach",5,5,2520,demo_show.six_feet_under
+sfu_s5e6,"The Rainbow of Her Reasons",6,5,2520,demo_show.six_feet_under
+sfu_s5e7,"The Silence",7,5,2520,demo_show.six_feet_under
+sfu_s5e8,"Singing for Our Lives",8,5,2520,demo_show.six_feet_under
+sfu_s5e9,"Ecotone",9,5,2520,demo_show.six_feet_under
+sfu_s5e10,"All Alone",10,5,2520,demo_show.six_feet_under
+sfu_s5e11,"Static",11,5,2520,demo_show.six_feet_under
+sfu_s5e12,"Everyone's Waiting",12,5,2520,demo_show.six_feet_under
+wd_s1e1,"Days Gone Bye",1,1,2520,demo_show.the_walking_dead
+wd_s1e2,"Guts",2,1,2520,demo_show.the_walking_dead
+wd_s1e3,"Tell It to the Frogs",3,1,2520,demo_show.the_walking_dead
+wd_s1e4,"Vatos",4,1,2520,demo_show.the_walking_dead
+wd_s1e5,"Wildfire",5,1,2520,demo_show.the_walking_dead
+wd_s1e6,"TS-19",6,1,2520,demo_show.the_walking_dead
+wd_s2e1,"What Lies Ahead",1,2,2520,demo_show.the_walking_dead
+wd_s2e2,"Bloodletting",2,2,2520,demo_show.the_walking_dead
+wd_s2e3,"Save the Last One",3,2,2520,demo_show.the_walking_dead
+wd_s2e4,"Cherokee Rose",4,2,2520,demo_show.the_walking_dead
+wd_s2e5,"Chupacabra",5,2,2520,demo_show.the_walking_dead
+wd_s2e6,"Secrets",6,2,2520,demo_show.the_walking_dead
+wd_s2e7,"Pretty Much Dead Already",7,2,2520,demo_show.the_walking_dead
+wd_s2e8,"Nebraska",8,2,2520,demo_show.the_walking_dead
+wd_s2e9,"Triggerfinger",9,2,2520,demo_show.the_walking_dead
+wd_s2e10,"18 Miles Out",10,2,2520,demo_show.the_walking_dead
+wd_s2e11,"Judge, Jury, Executioner",11,2,2520,demo_show.the_walking_dead
+wd_s2e12,"Better Angels",12,2,2520,demo_show.the_walking_dead
+wd_s2e13,"Beside the Dying Fire",13,2,2520,demo_show.the_walking_dead
+wd_s3e1,"Seed",1,3,2520,demo_show.the_walking_dead
+wd_s3e2,"Sick",2,3,2520,demo_show.the_walking_dead
+wd_s3e3,"Walk with Me",3,3,2520,demo_show.the_walking_dead
+wd_s3e4,"Killer Within",4,3,2520,demo_show.the_walking_dead
+wd_s3e5,"Say the Word",5,3,2520,demo_show.the_walking_dead
+wd_s3e6,"Hounded",6,3,2520,demo_show.the_walking_dead
+wd_s3e7,"When the Dead Come Knocking",7,3,2520,demo_show.the_walking_dead
+wd_s3e8,"Made to Suffer",8,3,2520,demo_show.the_walking_dead
+wd_s3e9,"The Suicide King",9,3,2520,demo_show.the_walking_dead
+wd_s3e10,"Home",10,3,2520,demo_show.the_walking_dead
+wd_s3e11,"I Ain't a Judas",11,3,2520,demo_show.the_walking_dead
+wd_s3e12,"Clear",12,3,2520,demo_show.the_walking_dead
+wd_s3e13,"Arrow on the Doorpost",13,3,2520,demo_show.the_walking_dead
+wd_s3e14,"Prey",14,3,2520,demo_show.the_walking_dead
+wd_s3e15,"This Sorrowful Life",15,3,2520,demo_show.the_walking_dead
+wd_s3e16,"Welcome to the Tombs",16,3,2520,demo_show.the_walking_dead
+wd_s4e1,"30 Days Without an Accident",1,4,2520,demo_show.the_walking_dead
+wd_s4e2,"Infected",2,4,2520,demo_show.the_walking_dead
+wd_s4e3,"Isolation",3,4,2520,demo_show.the_walking_dead
+wd_s4e4,"Indifference",4,4,2520,demo_show.the_walking_dead
+wd_s4e5,"Internment",5,4,2520,demo_show.the_walking_dead
+wd_s4e6,"Live Bait",6,4,2520,demo_show.the_walking_dead
+wd_s4e7,"Dead Weight",7,4,2520,demo_show.the_walking_dead
+wd_s4e8,"Too Far Gone",8,4,2520,demo_show.the_walking_dead
+wd_s4e9,"After",9,4,2520,demo_show.the_walking_dead
+wd_s4e10,"Inmates",10,4,2520,demo_show.the_walking_dead
+wd_s4e11,"Claimed",11,4,2520,demo_show.the_walking_dead
+wd_s4e12,"Still",12,4,2520,demo_show.the_walking_dead
+wd_s4e13,"Alone",13,4,2520,demo_show.the_walking_dead
+wd_s4e14,"The Grove",14,4,2520,demo_show.the_walking_dead
+wd_s4e15,"Us",15,4,2520,demo_show.the_walking_dead
+wd_s4e16,"A",16,4,2520,demo_show.the_walking_dead
+wd_s5e1,"No Sanctuary",1,5,2520,demo_show.the_walking_dead
+wd_s5e2,"Strangers",2,5,2520,demo_show.the_walking_dead
+wd_s5e3,"Four Walls and a Roof",3,5,2520,demo_show.the_walking_dead
+wd_s5e4,"Slabtown",4,5,2520,demo_show.the_walking_dead
+wd_s5e5,"Self Help",5,5,2520,demo_show.the_walking_dead
+wd_s5e6,"Consumed",6,5,2520,demo_show.the_walking_dead
+wd_s5e7,"Crossed",7,5,2520,demo_show.the_walking_dead
+wd_s5e8,"Coda[65]",8,5,2520,demo_show.the_walking_dead

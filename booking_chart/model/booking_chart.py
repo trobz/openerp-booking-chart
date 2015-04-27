@@ -23,21 +23,30 @@ class booking_chart(osv.osv):
         
         return result
 
-    
     _columns = {
+
         'name': fields.char('Chart Name'),
-        'resource_model':fields.many2one('ir.model','Model of the Resource', help='OpenERP model that represents the booked resource.', required=True),
-        'resource_domain':fields.char('Domain to filter the resources', help='This Domain has the format of an domain expression (see: https://doc.openerp.com/trunk/web/rpc/ ). It is used if we want to display only some resources filtered based on that domain. Example: [["is_company","=",false]]'),
+
+        'resource_model': fields.many2one(
+            'ir.model', 'Model of the Resource', required=True,
+            help='OpenERP model that represents the booked resource.'),
+
+        'resource_domain': fields.char(
+            'Domain to filter the resources', help='''This Domain has the format of an domain expression
+            (see: https://doc.openerp.com/trunk/web/rpc/ ). It is used if we want to display only some resources
+            filtered based on that domain. Example: [["is_company","=",false]]'''),
+
         'resource_name': fields.char('Resource Name'),
         
-        'supported_model_ids': fields.many2many('ir.model','booking_chart_to_model_rel', id1='chart_id',id2='model_id', string='Target/Orgin Resource Models', help='Models used for Resource Booking Target and Origin.', required=True),
+        'supported_model_ids': fields.many2many(
+            'ir.model', 'booking_chart_to_model_rel', id1='chart_id', id2='model_id', required=True,
+            string='Target/Orgin Resource Models', help='Models used for Resource Booking Target and Origin.'),
         
-        'resource_model_name': fields.function(extra_fields, method=True, type='serialized', string='Resource Model Name', multi=True, readonly=True),
-        'supported_models': fields.function(extra_fields, method=True, type='serialized', string='Supported Model Array', multi=True, readonly=True),
-    
+        'resource_model_name': fields.function(
+            extra_fields, method=True, type='serialized', string='Resource Model Name', multi=True, readonly=True),
+
+        'supported_models': fields.function(
+            extra_fields, method=True, type='serialized', string='Supported Model Array', multi=True, readonly=True)
     }
 
-booking_chart()
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

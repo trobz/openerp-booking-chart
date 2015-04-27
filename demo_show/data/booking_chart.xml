@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="tv_channel_booking_chart" model="booking.chart">
+            <field name="name">Channel / Episode</field>
+            <field name="resource_model" ref="demo_show.model_tv_channel" />
+            <field name="supported_model_ids"
+                   eval="[(6,0,[ref('demo_show.model_tv_broadcast'),
+                                ref('demo_show.model_tv_episode'),
+                                ref('demo_show.model_tv_serie')])]"  />
+        </record>
+
+        <record id="tv_serie_booking_chart" model="booking.chart">
+            <field name="name">Serie / Channel</field>
+            <field name="resource_model" ref="demo_show.model_tv_serie" />
+            <field name="supported_model_ids"
+                   eval="[(6,0,[ref('demo_show.model_tv_broadcast'),
+                                ref('demo_show.model_tv_episode'),
+                                ref('demo_show.model_tv_serie')])]"  />
+        </record>
+
+    </data>
+</openerp>

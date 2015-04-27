@@ -11,7 +11,7 @@
  */
 
 .booking-chart-items .item-title {
-    height: 43px;
+    height: 72px;
     border-right: 1px solid rgb(202, 202, 202);
     border-bottom: 3px solid #ddd;
     text-align: center;
@@ -86,7 +86,7 @@
 .booking-chart-items .group-name i {
     font-size: 14px;
     float: left;
-    line-height: 24px;
+    line-height: 23px;
     margin: 0px 3px;
     width: 10px;
     text-align: center;

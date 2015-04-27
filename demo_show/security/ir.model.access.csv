@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tv_channel,access_tv_channel,model_tv_channel,,1,0,0,0
+access_tv_channel_admin,access_tv_channel_admin,model_tv_channel,,1,1,1,1
+access_tv_serie,access_tv_serie,model_tv_serie,,1,0,0,0
+access_tv_serie_admin,access_tv_serie_admin,model_tv_serie,,1,1,1,1
+access_tv_episode,access_tv_episode,model_tv_episode,,1,0,0,0
+access_tv_episode_admin,access_tv_episode_admin,model_tv_episode,,1,1,1,1
+access_tv_broadcast,access_tv_broadcast,model_tv_broadcast,,1,0,0,0
+access_tv_broadcast_admin,access_tv_broadcast_admin,model_tv_broadcast,,1,1,1,1

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Channel -->
+
+        <record id="tv_channel_tree" model="ir.ui.view">
+            <field name="name">tv.channel.tree</field>
+            <field name="model">tv.channel</field>
+            <field name="arch" type="xml">
+                <tree string="Channels">
+                    <field name="name"/>
+                    <field name="style"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tv_channel_form" model="ir.ui.view">
+            <field name="name">tv.channel.form</field>
+            <field name="model">tv.channel</field>
+            <field name="arch" type="xml">
+                <form string="Channel" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="style"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Serie -->
+
+        <record id="tv_serie_tree" model="ir.ui.view">
+            <field name="name">tv.serie.tree</field>
+            <field name="model">tv.serie</field>
+            <field name="arch" type="xml">
+                <tree string="Series">
+                    <field name="name"/>
+                    <field name="genre"/>
+                    <field name="episode_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tv_serie_form" model="ir.ui.view">
+            <field name="name">tv.serie.form</field>
+            <field name="model">tv.serie</field>
+            <field name="arch" type="xml">
+                <form string="Serie" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="genre"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Episode -->
+
+        <record id="tv_episode_tree" model="ir.ui.view">
+            <field name="name">tv.episode.tree</field>
+            <field name="model">tv.episode</field>
+            <field name="arch" type="xml">
+                <tree string="Episodes">
+                    <field name="name"/>
+                    <field name="serie_id"/>
+                    <field name="number"/>
+                    <field name="season"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tv_episode_form" model="ir.ui.view">
+            <field name="name">tv.episode.form</field>
+            <field name="model">tv.episode</field>
+            <field name="arch" type="xml">
+                <form string="Episode" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="serie_id"/>
+                            <field name="number"/>
+                            <field name="season"/>
+                            <field name="duration"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Broadcast -->
+
+        <record id="tv_broadcast_tree" model="ir.ui.view">
+            <field name="name">tv.broadcast.tree</field>
+            <field name="model">tv.broadcast</field>
+            <field name="arch" type="xml">
+                <tree string="Broadcasts">
+                    <field name="channel_id"/>
+                    <field name="episode_id"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tv_broadcast_form" model="ir.ui.view">
+            <field name="name">tv.broadcast.form</field>
+            <field name="model">tv.broadcast</field>
+            <field name="arch" type="xml">
+                <form string="Broadcast" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="channel_id"/>
+                            <field name="episode_id"/>
+                            <field name="start"/>
+                            <field name="end"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

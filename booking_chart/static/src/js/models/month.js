@@ -2,6 +2,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     
     /*
      * Small helper to get moment info
+     * here
      */
     var Day = function(moment, options){
         this.options = options;

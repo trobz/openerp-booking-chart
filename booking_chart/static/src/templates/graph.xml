@@ -1,54 +1,58 @@
 <template>
-    
-    
+
+    <!-- TEMPLATE USED FOR MONTHS AND DAYS BOOKING CHART -->
     <t t-name="Booking.Graph">
-    
         <div class="resource-group" 
              t-att-group-index="group.options.index" 
              t-att-start="group.period().start('s')"
              t-att-end="group.period().end('s')"
              t-att-item-id="group.resource_id()" >
-            
-            
+
+            <!-- display for group that has only one model inside -->
             <t t-if="group.length == 1">
-                    
-                    <t t-set="single" t-value="group.at(0)" />
-                
-                    <div t-att-class="'resource-group-bar single ' + single.get('css_class')"
-                         t-att-target-model="single.get('target_model')" 
-                         t-att-style="'width:' + single.duration() + 'em'">
-                        
-                        <div class="resource-icons">
-                            <t t-foreach="single.get('tags')" t-as="image">
-                                <span t-att-class="image"></span>
-                            </t>
-                        </div>
-                        
-                        
-                        <span class="ellipsis graph-name">
-                            <t t-esc="single.get('name')" /></span>
-                            
-                        
-                        
-                                
-                        <div class="tooltip-info">
-                           <span class="tip-title"><t t-esc="single.get('name')" /></span>
-                            <t t-if="single.get('message')">
-                                <p><t t-esc="single.get('message')" /></p>
-                            </t>
-                            <ul>
-                                <li><span class="tip-label">from</span><t t-esc="single.start().format('ddd. Do MMM, YYYY')" /></li>
-                                <li><span class="tip-label">to</span><t t-esc="single.end().format('ddd. Do MMM, YYYY')" /></li>
-                            </ul>
-                            <span class="tip-duration"><t t-esc="single.duration(true)" /> day<t t-if="single.duration() > 1">s</t></span>
-                        </div>
-            
+
+                <!-- get the first resource model in the group -->
+                <t t-set="single" t-value="group.at(0)" />
+
+                <div t-att-class="'resource-group-bar single ' + single.get('css_class')"
+                     t-att-target-model="single.get('target_model')"
+                     t-att-style="'width:' + single.resourceWidth() + 'em'">
+
+                    <div class="resource-icons">
+                        <t t-foreach="single.get('tags')" t-as="image">
+                            <span t-att-class="image"></span>
+                        </t>
                     </div>
+
+                    <span class="ellipsis graph-name">
+                        <t t-esc="single.get('name')" /></span>
+
+                    <div class="tooltip-info">
+                       <span class="tip-title"><t t-esc="single.get('name')" /></span>
+                        <t t-if="single.get('message')">
+                            <p><t t-esc="single.get('message')" /></p>
+                        </t>
+                        <ul>
+                            <li>
+                                <span class="tip-label">from</span>
+                                <t t-esc="single.start().format(single.tooltipDateTimeFormat())" />
+                            </li>
+                            <li>
+                                <span class="tip-label">to</span>
+                                <t t-esc="single.end().format(single.tooltipDateTimeFormat())" />
+                            </li>
+                        </ul>
+                        <span class="tip-duration">
+                            <t t-esc="single.tooltipTimeDuration()" />
+                        </span>
+                    </div>
+                </div>
             </t>
-        
+
+            <!-- toggle bar to display overlapped resource models -->
             <t t-if="group.length > 1">
                 <div class="resource-group-bar multi"
-                     t-att-style="'width:' + group.period().duration() + 'em'" >
+                     t-att-style="'width:' + group.period().toogleBarWidth() + 'em'" >
                     
                     <i class="icon-plus-sign group-icon" ></i>
                     
@@ -61,7 +65,7 @@
                             <span t-att-class="image"></span>
                         </t>
                     </div>
-                    
+
                     <span class="ellipsis graph-name">
                         <t t-esc="group.label()" />
                     </span>
@@ -69,19 +73,25 @@
                     <div class="tooltip-info">
                         <span class="tip-title"><t t-esc="group.label()" /></span>
                         <ul>
-                            <li><span class="tip-label">from</span><t t-esc="group.period().start().format('ddd. Do MMM, YYYY')" /></li>
-                            <li><span class="tip-label">to</span><t t-esc="group.period().end().format('ddd. Do MMM, YYYY')" /></li>
+                            <li>
+                                <span class="tip-label">from</span>
+                                <t t-esc="group.period().start().format(group.period().tooltipDateTimeFormat())" />
+                            </li>
+                            <li>
+                                <span class="tip-label">to</span>
+                                <t t-esc="group.period().end().format(group.period().tooltipDateTimeFormat())" />
+                            </li>
                         </ul>
                         <span class="tip-duration">            
-                            <t t-esc="group.period().duration()" /> day<t t-if="group.period().duration() > 1">s</t>
+                            <t t-esc="group.period().tooltipTimeDuration()" />
                         </span>
                      </div>
                 </div>
             </t>
-            
-        
+
+            <!-- display for overlapped resource models -->
             <div class="resource-group-detail">
-                
+
                 <t t-set="top" t-value="1" />
                 
                 <t t-foreach="group.models" t-as="model">
@@ -89,39 +99,41 @@
                      t-att-target-id="model.get('target_id')"
                      t-att-class="'resource-group-element ' + model.get('css_class')"
                      t-att-style="
-                        'width:' + model.duration() + 'em;' +
+                        'width:' + model.resourceWidth() + 'em;' +
                         'left:' + (model.diff(group.period().start())) + 'em;' +
                         'top:'  + (top++ * 24) + 'px;'
-                        ">
-                    
-                    
+                ">
                     <div class="resource-icons">
                         <t t-foreach="model.get('tags')" t-as="image">
                             <span t-att-class="image" ></span>
                         </t>
                     </div>
-                    
-                    
+
                     <div class="tooltip-info">
                        <span class="tip-title"><t t-esc="model.get('name')" /></span>
                         <t t-if="model.get('message')">
                             <p><t t-esc="model.get('message')" /></p>
                         </t>
                         <ul>
-                            <li><span class="tip-label">from</span><t t-esc="model.start().format('ddd. Do MMM, YYYY')" /></li>
-                            <li><span class="tip-label">to</span><t t-esc="model.end().format('ddd. Do MMM, YYYY')" /></li>
+                            <li>
+                                <span class="tip-label">from</span>
+                                <t t-esc="model.start().format(model.tooltipDateTimeFormat())" />
+                            </li>
+                            <li>
+                                <span class="tip-label">to</span>
+                                <t t-esc="model.end().format(model.tooltipDateTimeFormat())" />
+                            </li>
                         </ul>
-                        <span class="tip-duration"><t t-esc="model.duration(true)" /> day<t t-if="model.duration() > 1">s</t></span>
+                        <span class="tip-duration">
+                            <t t-esc="model.tooltipTimeDuration()" />
+                        </span>
                     </div>
-        
-        
+
                     <span class="ellipsis"><t t-esc="model.get('name')" /></span>
                 </div>    
                 </t>    
             </div>
         </div>
-    
     </t>
-
 
 </template>

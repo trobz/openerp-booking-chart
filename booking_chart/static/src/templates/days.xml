@@ -1,0 +1,62 @@
+<template>
+
+    <t t-name="Booking.Calendar.Timelapses">
+        <div class="calendar-timelapses-wrapper"></div>
+    </t>
+
+    <!-- template for backbone Day model -->
+    <t t-name="Booking.Calendar.day">
+
+        <div t-att-class="'calendar-day-container ' + (model.current_day() ? 'current-day' : '')"
+             t-att-id="'day-' + model.id"
+             t-att-style="'width:' + model.nbQuarters() + 'em'">
+
+            <div class="calendar-day-name">
+                <span>
+                    <t t-raw="model.get('moment').format('dddd')" /> (
+                    <t t-raw="model.get('moment').format('Do')" />
+                    <t t-raw="model.get('moment').format('MMM')" />
+                    <t t-raw="model.get('moment').format('YYYY')" /> )
+                </span>
+            </div>
+
+            <div class="calendar-hours">
+                <t t-foreach="model.get('hours')" t-as="hour">
+
+                <!-- dont show the last hour -->
+                <t t-if="hour_index != (_.size(model.get('hours')) - 1)">
+
+                <!-- always 4em to display from 0 to 45 step by 15 for quarter-->
+                <div style="width: 4em" t-att-class="'calendar-hour ' + (model.current_hour(hour) ? 'current-hour' : '')">
+                    <span class="calendar-hour-name">
+                        <t t-esc="hour" />h
+                    </span>
+
+                    <!-- display quarters for each hour, will be hidden in XS and S size, too small to display -->
+                    <div class="calendar-hour-quarters">
+                    <t t-foreach="model.quartersFor(hour)" t-as="quarter">
+                        <span class="calendar-hour-quarter" style="display: inline-block;">
+                            <span>
+                                <t t-if="quarter_index != 0">
+                                <t t-esc="quarter.quarter" />
+                                </t>
+                            </span>
+                        </span>
+                    </t>
+                    </div>
+                </div>
+                </t>
+                </t>
+            </div>
+
+            <div class="resources" t-att-style="'background-position:' + model.numberOfEmFromStartOfDay() + 'em'">
+                <!-- all the resources go here -->
+            </div>
+        </div>
+    </t>
+
+    <t t-name="Booking.Calendar.days.grouped">
+        <div class="resources-groupline"></div>
+        <div class="resources-grouped"></div>
+    </t>
+</template>
