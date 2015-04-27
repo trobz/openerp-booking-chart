@@ -3,7 +3,7 @@
 from openerp.osv import osv, orm, fields
 import logging
 
-_logger = logging.getLogger('booking-mixin')
+_logger = logging.getLogger('openerp.booking.mixin')
 
 
 class BookingMixinException(Exception):

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 import logging
 
-_logger = logging.getLogger('tv')
+_logger = logging.getLogger('openerp.models.tv')
 
 
 class tv_channel(osv.osv):

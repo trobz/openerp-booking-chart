@@ -5,7 +5,7 @@ from openerp.tests import common
 import logging
 from random import choice
 
-_logger = logging.getLogger('test-mixin')
+_logger = logging.getLogger('openerp.booking.mixin.test')
 
 class TestMixin(common.TransactionCase):
     

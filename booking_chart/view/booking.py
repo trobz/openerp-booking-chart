@@ -6,10 +6,8 @@ from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval
 from openerp.addons.base.ir.ir_actions import VIEW_TYPES
 from lxml import etree
-from logging import getLogger
 
 
-_logger = getLogger(__name__)
 VIEW_TYPE = ('booking', _('Booking Chart'))
 VIEW_TYPES.append(VIEW_TYPE)
 
@@ -62,5 +60,3 @@ class BookingView(osv.Model):
             ['arch'],
         ),
     ]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
