@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import model
+import tv
+import broadcast_binding
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

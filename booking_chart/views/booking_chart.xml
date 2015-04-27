@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data>
+        <template id="assets_backend" name="booking_chart assets" inherit_id="web_unleashed_extra.assets_backend">
+            <xpath expr="//script[last()]" position="after">
+                
+                <link rel="stylesheet" href="/booking_chart/static/lib/scrollbar/css/jquery.scrollbar.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/booking.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/calendar.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/items.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/months.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/days.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/graph.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/buttons.css"/>
+                <link rel="stylesheet" href="/booking_chart/static/src/css/toolbar.css"/>
+                
+                <script type="text/javascript" src="/booking_chart/static/src/js/widgets/chart.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/widgets/resource.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/widgets/supported.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/lib/scrollbar/js/jquery.scrollbar.min.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/month.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/day.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/collections/timelapses.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/chart.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/resource.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/item.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/itemGroup.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/dateRange.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/models/state.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/collections/overlap.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/collections/resources.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/collections/items.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/panel.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/buttons.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/toolbar.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/items.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/timeLapses.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/graph.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar/controls.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/views/calendar.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/js/booking.js"></script>
+            </xpath>
+        </template>
+
+
+        <template id="qunit_suite" name="booking_chart tests" inherit_id="web.qunit_suite">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/booking_chart/static/src/tests/dateRange.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/tests/overlap.js"></script>
+                <script type="text/javascript" src="/booking_chart/static/src/tests/overlap-hour.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>
+

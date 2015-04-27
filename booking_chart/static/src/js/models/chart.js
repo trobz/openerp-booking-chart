@@ -18,11 +18,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             this.fetch().done(_.bind(this.loaded, this));
             
             this.period = options.period;
-            
+
+            // item collection (left panel)
             this.items = new Items([], {
                 model_name: options.resource_model
             });
-            
+
+            // resource collections (right panel)
             this.resources = new Resources([], {
                 chart: this,
                 
@@ -31,7 +33,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 
                 attr_date_start: 'date_start',
                 attr_date_end: 'date_end',
-                attr_group_by: 'resource_ref',
+                attr_group_by: 'resource_ref'
             });
             
             _super.initialize.apply(this, arguments);
@@ -44,5 +46,4 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     });
 
     booking.models('Chart', Chart);
-
 });

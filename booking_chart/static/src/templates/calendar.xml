@@ -1,18 +1,19 @@
 <template>
 
-<!-- Calendar View templates -->    
-
+<!-- Calendar View templates -->
 <t t-name="Booking.Calendar">
     <div class="booking-chart-items" />
-    <div class="booking-chart-months" />
+    <div class="booking-chart-timelapses" />
     <div class="booking-chart-controls" />
-    
+
     <div class="tooltip-container bootstrap_scope" />
 </t>
 
-<!-- Controls View templates -->    
-
+<!-- Controls View templates -->
 <t t-name="Booking.Calendar.controls">
+    <div class="booking-chart-timezone">
+        <span>timezone: <t t-esc="timezone" /></span>
+    </div>
     <div class="booking-chart-zoom">
         <ul class="oe_pager_group">
             <li class="oe_i"><a class="zoom-xs" level="xs" type="button">XS</a></li>

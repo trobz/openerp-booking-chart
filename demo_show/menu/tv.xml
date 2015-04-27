@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Action -->
+
+        <record id="action_tv_channel" model="ir.actions.act_window">
+            <field name="name">Channel</field>
+            <field name="res_model">tv.channel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_tv_serie" model="ir.actions.act_window">
+            <field name="name">Serie</field>
+            <field name="res_model">tv.serie</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_tv_episode" model="ir.actions.act_window">
+            <field name="name">Episode</field>
+            <field name="res_model">tv.episode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_tv_broadcast" model="ir.actions.act_window">
+            <field name="name">Broadcast</field>
+            <field name="res_model">tv.broadcast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Menu -->
+
+        <menuitem id="menu_tv_show_data"
+                  parent="demo_show.menu_demo_show"
+                  name="Tv Data"
+                  sequence="10" />
+
+        <menuitem id="menu_tv_channel"
+                  action="action_tv_channel"
+                  parent="demo_show.menu_tv_show_data"
+                  sequence="11" />
+
+        <menuitem id="menu_tv_serie"
+                  action="action_tv_serie"
+                  parent="demo_show.menu_tv_show_data"
+                  sequence="12" />
+
+        <menuitem id="menu_tv_episode"
+                  action="action_tv_episode"
+                  parent="demo_show.menu_tv_show_data"
+                  sequence="13" />
+
+        <menuitem id="menu_tv_broadcast"
+                  action="action_tv_broadcast"
+                  parent="demo_show.menu_tv_show_data"
+                  sequence="14" />
+
+    </data>
+</openerp>

@@ -8,9 +8,11 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         
     var CollectionView = Backbone.Marionette.CollectionView,
         _superCollection = CollectionView.prototype;
-    
-        
+
+    var Month = booking.models("Month");
+
     var Item = ItemView.extend({
+
         template: 'Base.Empty',
         
         className: 'resources-container',
@@ -25,10 +27,9 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return ItemView.apply(this, arguments);
         },
         
-        
         modelEvents: {
             'change:height': 'setHeight',
-            'change:open': 'setHeight',
+            'change:open': 'setHeight'
         },
         
         onRender: function(){
@@ -47,21 +48,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             }
         }
     });
-    
-   
+
     /*
      * Grouped Items
      */
-    
     var GroupedItems = CompositeView.extend({
         
         template: 'Booking.Calendar.months.grouped',
-        
-        attributes: function(){
-            return {
-                'class': 'resources-group' + (this.model.isOpen() ? ' open' : ''),
-            };
-        },
         
         itemView: Item,
         
@@ -74,7 +67,13 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         initialize: function(){
             this.collection = this.model.group;
         },
-        
+
+        attributes: function(){
+            return {
+                'class': 'resources-group' + (this.model.isOpen() ? ' open' : '')
+            };
+        },
+
         toggleItems: function(){
             if(this.model.isOpen()){
                 this.$el.addClass('open');
@@ -86,36 +85,43 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
     });
     
     /*
-     * Month View
+     * Timelapse (old: month) View
      */
-    
-    var Month = CompositeView.extend({
+    var Timelapse = CompositeView.extend({
+
         template: 'Booking.Calendar.month',
-    
+
+        itemViewContainer: '.resources',
+
+        initialize: function(options){
+
+            if(!(this.model instanceof Month)){
+                this.template = "Booking.Calendar.day";
+            }
+        },
+
         getItemView: function(){
             return this.collection.grouped() ? GroupedItems : Item;     
         },
-        
-        itemViewContainer: '.resources',
-        
+
         serializeData: function(){
             return {
-                month: this.model
+                model: this.model
             };
         }
     });
     
     /*
-     * Months Collection
+     * Timelapses (old: months) Collection
      */
+    var Timelapses = CompositeView.extend({
+
+        template: 'Booking.Calendar.Timelapses',
     
-    var Months = CompositeView.extend({
-        template: 'Booking.Calendar.months',
-    
-        itemViewContainer: '.calendar-months-wrapper',
+        itemViewContainer: '.calendar-timelapses-wrapper',
         
-        itemView: Month,
-        
+        itemView: Timelapse,
+
         itemViewOptions: function(model, index) {
             return {
                 model: model,
@@ -126,21 +132,19 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         modelEvents: {
             'change:size': 'zoom',
             'change:frozen': 'freeze',
-            'scroll:today': 'scroll',
-            
+            'scroll:today': 'scroll'
         },
         
         ui: {
-            wrapper: '.calendar-months-wrapper',
+            wrapper: '.calendar-timelapses-wrapper',
             scroll: '.mCSB_container'
         },
         
         loading: false,
         
-        
         initialize: function(options){
             this.items = options.items;
-            this.collection = this.model.months;
+            this.collection = this.model.timelapses; // model = period (DateRange)
         },
         
         appendHtml: function(collectionView, itemView, index){
@@ -148,7 +152,16 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             
             if(index == 0 && this.children.length > 1){
                 $container.prepend(itemView.el);
-                this.scroll(itemView.model.nbDays());
+
+                // "days" booking chart use Month model so have nbDays method
+                if (this.model.get('base') === 'days'){
+                    this.scroll(itemView.model.nbDays());
+                }
+
+                // "hours" booking chart uses Day model so have nbHours method
+                else if (this.model.get('base') === 'hours'){
+                    this.scroll(itemView.model.nbHours());
+                }
             }
             else {
                 $container.append(itemView.el);
@@ -164,8 +177,8 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
                 autoDraggerLength: true,
                 theme: 'dark-thick',
                 callbacks: {
-                    onTotalScroll: _.bind(this.nextMonth, this),
-                    onTotalScrollBack: _.bind(this.previousMonth, this),
+                    onTotalScroll: _.bind(this.nextTimelapse, this),
+                    onTotalScrollBack: _.bind(this.previousTimelapse, this),
                     onScroll: _.bind(this.scrollDone, this)
                 }
             });
@@ -191,25 +204,24 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             return this.ui.wrapper.mCustomScrollbar.apply(this.ui.wrapper, arguments); 
         },
         
-        nextMonth: function(){
+        nextTimelapse: function(){
             if(!this.loading && !this.model.isFrozen()){
                 this.loading = true;
-                this.model.nextMonth();
+                this.model.nextTimelapse();
             }
         },
 
-        previousMonth: function(){
+        previousTimelapse: function(){
             if(!this.loading && !this.model.isFrozen()){
                 this.loading = true;
-                this.model.previousMonth();
+                this.model.previousTimelapse();
             }
         },
         
         scrollDone: function(metric){
             this.model.set('scroll', Math.round(Math.abs(metric.left / this.$el.fontSize())));
         },
-        
-        
+
         freeze: function(){
             this.$el.toggleClass('freeze');    
         },
@@ -225,7 +237,7 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
             if(_.isNumber(position)){
                 this.model.set('scroll', position);
             }
-                
+
             if(animation){
                 this.scrollbar("scrollTo", this.scrollSize());
             }
@@ -239,5 +251,5 @@ openerp.unleashed.module('booking_chart', function(booking, _, Backbone, base){
         } 
     });
     
-    booking.views('Months', Months);
+    booking.views('Timelapses', Timelapses);
 });

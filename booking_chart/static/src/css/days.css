@@ -1,0 +1,122 @@
+.booking-chart-timelapses .calendar-day-container {
+    float: left;
+}
+
+.calendar-hour.current-hour {
+    background-color: #DAF7C4 !important;
+    color: #44690B;
+}
+
+.booking-chart-timelapses .calendar-day-name {
+    border-bottom: 1px solid #ddd;
+    height: 18px;
+    font-size: 12px;
+    font-weight: bolder;
+    text-align: center;
+    margin: 21px 0 0 0;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.booking-chart-timelapses .calendar-day-container:nth-child(even) .calendar-day-name {
+    background: rgba(200, 200, 200, 0.2);
+}
+
+.booking-chart-timelapses .calendar-hours {
+    border-bottom: 2px solid #ddd;
+    height: 32px;
+}
+
+.booking-chart-timelapses .calendar-hour {
+    width: 1em;
+    position: relative;
+    background: url('../images/border_pixel.png') repeat-y top right;
+    height: 32px;
+    font-weight: normal;
+    text-align: center;
+    float: left;
+}
+
+.booking-chart-timelapses .calendar-hour span {
+    font-size: 10px;
+    display: block;
+    margin-top: 2px;
+}
+
+.booking-chart-timelapses .calendar-hour .calendar-hour-name {
+    border-bottom: 1px solid #ddd; font-weight: bold;
+}
+.booking-chart-timelapses .calendar-hour .calendar-hour-quarters {
+    margin: 0px; overflow: hidden;
+}
+.booking-chart-timelapses .calendar-hour .calendar-hour-quarters .calendar-hour-quarter {
+    width: 2.4em; height: 12px; display: block !important; float: left; position: relative;
+}
+.booking-chart-timelapses .calendar-hour .calendar-hour-quarters .calendar-hour-quarter span {
+    position: absolute; margin-top: 0px; left: -6px;
+}
+
+/* XS size */
+.booking-chart-timelapses.zoom-xs .calendar-hour-quarters {
+    display: none;
+}
+.booking-chart-timelapses.zoom-xs .calendar-day-container div.resources {
+    background-image: url('../images/bg_day_hour_xs.png');
+}
+.booking-chart-timelapses.zoom-xs .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_xs.png'), url('../images/bg_current_hour_xs.png') ;
+}
+
+/* S size */
+.booking-chart-timelapses.zoom-s .calendar-hour-quarters {
+    display: none;
+}
+.booking-chart-timelapses.zoom-s .calendar-day-container div.resources {
+    background-image: url('../images/bg_day_hour_s.png');
+}
+.booking-chart-timelapses.zoom-s .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_s.png'), url('../images/bg_current_hour_s.png');
+}
+
+/* M size */
+.calendar-day-container div.resources {
+    background: url('../images/bg_day_hour.png');
+}
+.calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour.png'), url('../images/bg_current_hour.png');
+    background-repeat: repeat, repeat-y; background-position: 0em 0em, 0em 0em;
+}
+.calendar-day-container div.resources .tooltip-info {
+    display: none;
+}
+.calendar-day-container div.resources .ellipsis.graph-name {
+    display: block;
+}
+.calendar-day-container div.resources .resource-group-bar {
+    height: 18px;
+}
+.calendar-day-container div.resources .resource-group-bar.multi .group-icon{
+    top: 4px;
+}
+
+/* L size */
+.booking-chart-timelapses.zoom-l .calendar-hour .calendar-hour-quarters .calendar-hour-quarter {
+    width: 6.4em;
+}
+.booking-chart-timelapses.zoom-l .calendar-day-container div.resources {
+    background-image: url('../images/bg_day_hour_l.png');
+}
+.booking-chart-timelapses.zoom-l .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_l.png'), url('../images/bg_current_hour_l.png');
+}
+
+/* XL size */
+.booking-chart-timelapses.zoom-xl .calendar-hour .calendar-hour-quarters .calendar-hour-quarter {
+    width: 12.8em;
+}
+.booking-chart-timelapses.zoom-xl .calendar-day-container div.resources {
+    background-image: url('../images/bg_day_hour_xl.png');
+}
+.booking-chart-timelapses.zoom-xl .calendar-day-container.current-day div.resources {
+    background-image: url('../images/bg_day_hour_xl.png'), url('../images/bg_current_hour_xl.png');
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Views -->
+
+        <record id="view_tv_channel" model="ir.ui.view">
+            <field name="name">tv.channel.booking</field>
+            <field name="model">tv.channel</field>
+            <field name="arch" type="xml">
+                <booking version="7.0">
+                    <items title="name" />
+                    <!--
+                    base can be hours|days
+                    - hours = hours booking chart with day
+                    - days = months booking chart with months
+
+                    if the base attribute is not set, booking chart
+                    will be 'days' by default
+
+                    In hours mode, working days can be defined, with a
+                    range of hours to display.
+
+                    Note:
+                    if a booking.resource is out of the range, the
+                    booking chart with raise an exception.
+                    -->
+                    <calendar base="hours" timezone="+01:00">
+                        <date name="monday" start="09" end="23" />
+                        <date name="tuesday" start="09" end="23" />
+                        <date name="wednesday" start="09" end="23" />
+                        <date name="thursday" start="10" end="20" />
+                        <date name="friday" start="10" end="20" />
+                    </calendar>
+                </booking>
+            </field>
+        </record>
+
+        <record id="view_tv_serie" model="ir.ui.view">
+            <field name="name">tv.serie.booking</field>
+            <field name="model">tv.serie</field>
+            <field name="arch" type="xml">
+                <booking version="7.0">
+                    <items title="name" />
+                    <calendar base="days" timezone="+01:00" />
+                </booking>
+            </field>
+        </record>
+
+        <!--
+            Allow to group by channel style and serie genre
+            (see action_booking_tv_channel and action_booking_tv_serie record)
+        -->
+
+        <record id="view_tv_channel_search_form" model="ir.ui.view">
+            <field name="name">tv.channel.search.form</field>
+            <field name="model">tv.channel</field>
+            <field name="arch" type="xml">
+               <search string="Channel">
+                    <field name="name" string="Channel"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Style"
+                                name="style"
+                                domain="[]"
+                                context="{'group_by':'style'} "/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_tv_serie_search_form" model="ir.ui.view">
+            <field name="name">tv.serie.search.form</field>
+            <field name="model">tv.serie</field>
+            <field name="arch" type="xml">
+               <search string="Serie">
+                    <field name="name" string="Serie"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Genre"
+                                name="genre"
+                                domain="[]"
+                                context="{'group_by':'genre'} "/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>
