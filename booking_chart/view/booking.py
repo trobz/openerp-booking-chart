@@ -28,8 +28,8 @@ class BookingView(osv.Model):
     _inherit = 'ir.ui.view'
 
     @api.model
-    def _setup_fields(self):
-        res = super(BookingView, self)._setup_fields()
+    def _setup_fields(self, **kwargs):
+        res = super(BookingView, self)._setup_fields(**kwargs)
         select = [k for k, v in self._columns['type'].selection]
         if VIEW_TYPE[0] not in select:
             self._columns['type'].selection.append(VIEW_TYPE)
