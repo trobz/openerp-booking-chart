@@ -4,7 +4,7 @@
 <openerp>
     <data>
         <template id="assets_backend" name="booking_chart assets" inherit_id="web_unleashed_extra.assets_backend">
-            <xpath expr="//script[last()]" position="after">
+            <xpath expr="." position="inside">
                 
                 <link rel="stylesheet" href="/booking_chart/static/lib/scrollbar/css/jquery.scrollbar.css"/>
                 <link rel="stylesheet" href="/booking_chart/static/src/css/booking.css"/>
@@ -46,7 +46,7 @@
 
 
         <template id="qunit_suite" name="booking_chart tests" inherit_id="web.qunit_suite">
-            <xpath expr="//script[last()]" position="after">
+            <xpath expr="." position="inside">
                 <script type="text/javascript" src="/booking_chart/static/src/tests/dateRange.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/tests/overlap.js"></script>
                 <script type="text/javascript" src="/booking_chart/static/src/tests/overlap-hour.js"></script>
