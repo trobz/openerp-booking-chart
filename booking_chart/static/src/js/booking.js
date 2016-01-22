@@ -29,6 +29,10 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
         },
             
         start: function(){
+            // Language for Booking chart
+            if(instance.session.lang) {
+            	moment.lang(instance.session.lang);
+            }
             // models
             var DateRange = booking.models('DateRange'),
                 Chart = booking.models('Chart');
@@ -48,7 +52,7 @@ openerp.unleashed.module('booking_chart').ready(function(instance, booking, _, B
                 Toolbar = booking.views('Toolbar'),
                 Calendar = booking.views('Calendar'),
                 Graph = booking.views('Graph');
-        
+
             var calendar = new Calendar({
                     model: chart,
                     period: period
