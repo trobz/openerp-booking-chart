@@ -23,7 +23,7 @@ class resource_mixin(osv.osv):
         super(resource_mixin, self).__init__(*args, **kwargs)
     
     
-    def create(self, cr, uid, vals, context=None):
+    def create(self, cr, uid, vals, context=None, **kwargs):
         """
         Create related booking resource
         """
@@ -44,7 +44,7 @@ class resource_mixin(osv.osv):
         
         return model_id
     
-    def write(self, cr, uid, ids, vals, context=None):
+    def write(self, cr, uid, ids, vals, context=None, **kwargs):
         """
         Update related booking resource
         """
@@ -64,7 +64,7 @@ class resource_mixin(osv.osv):
   
         return status
     
-    def unlink(self, cr, uid, ids, context=None):
+    def unlink(self, cr, uid, ids, context=None, **kwargs):
         """
         Delete related booking chart
         """
